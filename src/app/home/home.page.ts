@@ -12,6 +12,7 @@ import { switchMap, debounceTime, tap, map } from 'rxjs/operators';
 export class HomePage implements OnInit {
   results;
   searchResults;
+  trendings;
   queryField: FormControl = new FormControl();
   constructor(private _homeService: HomeService) {
   }
@@ -21,6 +22,13 @@ export class HomePage implements OnInit {
       data => {
         this.results = data.results;
         console.log(this.results);
+      }
+    );
+
+    this._homeService.getTV().subscribe(
+      response => {
+        console.log('Stampa del trandin reponse', response);
+        this.trendings = response.results;
       }
     );
     this.queryField.valueChanges.pipe(

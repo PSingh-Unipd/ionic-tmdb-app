@@ -17,4 +17,8 @@ export class HomeService {
     getMovies(): Observable<any> {
         return this.http.get<any>('https://api.themoviedb.org/3/movie/now_playing?api_key='+this.ApiKey+'&language=en-US&page=1');
     }
+
+    getTV(): Observable<any> {
+        return this.http.get<any>('https://api.themoviedb.org/3/tv/airing_today?api_key=29371e05e1dfa0327af74c0805fef777&language=en-US&page=1');
+    }
 }
