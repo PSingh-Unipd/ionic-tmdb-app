@@ -11,6 +11,7 @@ import { switchMap, debounceTime, tap, map } from 'rxjs/operators';
 
 export class HomePage implements OnInit {
   results;
+  searchResults;
   queryField: FormControl = new FormControl();
   constructor(private _homeService: HomeService) {
   }
@@ -28,8 +29,8 @@ export class HomePage implements OnInit {
         queryField => this._homeService.search(queryField)
       )
     ).subscribe(response => {
-      this.results = response.results;
-      console.log(this.results);
+      this.searchResults = response.results;
+      console.log(this.searchResults);
     });
   }
 }

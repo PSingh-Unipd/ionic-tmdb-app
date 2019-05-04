@@ -2,20 +2,11 @@
     display: grid;
     grid-template-columns: 60px auto;
     padding: 5px;
-    align-content: space-evenly;
 }
 
 .logo {
     display: block;
     width: 50px;
-}
-
-.lastest-movies {
-    font-family: 'Fjalla One', sans-serif;
-    > h3 {
-        margin-left: 10px;
-        color: grey;
-    }
 }
 
 .search {
@@ -46,7 +37,7 @@
         background-repeat: no-repeat;
         background-size: 18px 18px;
         background-position: 95% center;
-        border-radius: 50px;
+        border-radius: 10px;
         border: 1px solid #575756;
         transition: all 250ms ease-in-out;
         backface-visibility: hidden;
@@ -87,3 +78,34 @@
     margin: auto;
 }
 
+.lastest-movies {
+    font-family: 'Fjalla One', sans-serif;
+    > h3 {
+        margin-left: 10px;
+        color: grey;
+    }
+}
+
+.search-container {
+    position: relative;
+}
+
+.filter-select{
+    position: absolute;
+    z-index: 1;
+    max-height: 200px;
+    width: 100%;
+    overflow-y: auto;
+    background-color: white;
+
+    .filter-select-item {
+        display: grid;
+        grid-template-columns: 60px auto;
+        padding: 5px;
+    }
+
+    .filter-select-item-poster {
+        height: 80px;
+        width: 60px;
+    }
+}
