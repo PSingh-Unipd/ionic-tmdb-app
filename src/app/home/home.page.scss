@@ -1,9 +1,8 @@
-
 .container{
     display: grid;
     grid-template-columns: 60px auto;
     padding: 5px;
-  align-content: space-evenly;
+    align-content: space-evenly;
 }
 
 .logo {
@@ -11,12 +10,14 @@
     width: 50px;
 }
 
-.page-title {
-    text-align: center;
+.lastest-movies {
+    font-family: 'Fjalla One', sans-serif;
     > h3 {
+        margin-left: 10px;
         color: grey;
     }
 }
+
 .search {
     &__container {
         padding-top: 64px;
@@ -68,3 +69,21 @@
         }
     }
 }
+
+.poster-container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  .card {
+    text-align: center;
+    display: inline-block;
+  }
+}
+
+.poster {
+    width: 200px;
+    height: 280px;
+    margin: auto;
+}
+
