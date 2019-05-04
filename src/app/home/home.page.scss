@@ -93,19 +93,34 @@
 .filter-select{
     position: absolute;
     z-index: 1;
-    max-height: 200px;
+    max-height: 300px;
     width: 100%;
     overflow-y: auto;
     background-color: white;
+    border-radius: 3px;
 
     .filter-select-item {
         display: grid;
         grid-template-columns: 60px auto;
-        padding: 5px;
+        padding: 10px;
     }
 
     .filter-select-item-poster {
         height: 80px;
         width: 60px;
+    }
+
+    .filter-select-item-title {
+        margin-left: 5px;
+        font-size: 12pt;
+        color: grey;
+        font-family: 'Fjalla One', sans-serif;
+    }
+
+    .filter-select-item:hover {
+        background-color: #01D277;    
+        .filter-select-item-title {
+            color: #fff;
+        }
     }
 }
