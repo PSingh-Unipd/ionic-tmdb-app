@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home-service/home.service';
 import { FormControl } from '@angular/forms';
+import { switchMap, debounceTime, tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,20 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.queryField.valueChanges
-      .subscribe(queryField => this._homeService.search(queryField).subscribe(response => 
-        {
-          this.results = response.results;
+    this._homeService.getMovies().subscribe(
+      data => {
+        this.results = data.results;
         console.log(this.results);
-      }));
+      }
+    );
+    this.queryField.valueChanges.pipe(
+      debounceTime(1500),
+      switchMap(
+        queryField => this._homeService.search(queryField)
+      )
+    ).subscribe(response => {
+      this.results = response.results;
+      console.log(this.results);
+    });
   }
 }
