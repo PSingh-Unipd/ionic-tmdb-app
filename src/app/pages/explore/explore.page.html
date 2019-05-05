@@ -8,52 +8,74 @@
 </ion-header>
 
 <ion-content class="bg" padding>
-    <div class="container">
-      <div class="logo-container">
-        <img class="logo"
-          src="https://cdn-images-1.medium.com/max/1200/1*vIR7iO-1GnY2xYxL6NiYkw.png"
-          alt="This is app logo">
-      </div>
-      <div class="search-container">
-        <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="queryField" />
-        <div class="filter-select">
-          <div *ngFor="let item of searchResults" class="filter-select-item">
-            <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" alt="" class="filter-select-item-poster">
-            <div class="filter-select-item-details">
-              <p class="filter-select-item-title">
-                {{item.title}}
-              </p>
-              <p class="filter-select-item-title">
-                {{item.release_date}}
-              </p>
-            </div>
+  <div class="container">
+    <div class="logo-container">
+      <img class="logo" src="https://cdn-images-1.medium.com/max/1200/1*vIR7iO-1GnY2xYxL6NiYkw.png"
+        alt="This is app logo">
+    </div>
+    <div class="search-container">
+      <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="queryField" />
+      <div class="filter-select">
+        <div *ngFor="let item of searchResults" class="filter-select-item">
+          <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" alt="" class="filter-select-item-poster">
+          <div class="filter-select-item-details">
+            <p class="filter-select-item-title">
+              {{item.title}}
+            </p>
+            <p class="filter-select-item-title">
+              {{item.release_date}}
+            </p>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="lastest-movies">
-      <h3>In Theaters Now</h3>
-      <div class="poster-container">
-        <ion-card *ngFor="let item of results" class="card" (click)="itemdetails(item.id)">
-          <div>
-            <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-            <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
-          </div>
-        </ion-card>
-      </div>
-    </div>
-
-    <div class="lastest-movies">
-        <h3>Top Rated</h3>
-        <div class="poster-container">
-          <ion-card *ngFor="let item of trendings" class="card" (click)="itemdetails(item.id)">
+  <div class="lastest-movies">
+    <h3>In Theaters Now</h3>
+    <div class="poster-container">
+      <ion-card *ngFor="let item of results" class="card" (click)="itemdetails(item.id)">
+        <div>
+          <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
+          <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
+        </div>
+        <div class="middle">
             <div>
-              <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-              <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
+              <ion-button href="#" expand="block" color="success"> more info</ion-button>
             </div>
-          </ion-card>
+            <div>
+              <ion-button href="#" expand="block" color="success" disabled="false">+ Watch list <ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            </div>
+            <div>
+              <ion-button href="#" expand="block" color="success" disabled="false">+ Favorite <ion-icon name="checkmark-circle"></ion-icon></ion-button>
+            </div>
+          </div> 
+      </ion-card>
+    </div>
+  </div>
+
+  <div class="lastest-movies">
+    <h3>Top Rated</h3>
+    <div class="poster-container">
+      <ion-card *ngFor="let item of trendings" class="card" (click)="itemdetails(item.id)">
+        <div>
+          <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
+          <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
         </div>
-      </div>
-  
-  </ion-content>
+        <div class="middle">
+          <div>
+            <ion-button href="#" expand="block" color="success"> more info</ion-button>
+          </div>
+          <div>
+            <ion-button href="#" expand="block" color="success"><ion-icon name="add-circle-outline"></ion-icon> Watch list</ion-button>
+          </div>
+          <div>
+            <ion-button href="#" expand="block" color="success"><ion-icon name="add-circle-outline"></ion-icon> Favorite</ion-button>
+          </div>
+        </div>
+      </ion-card>
+
+    </div>
+  </div>
+
+</ion-content>

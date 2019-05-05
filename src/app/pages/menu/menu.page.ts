@@ -9,15 +9,15 @@ import { Router, RouterEvent } from '@angular/router';
 export class MenuPage implements OnInit {
   pages = [
     {
-      title: 'Movies',
+      title: 'Explore Movies',
       url: '/menu/explore'
     },
     {
-      title: 'Watch List',
+      title: 'My Watchlist',
       url: '/menu/list'
     },
     {
-      title: 'Favorite',
+      title: 'My Favorites',
       url: '/menu/favorite'
     }
   ];
