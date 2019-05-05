@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { switchMap, debounceTime } from 'rxjs/operators';
 import { ExploreService } from './services/explore.service';
+import { Storage } from '@ionic/storage';
+import { Movie } from 'src/app/interfaces/movie.interface';
 
 @Component({
   selector: 'app-explore',
@@ -9,18 +11,26 @@ import { ExploreService } from './services/explore.service';
   styleUrls: ['./explore.page.scss'],
 })
 export class ExplorePage implements OnInit {
-  results;
-  searchResults;
-  trendings;
+  results: any[];
+  searchResults: any[];
+  trendings: any[];
+  mwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
   queryField: FormControl = new FormControl();
-  constructor(private _service: ExploreService) {
-  }
+  constructor(
+    private _service: ExploreService,
+    private _storage: Storage) {}
 
   ngOnInit(): void {
+    this._storage.get('mwl').then((elements) => {
+      console.log(elements);
+      if(elements) {
+        this.mwl = elements;
+      }
+    })
+
     this._service.getMovies().subscribe(
       data => {
-        this.results = data.results;
-        console.log(this.results);
+         this.results = data.results;
       }
     );
 
@@ -39,5 +49,14 @@ export class ExplorePage implements OnInit {
       this.searchResults = response.results;
       console.log(this.searchResults);
     });
+  }
+
+  // Add movie to my mwl variabile in local storage
+  addMyWatchList(item): void {
+    const movie = {title : item.title, id: item.id, date: new Date(), poster: item.poster_path? item.poster_path :  null};
+    if(this.mwl == null || this.mwl.indexOf(item) == -1) {
+      this.mwl.push(movie); 
+      this._storage.set('mwl', this.mwl);
+    } 
   }
 }

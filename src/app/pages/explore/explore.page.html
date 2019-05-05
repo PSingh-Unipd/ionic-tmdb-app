@@ -34,7 +34,7 @@
   <div class="lastest-movies">
     <h3>In Theaters Now</h3>
     <div class="poster-container">
-      <ion-card *ngFor="let item of results" class="card" (click)="itemdetails(item.id)">
+      <ion-card *ngFor="let item of results" class="card">
         <div>
           <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
           <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
@@ -44,10 +44,10 @@
               <ion-button href="#" expand="block" color="success"> more info</ion-button>
             </div>
             <div>
-              <ion-button href="#" expand="block" color="success" disabled="false">+ Watch list <ion-icon name="checkmark-circle"></ion-icon></ion-button>
+              <ion-button expand="block" color="success" disabled="false" (click)="addMyWatchList(item)">+ Watch list <ion-icon name="checkmark-circle"></ion-icon></ion-button>
             </div>
             <div>
-              <ion-button href="#" expand="block" color="success" disabled="false">+ Favorite <ion-icon name="checkmark-circle"></ion-icon></ion-button>
+              <ion-button expand="block" color="success" disabled="false">+ Favorite <ion-icon name="checkmark-circle"></ion-icon></ion-button>
             </div>
           </div> 
       </ion-card>

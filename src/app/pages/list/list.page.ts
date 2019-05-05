@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-list',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListPage implements OnInit {
 
-  constructor() { }
+  constructor(private storage: Storage) { }
 
   ngOnInit() {
+    this.storage.get('mwl').then((elements) => {
+      console.log(elements? elements: 'not found');
+    })
   }
 
 }
