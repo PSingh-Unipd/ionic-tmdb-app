@@ -53,8 +53,10 @@ export class ExplorePage implements OnInit {
 
   // Add movie to my mwl variabile in local storage
   addMyWatchList(item): void {
-    const movie = {title : item.title, id: item.id, date: new Date(), poster: item.poster_path? item.poster_path :  null};
-    if(this.mwl == null || this.mwl.indexOf(item) == -1) {
+    const movie: Movie = {title : item.title, id: item.id, poster: item.poster_path? item.poster_path :  null};
+    
+    if(this.mwl.find(el => el.id == movie.id) == null) {
+      console.log('Stampo la lista per primo' , this.mwl);
       this.mwl.push(movie); 
       this._storage.set('mwl', this.mwl);
     } 
