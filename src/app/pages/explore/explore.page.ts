@@ -24,7 +24,7 @@ export class ExplorePage implements OnInit {
       }
     );
 
-    this._service.getTV().subscribe(
+    this._service.getTopRated().subscribe(
       response => {
         console.log('Stampa del trandin reponse', response);
         this.trendings = response.results;

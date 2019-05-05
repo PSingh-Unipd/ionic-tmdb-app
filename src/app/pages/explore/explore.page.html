@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="lastest-movies">
       <h3>In Theaters Now</h3>
       <div class="poster-container">
@@ -43,14 +43,14 @@
         </ion-card>
       </div>
     </div>
-  
+
     <div class="lastest-movies">
-        <h3>On TV Today</h3>
+        <h3>Top Rated</h3>
         <div class="poster-container">
           <ion-card *ngFor="let item of trendings" class="card" (click)="itemdetails(item.id)">
             <div>
-              <img src="https://image.tmdb.org/t/p/original/{{item.poster_path}}" class="poster">
-              <h6>{{(item.name.length>16)? (item.name | slice:0:16)+'..':(item.name)}}</h6>
+              <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
+              <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
             </div>
           </ion-card>
         </div>

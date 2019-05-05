@@ -11,6 +11,14 @@ export class MenuPage implements OnInit {
     {
       title: 'Movies',
       url: '/menu/explore'
+    },
+    {
+      title: 'Watch List',
+      url: '/menu/list'
+    },
+    {
+      title: 'Favorite',
+      url: '/menu/favorite'
     }
   ];
 

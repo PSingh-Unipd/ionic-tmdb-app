@@ -12,9 +12,18 @@ const routes: Routes = [
     path: 'menu',
     component: MenuPage,
     children: [
+      {
+        path: 'explore',
+        loadChildren: '../explore/explore.module#ExplorePageModule'
+      },
       { 
-        path: 'explore', 
-        loadChildren: '../explore/explore.module#ExplorePageModule' }
+        path: 'list', 
+        loadChildren: '../list/list.module#ListPageModule' 
+      },
+      { 
+        path: 'favorite', 
+        loadChildren: '../favorite/favorite.module#FavoritePageModule' 
+      },
     ]
   },
   {
@@ -32,4 +41,4 @@ const routes: Routes = [
   ],
   declarations: [MenuPage]
 })
-export class MenuPageModule {}
+export class MenuPageModule { }
