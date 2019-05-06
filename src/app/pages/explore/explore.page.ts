@@ -4,6 +4,7 @@ import { switchMap, debounceTime } from 'rxjs/operators';
 import { ExploreService } from './services/explore.service';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
+import { ActionSheetController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-explore',
@@ -18,19 +19,21 @@ export class ExplorePage implements OnInit {
   queryField: FormControl = new FormControl();
   constructor(
     private _service: ExploreService,
-    private _storage: Storage) {}
+    private _storage: Storage,
+    private actionSheetController: ActionSheetController,
+    public toastController: ToastController) { }
 
   ngOnInit(): void {
     this._storage.get('mwl').then((elements) => {
       console.log(elements);
-      if(elements) {
+      if (elements) {
         this.mwl = elements;
       }
     })
 
     this._service.getMovies().subscribe(
       data => {
-         this.results = data.results;
+        this.results = data.results;
       }
     );
 
@@ -53,12 +56,59 @@ export class ExplorePage implements OnInit {
 
   // Add movie to my mwl variabile in local storage
   addMyWatchList(item): void {
-    const movie: Movie = {title : item.title, id: item.id, poster: item.poster_path? item.poster_path :  null};
-    
-    if(this.mwl.find(el => el.id == movie.id) == null) {
-      console.log('Stampo la lista per primo' , this.mwl);
-      this.mwl.push(movie); 
+    const movie: Movie = { title: item.title, id: item.id, poster: item.poster_path ? item.poster_path : null };
+    if (this.mwl.find(el => el.id == movie.id) == null) {
+      console.log('Stampo la lista per primo', this.mwl);
+      this.mwl.push(movie);
       this._storage.set('mwl', this.mwl);
-    } 
+      this.presentToast('Movie added to Watchlist!');
+    } else {
+      this.presentToast('Movie already present in your Watchlist!');
+    }
   }
+
+  async presentToast(message:string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 4000
+    });
+    toast.present();
+  }
+
+  async addMyList(item) {
+    console.log('Stampa del item', item);
+    const actionSheet = await this.actionSheetController.create({
+      header: item.title.toUpperCase(),
+      buttons: [
+        {
+          text: 'Movie details',
+          icon: 'information-circle',
+          handler: () => {
+            console.log('Play clicked');
+          }
+        },{
+          text: 'Watchlist',
+          icon: 'add-circle',
+          handler: () => {
+            this.addMyWatchList(item);
+          }
+        },
+         {
+          text: 'Favorite Movie',
+          icon: 'heart',
+          handler: () => {
+            console.log('Favorite clicked');
+          }
+        }, {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
+    });
+    await actionSheet.present();
+  }
+
 }

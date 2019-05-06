@@ -34,12 +34,14 @@
   <div class="lastest-movies">
     <h5>In Theaters Now</h5>
     <div class="poster-container">
-      <ion-card *ngFor="let item of results" class="card">
+      <ion-card *ngFor="let item of results" class="card" (click)="addMyList(item)">
         <div>
           <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-          <h6 class="movie-title">{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
+          <h6 class="movie-title">
+            {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+          </h6>
         </div>
-        <div class="middle">
+        <!--div class="middle">
             <div>
               <ion-button href="#" expand="block" color="success"> more info</ion-button>
             </div>
@@ -49,7 +51,7 @@
             <div>
               <ion-button expand="block" color="success" disabled="false">+ Favorite <ion-icon name="checkmark-circle"></ion-icon></ion-button>
             </div>
-          </div> 
+          </div--> 
       </ion-card>
     </div>
   </div>
@@ -60,9 +62,12 @@
       <ion-card *ngFor="let item of trendings" class="card" (click)="itemdetails(item.id)">
         <div>
           <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-          <h6 class="movie-title">{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
+          <h6 class="movie-title">
+            {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+            <ion-icon name="add-circle-outline" (click)="addMyList(item)"></ion-icon>
+          </h6>
         </div>
-        <div class="middle">
+        <!--div class="middle">
           <div>
             <ion-button href="#" expand="block" color="success"> more info</ion-button>
           </div>
@@ -72,7 +77,7 @@
           <div>
             <ion-button href="#" expand="block" color="success"><ion-icon name="add-circle-outline"></ion-icon> Favorite</ion-button>
           </div>
-        </div>
+        </div-->
       </ion-card>
 
     </div>
