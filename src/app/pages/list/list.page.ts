@@ -25,7 +25,6 @@ export class ListPage implements OnInit {
   }
 
   async movieDetails(item: Movie) {
-    console.log("SONO QUIIII");
     const modal = await this._modal.create({
       component: DetailPage,
       componentProps: {movieId : item.id}

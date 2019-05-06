@@ -59,12 +59,11 @@
   <div class="lastest-movies">
     <h5>Top Rated</h5>
     <div class="poster-container">
-      <ion-card *ngFor="let item of trendings" class="card" (click)="itemdetails(item.id)">
+      <ion-card *ngFor="let item of trendings" class="card" (click)="addMyList(item)">
         <div>
           <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
           <h6 class="movie-title">
             {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
-            <ion-icon name="add-circle-outline" (click)="addMyList(item)"></ion-icon>
           </h6>
         </div>
         <!--div class="middle">

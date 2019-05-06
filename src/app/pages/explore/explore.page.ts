@@ -5,6 +5,8 @@ import { ExploreService } from './services/explore.service';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { ActionSheetController, ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { DetailPage } from '../detail/detail.page';
 
 @Component({
   selector: 'app-explore',
@@ -21,6 +23,7 @@ export class ExplorePage implements OnInit {
     private _service: ExploreService,
     private _storage: Storage,
     private actionSheetController: ActionSheetController,
+    private _modal: ModalController,
     public toastController: ToastController) { }
 
   ngOnInit(): void {
@@ -84,7 +87,7 @@ export class ExplorePage implements OnInit {
           text: 'Movie details',
           icon: 'information-circle',
           handler: () => {
-            console.log('Play clicked');
+            this.movieDetails(item);
           }
         },{
           text: 'Watchlist',
@@ -111,4 +114,11 @@ export class ExplorePage implements OnInit {
     await actionSheet.present();
   }
 
+  async movieDetails(item: Movie) {
+    const modal = await this._modal.create({
+      component: DetailPage,
+      componentProps: {movieId : item.id}
+    });
+    return await modal.present();
+  }
 }
