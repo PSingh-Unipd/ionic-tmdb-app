@@ -1,5 +1,5 @@
 .card {
-    --background: #fff;
+    --background: rgb(10, 36, 46);;
 }
 
 .container{
@@ -73,7 +73,10 @@
 }
 
 .movie-title {
-    color: #081C24;
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 8px;
 }
 .poster {
     width: 200px;
