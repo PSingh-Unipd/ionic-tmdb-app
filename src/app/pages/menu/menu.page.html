@@ -1,18 +1,18 @@
-<ion-split-pane>
+<ion-split-pane color="secondary">
   <ion-menu contentId="content">
     <ion-header>
-      <ion-toolbar>
-        <ion-title>
+      <ion-toolbar color="secondary">
+        <ion-title color="primary">
           Menu
         </ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
-      <ion-list>
+    <ion-content color="secondary">
+      <ion-list no-padding>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-          <ion-item [routerLink]="p.url" routerDirection = "root" [class.active-item]="selectedPath == p.url">
-            {{p.title}}
+          <ion-item color="secondary" [routerLink]="p.url" routerDirection = "root" [class.active-item]="selectedPath == p.url">
+            <ion-label color="primary">{{p.title}}</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

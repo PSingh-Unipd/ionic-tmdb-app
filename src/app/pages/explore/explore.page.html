@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="bg">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Explore Movies</ion-title>
+    <ion-title color="primary">Explore Movies</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -32,12 +32,12 @@
   </div>
 
   <div class="lastest-movies">
-    <h3>In Theaters Now</h3>
+    <h5>In Theaters Now</h5>
     <div class="poster-container">
       <ion-card *ngFor="let item of results" class="card">
         <div>
           <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-          <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
+          <h6 class="movie-title">{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
         </div>
         <div class="middle">
             <div>
@@ -55,12 +55,12 @@
   </div>
 
   <div class="lastest-movies">
-    <h3>Top Rated</h3>
+    <h5>Top Rated</h5>
     <div class="poster-container">
       <ion-card *ngFor="let item of trendings" class="card" (click)="itemdetails(item.id)">
         <div>
           <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-          <h6>{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
+          <h6 class="movie-title">{{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}</h6>
         </div>
         <div class="middle">
           <div>

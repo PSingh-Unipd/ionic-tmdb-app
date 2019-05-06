@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/Movie.interface';
+import { ModalController } from '@ionic/angular';
+import { DetailPage } from '../detail/detail.page';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +12,8 @@ import { Movie } from 'src/app/interfaces/Movie.interface';
 export class ListPage implements OnInit {
 
   mwl: Movie[] = [];
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage,
+    private _modal: ModalController) { }
   
   ngOnInit() {
     this.storage.get('mwl').then((elements) => {
@@ -19,6 +22,14 @@ export class ListPage implements OnInit {
         this.mwl = elements;
       }
     })
+  }
+
+  async movieDetails(item: Movie) {
+    console.log("SONO QUIIII");
+    const modal = await this._modal.create({
+      component: DetailPage
+    });
+    return await modal.present();
   }
 
 }

@@ -1,18 +1,18 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="bg">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title>My Watchlist</ion-title>
+    <ion-title color="primary">My Watchlist</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg">
-  <ion-list>
-      <ion-list-header>
-          <ion-label>Movies I liked to watch:</ion-label>
-        </ion-list-header>
-    <ion-item *ngFor="let item of mwl">
+  <ion-list no-padding>
+    <ion-list-header color="secondary">
+      <ion-label color="primary">Movies I liked to watch:</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of mwl" color="secondary">
       <ion-card class="card">
         <div class="wrapper">
           <div class="one">
@@ -24,7 +24,7 @@
           <div class="three">
             <h6>Added: 15/08/1992</h6>
           </div>
-          <div class="four">
+          <div class="four" (click)="movieDetails(item)">
             <ion-icon name="information-circle"></ion-icon>
           </div>
           <div class="five">
