@@ -17,6 +17,9 @@ export class DetailService {
         return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/videos?api_key='+this.ApiKey+'&language=en-US&page=1');
     }
 
+    getCredits(id) {
+        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/credits?api_key='+this.ApiKey);
+    }
     getCast() : Observable<any> {
         return null;
     }

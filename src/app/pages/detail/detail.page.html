@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content color="secondary">
-  <ion-spinner *ngIf="loaded == false" name="crescent"></ion-spinner>  
+  <ion-spinner *ngIf="loaded == false" name="crescent"></ion-spinner>
   <div *ngIf="loaded == true">
     <div class="background-poster">
       <img class="bg-image" src="https://image.tmdb.org/t/p/original/{{detail.backdrop_path}}" />
@@ -40,6 +40,18 @@
           <ion-button expand="block" color="primary" padding>add</ion-button>
         </ion-col>
       </ion-row>
+    </div>
+
+    <div class="poster-container">
+      <h5 style="margin: 0px; margin-left: 20px; margin-top: 3px;">FULL CAST</h5>
+      <ion-card *ngFor="let cast of credits.cast" class="card" (click)="addMyList(item)">
+        <div>
+          <img src="https://image.tmdb.org/t/p/w92{{cast.profile_path}}" class="poster">
+          <h6 class="movie-title">
+            {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
+          </h6>
+        </div>
+      </ion-card>
     </div>
   </div>
 </ion-content>

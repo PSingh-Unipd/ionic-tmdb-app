@@ -11,6 +11,7 @@ export class DetailPage implements OnInit {
 
   @Input() movieId;
   detail;
+  credits;
   loaded:boolean = false;
   constructor(
     private _controller: ModalController,
@@ -22,6 +23,7 @@ export class DetailPage implements OnInit {
       this.detail = res;
       this.loaded = true;
     });
+    this._service.getCredits(this.movieId).subscribe(res => this.credits = res);
     this._service.getVideos(this.movieId).subscribe(res => console.log(res));
   }
 
