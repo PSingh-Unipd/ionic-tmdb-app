@@ -6,25 +6,40 @@
 </ion-header>
 
 <ion-content color="secondary">
-  <div class="background-poster">
-    <img class="bg-image" src="https://image.tmdb.org/t/p/original/{{detail.backdrop_path}}" />
+  <ion-spinner *ngIf="loaded == false" name="crescent"></ion-spinner>  
+  <div *ngIf="loaded == true">
+    <div class="background-poster">
+      <img class="bg-image" src="https://image.tmdb.org/t/p/original/{{detail.backdrop_path}}" />
+    </div>
+    <div class="title-container">
+      <ion-row>
+        <ion-col size="8">
+          <h3>
+            {{detail.title}}
+          </h3>
+          <p>{{detail.release_date.substring(0, 4)}} <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
+        </ion-col>
+        <ion-col size="4">
+          <div class="rating">
+            <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
+              [percent]="10 * detail.vote_average" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
+              [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+              [animationDuration]="300">
+            </circle-progress>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div class="poster-section">
+      <ion-row padding>
+        <ion-col size="5">
+          <img src="http://image.tmdb.org/t/p/w185{{detail.poster_path}}" class="poster">
+        </ion-col>
+        <ion-col size="7">
+          <p>{{(detail.overview.length >210)? (detail.overview | slice:0:210)+'...':(detail.overview)}}</p>
+          <ion-button expand="block" color="primary" padding>add</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
   </div>
-  <div class="title-container">
-    <ion-row>
-      <ion-col size="8">
-        <h3>
-          {{detail.title}}
-        </h3>
-        <p>{{detail.release_date.substring(0, 4)}}  <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
-      </ion-col>
-      <ion-col size="4">
-        <div class="rating">
-          <circle-progress [showUnits] = false [innerStrokeWidth]="2" [outerStrokeWidth]="6" [percent]="10 * detail.vote_average" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
-            [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="300">
-          </circle-progress>
-        </div>
-      </ion-col>
-    </ion-row>
-  </div>
-
 </ion-content>

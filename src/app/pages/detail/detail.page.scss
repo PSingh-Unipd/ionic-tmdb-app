@@ -28,6 +28,18 @@
   }
 }
 
+.poster-section {
+    img {
+        height: 180px;
+        width: 100%;
+    }
+    p {
+        font-size: 12px;
+        color: #fff;
+        margin: 0px;
+    }
+}
+
 .rating {
     margin: auto;
 }
