@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailService } from './services/detail.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
@@ -18,13 +19,15 @@ export class DetailPage implements OnInit {
     private _service: DetailService) { }
 
   ngOnInit() {
-    console.log('Printing movie id', this.movieId);
-    this._service.getDetails(this.movieId).subscribe(res => { 
-      this.detail = res;
+    const movieDetailsCall = this._service.getDetails(this.movieId);
+    const movieCreditsCall = this._service.getCredits(this.movieId);
+    const movieVideosCall = this._service.getVideos(this.movieId);
+
+    forkJoin([movieDetailsCall, movieCreditsCall, movieVideosCall]).subscribe(results => {
+      this.detail = results[0];
+      this.credits = results[1];
       this.loaded = true;
     });
-    this._service.getCredits(this.movieId).subscribe(res => this.credits = res);
-    this._service.getVideos(this.movieId).subscribe(res => console.log(res));
   }
 
   close() {

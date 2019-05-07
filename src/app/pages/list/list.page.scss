@@ -1,17 +1,19 @@
 
 .card {
     text-align: center;
-    display: inline-block;
-    width: 100%;
+    width: 320px;
+    height: 160px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
     --background: rgb(10, 36, 46);;
     h6, h5 {
         color: #fff;
         font-family: 'Fjalla One', sans-serif;
     }
     .poster {
-        width: 140px;
-        height: 180px;
-        margin: auto;
+      height: 160px;
+      width: 100%;
     }
   }
 
@@ -23,10 +25,6 @@
   .one {
     grid-column: 1 / 3;
     grid-row: 1 / 4;
-    .poster {
-      height: 150px;
-      width: 100%;
-    }
   }
   .two { 
     grid-column: 3 /6 ;
