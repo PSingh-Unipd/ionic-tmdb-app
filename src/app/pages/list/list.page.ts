@@ -49,7 +49,7 @@ export class ListPage implements OnInit {
 
   addFavorite(item: Movie) {
      if (this.fml.find(el => el.id == item.id) == null) {
-      this.fml.push(item);
+      this.fml.unshift(item);
       this.storage.set('fml', this.fml);
       this.presentToast('Movie added to favorite!');
     } else {

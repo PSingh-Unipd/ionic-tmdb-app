@@ -17,7 +17,7 @@ export class DetailPage implements OnInit {
   detail;
   credits;
   videos;
-  loaded:boolean = false;
+  loaded: boolean = false;
   mwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
   fml: Movie[] = [];
   constructor(
@@ -61,12 +61,16 @@ export class DetailPage implements OnInit {
     this._player.openVideo(this.videos.results[0].key);
   }
 
-   // Add movie to my mwl variabile in local storage
-   addMyWatchList(): void {
-    const movie: Movie = { title: this.detail.title, id: this.detail.id, poster: this.detail.poster_path ? this.detail.poster_path : null };
+  // Add movie to my mwl variabile in local storage
+  addMyWatchList(): void {
+    const movie: Movie = {
+      title: this.detail.title,
+      id: this.detail.id, 
+      poster: this.detail.poster_path ? this.detail.poster_path : null,
+      date: new Date()
+    };
     if (this.mwl.find(el => el.id == movie.id) == null) {
-      console.log('Stampo la lista per primo', this.mwl);
-      this.mwl.push(movie);
+      this.mwl.unshift(movie);
       this._storage.set('mwl', this.mwl);
       this.presentToast('Movie added to Watchlist!');
     } else {
@@ -76,9 +80,14 @@ export class DetailPage implements OnInit {
 
   // Add movie to my fml variabile in local storage
   addFavoriteList(): void {
-    const movie: Movie = { title: this.detail.title, id: this.detail.id, poster: this.detail.poster_path ? this.detail.poster_path : null };
+    const movie: Movie = {
+      title: this.detail.title,
+      id: this.detail.id,
+      poster: this.detail.poster_path ? this.detail.poster_path : null,
+      date: new Date()
+    };
     if (this.fml.find(el => el.id == movie.id) == null) {
-      this.fml.push(movie);
+      this.fml.unshift(movie);
       this._storage.set('fml', this.fml);
       this.presentToast('Movie added to favorites!');
     } else {
@@ -86,7 +95,7 @@ export class DetailPage implements OnInit {
     }
   }
 
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 3000
@@ -105,7 +114,7 @@ export class DetailPage implements OnInit {
             this.addMyWatchList();
           }
         },
-         {
+        {
           text: 'Favorite Movie',
           icon: 'heart',
           handler: () => {

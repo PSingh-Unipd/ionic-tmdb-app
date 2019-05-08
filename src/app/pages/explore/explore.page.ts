@@ -63,10 +63,15 @@ export class ExplorePage implements OnInit {
 
   // Add movie to my mwl variabile in local storage
   addMyWatchList(item): void {
-    const movie: Movie = { title: item.title, id: item.id, poster: item.poster_path ? item.poster_path : null };
+    const movie: Movie = {
+      title: item.title,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date()
+    };
     if (this.mwl.find(el => el.id == movie.id) == null) {
       console.log('Stampo la lista per primo', this.mwl);
-      this.mwl.push(movie);
+      this.mwl.unshift(movie);
       this._storage.set('mwl', this.mwl);
       this.presentToast('Movie added to Watchlist!');
     } else {
@@ -76,9 +81,14 @@ export class ExplorePage implements OnInit {
 
   // Add movie to my fml variabile in local storage
   addFavoriteList(item): void {
-    const movie: Movie = { title: item.title, id: item.id, poster: item.poster_path ? item.poster_path : null };
+    const movie: Movie = {
+      title: item.title,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date()
+    };
     if (this.fml.find(el => el.id == movie.id) == null) {
-      this.fml.push(movie);
+      this.fml.unshift(movie);
       this._storage.set('fml', this.fml);
       this.presentToast('Movie added to favorites!');
     } else {
@@ -86,7 +96,7 @@ export class ExplorePage implements OnInit {
     }
   }
 
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 3000
@@ -104,14 +114,14 @@ export class ExplorePage implements OnInit {
           handler: () => {
             this.movieDetails(item);
           }
-        },{
+        }, {
           text: 'Watchlist',
           icon: 'add-circle',
           handler: () => {
             this.addMyWatchList(item);
           }
         },
-         {
+        {
           text: 'Favorite Movie',
           icon: 'heart',
           handler: () => {
@@ -132,12 +142,12 @@ export class ExplorePage implements OnInit {
   async movieDetails(item: Movie) {
     const modal = await this._modal.create({
       component: DetailPage,
-      componentProps: {movieId : item.id}
+      componentProps: { movieId: item.id }
     });
     return await modal.present();
   }
 
-  onClickedOutside(event){
-      this.searchResults = null;
+  onClickedOutside(event) {
+    this.searchResults = null;
   }
 }
