@@ -14,11 +14,11 @@ export class ListPage implements OnInit {
   mwl: Movie[] = [];
   constructor(private storage: Storage,
     private _modal: ModalController) { }
-  
+
   ngOnInit() {
     this.storage.get('mwl').then((elements) => {
-      console.log(elements? elements: 'not found');
-      if(elements) {
+      console.log(elements ? elements : 'not found');
+      if (elements) {
         this.mwl = elements;
       }
     })
@@ -27,9 +27,14 @@ export class ListPage implements OnInit {
   async movieDetails(item: Movie) {
     const modal = await this._modal.create({
       component: DetailPage,
-      componentProps: {movieId : item.id}
+      componentProps: { movieId: item.id }
     });
     return await modal.present();
   }
 
+  reorderItems(event) {
+    const temp = this.mwl.splice(event.detail.from, 1)[0];
+    this.mwl.splice(event.detail.to, 0, temp);
+    event.detail.complete();
+  }
 }
