@@ -1,11 +1,46 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>My Favorite Movies</ion-title>
-    </ion-toolbar>
-  </ion-header>
-<ion-content>
+  <ion-toolbar class="bg">
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">My Favorite Movies</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <ion-list no-padding *ngIf="loaded==true && fml.length>0">
+    <ion-list-header color="secondary">
+      <ion-label color="primary">My favorite movies of all times:</ion-label>
+    </ion-list-header>
+    <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
+      <ion-item *ngFor="let item of fml; let i = index" color="secondary">
+        <ion-card class="card">
+          <div class="wrapper">
+            <div class="one">
+              <img src="https://image.tmdb.org/t/p/w185{{item.poster}}" class="poster">
+            </div>
+            <div class="two">
+              <h5>{{(item.title.length>18)? (item.title | slice:0:18)+'..':(item.title)}}</h5>
+            </div>
+            <div class="three">
+              <h6>Added: 15/08/1992</h6>
+            </div>
+            <div class="four" (click)="movieDetails(item)">
+              <ion-icon name="information-circle"></ion-icon>
+            </div>
+            <div class="five">
+              <ion-icon name="trash" (click)="removeFromList(i)"></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
+  </ion-list>
+  <div class="no-movie" *ngIf="fml.length==0">
+    <img src="assets/movie_img.svg">
+    <h3>No movies added to favorites yet!</h3>
+  </div>
+
 
 </ion-content>

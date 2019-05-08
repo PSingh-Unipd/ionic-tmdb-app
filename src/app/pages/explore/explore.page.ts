@@ -73,7 +73,7 @@ export class ExplorePage implements OnInit {
   async presentToast(message:string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 4000
+      duration: 3000
     });
     toast.present();
   }
