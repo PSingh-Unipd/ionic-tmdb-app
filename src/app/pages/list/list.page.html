@@ -23,7 +23,9 @@
               <h5>{{(item.title.length>18)? (item.title | slice:0:18)+'..':(item.title)}}</h5>
             </div>
             <div class="three">
-              <h6>Added: {{item.date.toLocaleDateString("en-US")}}</h6>
+              <h6>
+                  <ion-datetime value={{item.date.toString()}}></ion-datetime>
+              </h6>
             </div>
             <div class="four" (click)="movieDetails(item)">
               <ion-icon name="information-circle"></ion-icon>
