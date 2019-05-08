@@ -18,6 +18,7 @@ export class ExplorePage implements OnInit {
   searchResults: any[];
   trendings: any[];
   mwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
+  fml: Movie[] = [];
   queryField: FormControl = new FormControl();
   constructor(
     private _service: ExploreService,
@@ -28,11 +29,16 @@ export class ExplorePage implements OnInit {
 
   ngOnInit(): void {
     this._storage.get('mwl').then((elements) => {
-      console.log(elements);
       if (elements) {
         this.mwl = elements;
       }
-    })
+    });
+
+    this._storage.get('fml').then((elements) => {
+      if (elements) {
+        this.fml = elements;
+      }
+    });
 
     this._service.getMovies().subscribe(
       data => {
@@ -42,7 +48,6 @@ export class ExplorePage implements OnInit {
 
     this._service.getTopRated().subscribe(
       response => {
-        console.log('Stampa del trandin reponse', response);
         this.trendings = response.results;
       }
     );
@@ -53,7 +58,6 @@ export class ExplorePage implements OnInit {
       )
     ).subscribe(response => {
       this.searchResults = response.results;
-      console.log(this.searchResults);
     });
   }
 
@@ -70,6 +74,18 @@ export class ExplorePage implements OnInit {
     }
   }
 
+  // Add movie to my fml variabile in local storage
+  addFavoriteList(item): void {
+    const movie: Movie = { title: item.title, id: item.id, poster: item.poster_path ? item.poster_path : null };
+    if (this.fml.find(el => el.id == movie.id) == null) {
+      this.fml.push(movie);
+      this._storage.set('fml', this.fml);
+      this.presentToast('Movie added to favorites!');
+    } else {
+      this.presentToast('Movie already present in your favorites!');
+    }
+  }
+
   async presentToast(message:string) {
     const toast = await this.toastController.create({
       message: message,
@@ -79,7 +95,6 @@ export class ExplorePage implements OnInit {
   }
 
   async addMyList(item) {
-    console.log('Stampa del item', item);
     const actionSheet = await this.actionSheetController.create({
       header: item.title.toUpperCase(),
       buttons: [
@@ -100,7 +115,7 @@ export class ExplorePage implements OnInit {
           text: 'Favorite Movie',
           icon: 'heart',
           handler: () => {
-            console.log('Favorite clicked');
+            this.addFavoriteList(item);
           }
         }, {
           text: 'Cancel',
@@ -122,10 +137,7 @@ export class ExplorePage implements OnInit {
     return await modal.present();
   }
 
-  onClickedOutside(e){
-    console.log(e);
-    if(e.path[0] != 'span.action-sheet-button-inner.sc-ion-action-sheet-md') {
+  onClickedOutside(event){
       this.searchResults = null;
-    }
   }
 }
