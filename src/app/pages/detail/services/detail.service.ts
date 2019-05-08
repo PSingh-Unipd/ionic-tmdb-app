@@ -20,7 +20,4 @@ export class DetailService {
     getCredits(id) {
         return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/credits?api_key='+this.ApiKey);
     }
-    getCast() : Observable<any> {
-        return null;
-    }
 }

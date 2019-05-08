@@ -7,6 +7,7 @@ import { DetailPage } from './detail.page';
 import { DetailService } from './services/detail.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
     HttpClientModule,
     NgCircleProgressModule.forRoot({})
   ],
-  providers: [DetailService],
+  providers: [DetailService,YoutubeVideoPlayer],
   declarations: [DetailPage]
 })
 export class DetailPageModule {}

@@ -121,4 +121,11 @@ export class ExplorePage implements OnInit {
     });
     return await modal.present();
   }
+
+  onClickedOutside(e){
+    console.log(e);
+    if(e.path[0] != 'span.action-sheet-button-inner.sc-ion-action-sheet-md') {
+      this.searchResults = null;
+    }
+  }
 }

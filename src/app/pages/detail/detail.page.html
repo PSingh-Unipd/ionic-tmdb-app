@@ -33,11 +33,11 @@
     <div class="poster-section">
       <ion-row padding>
         <ion-col size="5">
-          <img src="{{detail.poster_path ? 'http://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}" class="poster">
+          <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}" class="poster">
         </ion-col>
         <ion-col size="7">
           <p>{{(detail.overview.length >210)? (detail.overview | slice:0:210)+'...':(detail.overview)}}</p>
-          <ion-button expand="block" color="primary" padding>add</ion-button>
+          <ion-button expand="block" color="primary" padding (click)="playTrailer()">add</ion-button>
         </ion-col>
       </ion-row>
     </div>
@@ -52,6 +52,7 @@
           </h6>
         </div>
       </ion-card>
+      <button (click)="playTrailer()">Video</button>
     </div>
   </div>
 </ion-content>

@@ -11,13 +11,13 @@
   <div class="container">
     <div class="logo-container">
       <img class="logo" src="https://cdn-images-1.medium.com/max/1200/1*vIR7iO-1GnY2xYxL6NiYkw.png"
-        alt="This is app logo">
+        alt="logo">
     </div>
-    <div class="search-container">
+    <div class="search-container" (clickOutside)="onClickedOutside($event)">
       <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="queryField" />
       <div class="filter-select">
-        <div *ngFor="let item of searchResults" class="filter-select-item">
-          <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" alt="" class="filter-select-item-poster">
+        <div *ngFor="let item of searchResults" class="filter-select-item" (click)="addMyList(item)">
+          <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" alt="" class="filter-select-item-poster">
           <div class="filter-select-item-details">
             <p class="filter-select-item-title">
               {{item.title}}
@@ -36,7 +36,7 @@
     <div class="poster-container">
       <ion-card *ngFor="let item of results" class="card" (click)="addMyList(item)">
         <div>
-          <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
+          <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
           <h6 class="movie-title">
             {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
           </h6>
@@ -61,7 +61,7 @@
     <div class="poster-container">
       <ion-card *ngFor="let item of trendings" class="card" (click)="addMyList(item)">
         <div>
-          <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
+          <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
           <h6 class="movie-title">
             {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
           </h6>
