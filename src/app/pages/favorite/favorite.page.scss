@@ -11,9 +11,6 @@
         color: #fff;
         font-family: 'Fjalla One', sans-serif;
     }
-    h6 {
-      font-size: 16px;
-    }
     .poster {
       height: 160px;
       width: 100%;
@@ -44,14 +41,14 @@
   .five {
     grid-column: 4/5;
     grid-row: 3;
-  }
+}
 
-  ion-icon {
+ion-icon {
     font-size: 28px;
     color: #fff;
-  }
+}
 
-  .no-movie {
+.no-movie {
     margin-top: 70px;
     text-align: center;
     img {
@@ -62,4 +59,4 @@
     h3 {
       color: #fff;
     }
-  }
+}

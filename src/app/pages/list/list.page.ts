@@ -14,6 +14,7 @@ export class ListPage implements OnInit {
   mwl: Movie[] = [];
   fml: Movie[] = [];
   loaded: boolean = false;
+
   constructor(private storage: Storage,
     private _modal: ModalController,
     public toastController: ToastController) { }
@@ -62,7 +63,7 @@ export class ListPage implements OnInit {
       message: message,
       duration: 4000
     });
-    toast.present();
+    toast.present().then();
   }
 
   removeFromList(index : number) {

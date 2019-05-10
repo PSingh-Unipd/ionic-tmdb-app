@@ -101,7 +101,7 @@ export class ExplorePage implements OnInit {
       message: message,
       duration: 3000
     });
-    toast.present();
+    toast.present().then(res => console.log(res));
   }
 
   async addMyList(item) {

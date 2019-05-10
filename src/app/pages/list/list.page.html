@@ -14,30 +14,32 @@
     </ion-list-header>
     <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
       <ion-item *ngFor="let item of mwl; let i = index" color="secondary">
-        <ion-card class="card">
-          <div class="wrapper">
-            <div class="one">
-              <img src="https://image.tmdb.org/t/p/w185{{item.poster}}" class="poster">
+        <ion-label no-padding>
+          <ion-card class="card">
+            <div class="wrapper">
+              <div class="one">
+                <img src="https://image.tmdb.org/t/p/w185{{item.poster}}" class="poster">
+              </div>
+              <div class="two">
+                <h5>{{(item.title.length>18)? (item.title | slice:0:18)+'..':(item.title)}}</h5>
+              </div>
+              <div class="three">
+                <h6>
+                  <ion-datetime value={{item.date.toString()}} no-padding></ion-datetime>
+                </h6>
+              </div>
+              <div class="four" (click)="movieDetails(item)">
+                <ion-icon name="information-circle"></ion-icon>
+              </div>
+              <div class="five">
+                <ion-icon name="heart" (click)="addFavorite(item)"></ion-icon>
+              </div>
+              <div class="six">
+                <ion-icon name="trash" (click)="removeFromList(i)"></ion-icon>
+              </div>
             </div>
-            <div class="two">
-              <h5>{{(item.title.length>18)? (item.title | slice:0:18)+'..':(item.title)}}</h5>
-            </div>
-            <div class="three">
-              <h6>
-                  <ion-datetime value={{item.date.toString()}}></ion-datetime>
-              </h6>
-            </div>
-            <div class="four" (click)="movieDetails(item)">
-              <ion-icon name="information-circle"></ion-icon>
-            </div>
-            <div class="five">
-              <ion-icon name="heart" (click)="addFavorite(item)"></ion-icon>
-            </div>
-            <div class="six">
-              <ion-icon name="trash" (click)="removeFromList(i)"></ion-icon>
-            </div>
-          </div>
-        </ion-card>
+          </ion-card>
+        </ion-label>
         <ion-reorder slot="end"></ion-reorder>
       </ion-item>
     </ion-reorder-group>
@@ -46,6 +48,4 @@
     <img src="assets/movie_img.svg">
     <h3>No movies added to Watchlist yet!</h3>
   </div>
-
-  
 </ion-content>

@@ -65,7 +65,7 @@ export class DetailPage implements OnInit {
   addMyWatchList(): void {
     const movie: Movie = {
       title: this.detail.title,
-      id: this.detail.id, 
+      id: this.detail.id,
       poster: this.detail.poster_path ? this.detail.poster_path : null,
       date: new Date()
     };
@@ -100,7 +100,7 @@ export class DetailPage implements OnInit {
       message: message,
       duration: 3000
     });
-    toast.present();
+    toast.present().then();
   }
 
   async addMyList() {

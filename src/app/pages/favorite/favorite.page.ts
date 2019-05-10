@@ -46,7 +46,7 @@ export class FavoritePage implements OnInit {
       message: message,
       duration: 4000
     });
-    toast.present();
+    toast.present().then(res => console.log(res));
   }
 
   removeFromList(index : number) {
