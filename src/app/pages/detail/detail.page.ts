@@ -5,6 +5,8 @@ import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
+import { ActivatedRoute, Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-detail',
@@ -13,20 +15,29 @@ import { Storage } from '@ionic/storage';
 })
 export class DetailPage implements OnInit {
 
-  @Input() movieId;
+  movieId;
   detail;
   credits;
   videos;
   loaded: boolean = false;
-  mwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
+  mwl: Movie[] = [];
   fml: Movie[] = [];
   constructor(
     private _controller: ModalController,
     private _service: DetailService,
     public _player: YoutubeVideoPlayer,
     private _storage: Storage,
-    private actionSheetController: ActionSheetController,
-    public toastController: ToastController) { }
+    private _actionSheetController: ActionSheetController,
+    public _toastController: ToastController,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _location: Location) { 
+      this._route.queryParams.subscribe(params => {
+        if (this._router.getCurrentNavigation().extras.state) {
+          this.movieId = this._router.getCurrentNavigation().extras.state.user;
+        }
+      });
+    }
 
   ngOnInit() {
     const movieDetailsCall = this._service.getDetails(this.movieId);
@@ -54,14 +65,13 @@ export class DetailPage implements OnInit {
   }
 
   close() {
-    this._controller.dismiss();
+    this._location.back();
   }
 
   playTrailer() {
     this._player.openVideo(this.videos.results[0].key);
   }
 
-  // Add movie to my mwl variabile in local storage
   addMyWatchList(): void {
     const movie: Movie = {
       title: this.detail.title,
@@ -78,7 +88,6 @@ export class DetailPage implements OnInit {
     }
   }
 
-  // Add movie to my fml variabile in local storage
   addFavoriteList(): void {
     const movie: Movie = {
       title: this.detail.title,
@@ -96,7 +105,7 @@ export class DetailPage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const toast = await this.toastController.create({
+    const toast = await this._toastController.create({
       message: message,
       duration: 3000
     });
@@ -104,7 +113,7 @@ export class DetailPage implements OnInit {
   }
 
   async addMyList() {
-    const actionSheet = await this.actionSheetController.create({
+    const actionSheet = await this._actionSheetController.create({
       header: this.detail.title.toUpperCase(),
       buttons: [
         {

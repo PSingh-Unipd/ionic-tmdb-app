@@ -7,6 +7,7 @@ import { Movie } from 'src/app/interfaces/movie.interface';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { DetailPage } from '../detail/detail.page';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-explore',
@@ -21,6 +22,7 @@ export class ExplorePage implements OnInit {
   fml: Movie[] = [];
   queryField: FormControl = new FormControl();
   constructor(
+    private router: Router,
     private _service: ExploreService,
     private _storage: Storage,
     private actionSheetController: ActionSheetController,
@@ -51,6 +53,7 @@ export class ExplorePage implements OnInit {
         this.trendings = response.results;
       }
     );
+    
     this.queryField.valueChanges.pipe(
       debounceTime(1500),
       switchMap(
@@ -140,11 +143,18 @@ export class ExplorePage implements OnInit {
   }
 
   async movieDetails(item: Movie) {
+    /*
     const modal = await this._modal.create({
       component: DetailPage,
       componentProps: { movieId: item.id }
     });
-    return await modal.present();
+    return await modal.present();*/
+    let navigationExtras: NavigationExtras = {
+      state: {
+        user: item.id
+      }
+    };
+    this.router.navigate(['/menu/details'], navigationExtras);
   }
 
   onClickedOutside(event) {

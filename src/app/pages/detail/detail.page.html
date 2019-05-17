@@ -1,7 +1,10 @@
 <ion-header>
-  <ion-toolbar color="secondary">
+  <ion-toolbar class="bg">
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
     <ion-title color="primary">Movie details</ion-title>
-    <ion-button slot="end" size="small" (click)="close()">Close</ion-button>
+    <ion-icon slot="end" (click)="close()" name="arrow-round-back" class="back-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
 

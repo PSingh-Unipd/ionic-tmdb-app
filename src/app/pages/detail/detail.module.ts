@@ -11,7 +11,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 
 const routes: Routes = [
   {
-    path: 'detail',
+    path: '',
     component: DetailPage
   }
 ];
