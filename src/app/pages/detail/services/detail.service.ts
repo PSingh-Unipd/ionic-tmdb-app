@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { BaseService } from 'src/app/common/base.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class DetailService {
+export class DetailService extends BaseService{
 
-    ApiKey: string = '29371e05e1dfa0327af74c0805fef777';
     public dataSource = new BehaviorSubject<String>('');
     _id = this.dataSource.asObservable();
 
-    constructor(private http: HttpClient) { }
-
+    constructor(public http: HttpClient) { 
+        super(http);
+    }
+    
     getDetails(id): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'?api_key='+this.ApiKey+'&language=en-US&page=1');
+        return this.MovieREST(id, '', '&language=en-US&page=1');
     }
 
     getVideos(id): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/videos?api_key='+this.ApiKey+'&language=en-US&page=1');
+        return this.MovieREST(id, '/videos', '&language=en-US&page=1');
     }
 
     getCredits(id) {
-        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/credits?api_key='+this.ApiKey);
+        return this.MovieREST(id, '/credits', '');
     }
 
     getRecommendations(id) {
-        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/recommendations?api_key='+this.ApiKey+'&language=en-US&page=1');
+        return this.MovieREST(id, '/recommendations', '&language=en-US&page=1');
     }
 }

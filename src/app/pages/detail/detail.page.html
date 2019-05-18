@@ -50,7 +50,7 @@
     <div class="list">
       <h5>FULL CAST</h5>
       <div class="poster-container">
-        <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(item)">
+        <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
           <div>
             <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av.png'}}"
               class="poster">
