@@ -36,4 +36,8 @@ export class CastPage implements OnInit {
   close() {
     this._controller.dismiss();
   }
+
+  movieDetails(item) {
+    this._controller.dismiss(item.id);
+  }
 }

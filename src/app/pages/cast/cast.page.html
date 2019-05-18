@@ -44,7 +44,7 @@
     <div class="list">
       <h5>CAST IN MOVIES:</h5>
       <div class="poster-container">
-        <ion-card *ngFor="let item of movies.cast" class="card" (click)="movieRec(item)">
+        <ion-card *ngFor="let item of movies.cast" class="card" (click)="movieDetails(item)">
           <div>
             <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}" class="poster2">
             <h6 class="movie-title">
@@ -58,7 +58,7 @@
     <div class="list">
         <h5>PART OF CREW:</h5>
         <div class="poster-container">
-          <ion-card *ngFor="let item of movies.crew" class="card" (click)="movieRec(item)">
+          <ion-card *ngFor="let item of movies.crew" class="card" (click)="movieDetails(item)">
             <div>
               <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}" class="poster2">
               <h6 class="movie-title">

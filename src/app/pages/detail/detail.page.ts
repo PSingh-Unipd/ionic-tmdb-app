@@ -6,7 +6,7 @@ import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { CastPage } from '../cast/cast.page';
 
 @Component({
@@ -34,16 +34,16 @@ export class DetailPage implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _location: Location,
-    private _modal: ModalController) { 
-      this._service._id.subscribe(
-        res => this.movieId = res
-      );
-      this._route.queryParams.subscribe(params => {
-        if (this._router.getCurrentNavigation().extras.state) {
-          this.movieId = this._router.getCurrentNavigation().extras.state.id;
-        }
-      });
-    }
+    private _modal: ModalController) {
+    this._service._id.subscribe(
+      res => this.movieId = res
+    );
+    this._route.queryParams.subscribe(params => {
+      if (this._router.getCurrentNavigation().extras.state) {
+        this.movieId = this._router.getCurrentNavigation().extras.state.id;
+      }
+    });
+  }
 
   ngOnInit() {
 
@@ -155,9 +155,7 @@ export class DetailPage implements OnInit {
   }
 
   async movieRec(item) {
-    this._service.dataSource.next(item.id);
-    this.loaded = false;
-    this.loadData();
+    this.update(item.id);
   }
 
   async castDetail(item) {
@@ -165,6 +163,20 @@ export class DetailPage implements OnInit {
       component: CastPage,
       componentProps: { castID: item.id }
     });
+
+    modal.onDidDismiss()
+      .then((res) => {
+        if (res.data != undefined) {
+          this.update(res.data);
+        }
+      });
+
     return await modal.present();
+  }
+
+  update(id) {
+    this._service.dataSource.next(id);
+    this.loaded = false;
+    this.loadData();
   }
 }
