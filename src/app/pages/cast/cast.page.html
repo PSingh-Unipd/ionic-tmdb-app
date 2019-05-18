@@ -7,30 +7,32 @@
 
 <ion-content color="secondary">
   <div *ngIf="loaded == true">
-      <div class="title-container">
-          <ion-row>
-            <ion-col size="8">
-              <h3>
-                {{detail.name}}
-              </h3>
-              <p><span>{{detail.gender == 2 ? 'Male' : 'Female'}} </span> | {{detail.birthday != nulls? detail.birthday.substring(0, 4): '----'}} - {{detail.place_of_birth}}</p>
-            </ion-col>
-            <ion-col size="4">
-                <div class="rating">
-                    <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
-                      [percent]="detail.popularity" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
-                      [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
-                      [animationDuration]="300">
-                    </circle-progress>
-                  </div>
-            </ion-col>
-          </ion-row>
-        </div>
-    
+    <div class="title-container">
+      <ion-row>
+        <ion-col size="8">
+          <h3>
+            {{detail.name}}
+          </h3>
+          <p><span>{{detail.gender == 2 ? 'Male' : 'Female'}} </span> |
+            {{detail.birthday != nulls? detail.birthday.substring(0, 4): '----'}} - {{detail.place_of_birth}}</p>
+        </ion-col>
+        <ion-col size="4">
+          <div class="rating">
+            <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
+              [percent]="detail.popularity" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
+              [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+              [animationDuration]="300">
+            </circle-progress>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+
     <div class="poster-section">
       <ion-row padding>
         <ion-col size="5">
-          <img src="{{detail.profile_path ? 'https://image.tmdb.org/t/p/w185'+detail.profile_path : 'assets/no-av.png'}}"
+          <img
+            src="{{detail.profile_path ? 'https://image.tmdb.org/t/p/w185'+detail.profile_path : 'assets/no-av.png'}}"
             class="poster">
         </ion-col>
         <ion-col size="7">
@@ -38,5 +40,33 @@
         </ion-col>
       </ion-row>
     </div>
+
+    <div class="list">
+      <h5>CAST IN MOVIES:</h5>
+      <div class="poster-container">
+        <ion-card *ngFor="let item of movies.cast" class="card" (click)="movieRec(item)">
+          <div>
+            <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}" class="poster2">
+            <h6 class="movie-title">
+              {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+            </h6>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+
+    <div class="list">
+        <h5>PART OF CREW:</h5>
+        <div class="poster-container">
+          <ion-card *ngFor="let item of movies.crew" class="card" (click)="movieRec(item)">
+            <div>
+              <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}" class="poster2">
+              <h6 class="movie-title">
+                {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+              </h6>
+            </div>
+          </ion-card>
+        </div>
+      </div>
   </div>
 </ion-content>
