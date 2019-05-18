@@ -8,6 +8,10 @@ export class BaseService {
         return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+path+'?api_key='+this.ApiKey+languege);
     }
 
+    public PersonREST(id, path, languege) {
+        return this.http.get<any>('https://api.themoviedb.org/3/person/'+id+path+'?api_key='+this.ApiKey+languege);
+    }
+
     public SearchREST(str, languege, params) {
         return this.http.get<any>('https://api.themoviedb.org/3/search/movie?api_key='+this.ApiKey+languege+str+params);
     }

@@ -26,7 +26,6 @@ export class ExplorePage implements OnInit {
     private _service: ExploreService,
     private _storage: Storage,
     private actionSheetController: ActionSheetController,
-    private _modal: ModalController,
     public toastController: ToastController) { }
 
   ngOnInit(): void {
@@ -142,13 +141,7 @@ export class ExplorePage implements OnInit {
     await actionSheet.present();
   }
 
-  async movieDetails(item: Movie) {
-    /*
-    const modal = await this._modal.create({
-      component: DetailPage,
-      componentProps: { movieId: item.id }
-    });
-    return await modal.present();*/
+  movieDetails(item: Movie) {
     const navigationExtras: NavigationExtras = {
       state: {
         id: item.id

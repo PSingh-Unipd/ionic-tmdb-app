@@ -7,6 +7,7 @@ import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import {Location} from '@angular/common';
+import { CastPage } from '../cast/cast.page';
 
 @Component({
   selector: 'app-detail',
@@ -32,7 +33,8 @@ export class DetailPage implements OnInit {
     public _toastController: ToastController,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _location: Location) { 
+    private _location: Location,
+    private _modal: ModalController) { 
       this._service._id.subscribe(
         res => this.movieId = res
       );
@@ -153,49 +155,16 @@ export class DetailPage implements OnInit {
   }
 
   async movieRec(item) {
-    console.log('stampa del item', item);
-    const actionSheet = await this._actionSheetController.create({
-      header: this.detail.title.toUpperCase(),
-      buttons: [
-        {
-          text: 'Movie details',
-          icon: 'information-circle',
-          handler: () => {
-            this.movieDetails(item.id);
-          }
-        },
-        {
-          text: 'Watchlist',
-          icon: 'add-circle',
-          handler: () => {
-            this.addMyWatchList();
-          }
-        },
-        {
-          text: 'Favorite Movie',
-          icon: 'heart',
-          handler: () => {
-            this.addFavoriteList();
-          }
-        }, {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }]
-    });
-    await actionSheet.present();
-  }
-
-  async movieDetails(movieID) {
-    this._service.dataSource.next(movieID);
+    this._service.dataSource.next(item.id);
     this.loaded = false;
     this.loadData();
   }
 
-  castDetail(item) {
-    console.log('Cast details function', item);
+  async castDetail(item) {
+    const modal = await this._modal.create({
+      component: CastPage,
+      componentProps: { castID: item.id }
+    });
+    return await modal.present();
   }
 }

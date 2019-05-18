@@ -1,9 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>cast</ion-title>
+  <ion-toolbar color="secondary">
+    <ion-title color="primary">Cast details</ion-title>
+    <ion-icon slot="end" (click)="close()" name="arrow-round-back" class="back-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content color="secondary">
+  <div *ngIf="loaded == true">
+      <div class="title-container">
+          <ion-row>
+            <ion-col size="8">
+              <h3>
+                {{detail.name}}
+              </h3>
+              <p><span>{{detail.gender == 2 ? 'Male' : 'Female'}} </span> | {{detail.birthday != nulls? detail.birthday.substring(0, 4): '----'}} - {{detail.place_of_birth}}</p>
+            </ion-col>
+            <ion-col size="4">
+                <div class="rating">
+                    <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
+                      [percent]="detail.popularity" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
+                      [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                      [animationDuration]="300">
+                    </circle-progress>
+                  </div>
+            </ion-col>
+          </ion-row>
+        </div>
+    
+    <div class="poster-section">
+      <ion-row padding>
+        <ion-col size="5">
+          <img src="{{detail.profile_path ? 'https://image.tmdb.org/t/p/w185'+detail.profile_path : 'assets/no-av.png'}}"
+            class="poster">
+        </ion-col>
+        <ion-col size="7">
+          <p>{{(detail.biography.length > 335)? (detail.biography | slice:0:335)+'...':(detail.biography)}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
 </ion-content>
