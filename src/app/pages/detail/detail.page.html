@@ -65,7 +65,7 @@
     <div class="list">
       <h5>RECOMMENDATIONS:</h5>
       <div class="poster-container">
-        <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec()">
+        <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">
           <div>
             <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster2">
             <h6 class="movie-title">

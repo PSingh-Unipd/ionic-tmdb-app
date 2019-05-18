@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class DetailService {
 
     ApiKey: string = '29371e05e1dfa0327af74c0805fef777';
+    public dataSource = new BehaviorSubject<String>('');
+    _id = this.dataSource.asObservable();
 
     constructor(private http: HttpClient) { }
 

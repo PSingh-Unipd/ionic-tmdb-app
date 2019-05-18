@@ -33,6 +33,9 @@ export class DetailPage implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _location: Location) { 
+      this._service._id.subscribe(
+        res => this.movieId = res
+      );
       this._route.queryParams.subscribe(params => {
         if (this._router.getCurrentNavigation().extras.state) {
           this.movieId = this._router.getCurrentNavigation().extras.state.id;
@@ -41,19 +44,6 @@ export class DetailPage implements OnInit {
     }
 
   ngOnInit() {
-    const movieDetailsCall = this._service.getDetails(this.movieId);
-    const movieCreditsCall = this._service.getCredits(this.movieId);
-    const movieVideosCall = this._service.getVideos(this.movieId);
-    const movieRecommendations = this._service.getRecommendations(this.movieId);
-
-    forkJoin([movieDetailsCall, movieCreditsCall, movieVideosCall, movieRecommendations]).subscribe(results => {
-      this.detail = results[0];
-      this.credits = results[1];
-      this.videos = results[2];
-      console.log('STAMPA RECC', results[3]);
-      this.movieRecommendations = results[3].results;
-      this.loaded = true;
-    });
 
     this._storage.get('mwl').then((elements) => {
       if (elements) {
@@ -65,6 +55,23 @@ export class DetailPage implements OnInit {
       if (elements) {
         this.fml = elements;
       }
+    });
+
+    this.loadData();
+  }
+
+  loadData() {
+    const movieDetailsCall = this._service.getDetails(this.movieId);
+    const movieCreditsCall = this._service.getCredits(this.movieId);
+    const movieVideosCall = this._service.getVideos(this.movieId);
+    const movieRecommendations = this._service.getRecommendations(this.movieId);
+
+    forkJoin([movieDetailsCall, movieCreditsCall, movieVideosCall, movieRecommendations]).subscribe(results => {
+      this.detail = results[0];
+      this.credits = results[1];
+      this.videos = results[2];
+      this.movieRecommendations = results[3].results;
+      this.loaded = true;
     });
   }
 
@@ -145,7 +152,8 @@ export class DetailPage implements OnInit {
     await actionSheet.present();
   }
 
-  async movieRec() {
+  async movieRec(item) {
+    console.log('stampa del item', item);
     const actionSheet = await this._actionSheetController.create({
       header: this.detail.title.toUpperCase(),
       buttons: [
@@ -153,7 +161,7 @@ export class DetailPage implements OnInit {
           text: 'Movie details',
           icon: 'information-circle',
           handler: () => {
-            this.movieDetails();
+            this.movieDetails(item.id);
           }
         },
         {
@@ -181,13 +189,10 @@ export class DetailPage implements OnInit {
     await actionSheet.present();
   }
 
-  async movieDetails() {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        id: this.movieId
-      }
-    };
-    this._router.navigate(['/menu/details'], navigationExtras);
+  async movieDetails(movieID) {
+    this._service.dataSource.next(movieID);
+    this.loaded = false;
+    this.loadData();
   }
 
   castDetail(item) {
