@@ -5,7 +5,7 @@ import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import {Location} from '@angular/common';
 
 @Component({
@@ -19,6 +19,7 @@ export class DetailPage implements OnInit {
   detail;
   credits;
   videos;
+  movieRecommendations;
   loaded: boolean = false;
   mwl: Movie[] = [];
   fml: Movie[] = [];
@@ -34,7 +35,7 @@ export class DetailPage implements OnInit {
     private _location: Location) { 
       this._route.queryParams.subscribe(params => {
         if (this._router.getCurrentNavigation().extras.state) {
-          this.movieId = this._router.getCurrentNavigation().extras.state.user;
+          this.movieId = this._router.getCurrentNavigation().extras.state.id;
         }
       });
     }
@@ -43,11 +44,14 @@ export class DetailPage implements OnInit {
     const movieDetailsCall = this._service.getDetails(this.movieId);
     const movieCreditsCall = this._service.getCredits(this.movieId);
     const movieVideosCall = this._service.getVideos(this.movieId);
+    const movieRecommendations = this._service.getRecommendations(this.movieId);
 
-    forkJoin([movieDetailsCall, movieCreditsCall, movieVideosCall]).subscribe(results => {
+    forkJoin([movieDetailsCall, movieCreditsCall, movieVideosCall, movieRecommendations]).subscribe(results => {
       this.detail = results[0];
       this.credits = results[1];
       this.videos = results[2];
+      console.log('STAMPA RECC', results[3]);
+      this.movieRecommendations = results[3].results;
       this.loaded = true;
     });
 
@@ -139,5 +143,54 @@ export class DetailPage implements OnInit {
         }]
     });
     await actionSheet.present();
+  }
+
+  async movieRec() {
+    const actionSheet = await this._actionSheetController.create({
+      header: this.detail.title.toUpperCase(),
+      buttons: [
+        {
+          text: 'Movie details',
+          icon: 'information-circle',
+          handler: () => {
+            this.movieDetails();
+          }
+        },
+        {
+          text: 'Watchlist',
+          icon: 'add-circle',
+          handler: () => {
+            this.addMyWatchList();
+          }
+        },
+        {
+          text: 'Favorite Movie',
+          icon: 'heart',
+          handler: () => {
+            this.addFavoriteList();
+          }
+        }, {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
+    });
+    await actionSheet.present();
+  }
+
+  async movieDetails() {
+    const navigationExtras: NavigationExtras = {
+      state: {
+        id: this.movieId
+      }
+    };
+    this._router.navigate(['/menu/details'], navigationExtras);
+  }
+
+  castDetail(item) {
+    console.log('Cast details function', item);
   }
 }

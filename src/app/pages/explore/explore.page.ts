@@ -149,9 +149,9 @@ export class ExplorePage implements OnInit {
       componentProps: { movieId: item.id }
     });
     return await modal.present();*/
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       state: {
-        user: item.id
+        id: item.id
       }
     };
     this.router.navigate(['/menu/details'], navigationExtras);

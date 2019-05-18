@@ -3,6 +3,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { DetailPage } from '../detail/detail.page';
 import { Storage } from '@ionic/storage';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorite',
@@ -13,9 +14,11 @@ export class FavoritePage implements OnInit {
 
   fml: Movie[] = [];
   loaded: boolean = false;
-  constructor(private storage: Storage,
+  constructor(
+    private router: Router,
+    private storage: Storage,
     private _modal: ModalController,
-    public toastController: ToastController) { }
+    private toastController: ToastController) { }
 
   ngOnInit() {
     this.storage.get('fml').then((elements) => {
@@ -27,11 +30,12 @@ export class FavoritePage implements OnInit {
   }
   
   async movieDetails(item: Movie) {
-    const modal = await this._modal.create({
-      component: DetailPage,
-      componentProps: { movieId: item.id }
-    });
-    return await modal.present();
+    const navigationExtras: NavigationExtras = {
+      state: {
+        id: item.id
+      }
+    };
+    this.router.navigate(['/menu/details'], navigationExtras);
   }
 
   reorderItems(event) {

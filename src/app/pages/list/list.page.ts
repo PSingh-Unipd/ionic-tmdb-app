@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/Movie.interface';
 import { ModalController, ToastController } from '@ionic/angular';
-import { DetailPage } from '../detail/detail.page';
+import { Router } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -15,7 +16,9 @@ export class ListPage implements OnInit {
   fml: Movie[] = [];
   loaded: boolean = false;
 
-  constructor(private storage: Storage,
+  constructor(
+    private router: Router,
+    private storage: Storage,
     private _modal: ModalController,
     public toastController: ToastController) { }
 
@@ -34,11 +37,18 @@ export class ListPage implements OnInit {
   }
 
   async movieDetails(item: Movie) {
+    /*
     const modal = await this._modal.create({
       component: DetailPage,
       componentProps: { movieId: item.id }
     });
-    return await modal.present();
+    return await modal.present();*/
+    const navigationExtras: NavigationExtras = {
+      state: {
+        id: item.id
+      }
+    };
+    this.router.navigate(['/menu/details'], navigationExtras);
   }
 
   reorderItems(event) {

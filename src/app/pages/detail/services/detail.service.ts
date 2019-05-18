@@ -20,4 +20,8 @@ export class DetailService {
     getCredits(id) {
         return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/credits?api_key='+this.ApiKey);
     }
+
+    getRecommendations(id) {
+        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+'/recommendations?api_key='+this.ApiKey+'&language=en-US&page=1');
+    }
 }

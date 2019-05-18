@@ -38,7 +38,8 @@
     <div class="poster-section">
       <ion-row padding>
         <ion-col size="5">
-          <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}" class="poster">
+          <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}"
+            class="poster">
         </ion-col>
         <ion-col size="7">
           <p>{{(detail.overview.length >210)? (detail.overview | slice:0:210)+'...':(detail.overview)}}</p>
@@ -46,17 +47,33 @@
         </ion-col>
       </ion-row>
     </div>
+    <div class="list">
+      <h5>FULL CAST</h5>
+      <div class="poster-container">
+        <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(item)">
+          <div>
+            <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av.png'}}"
+              class="poster">
+            <h6 class="movie-title">
+              {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
+            </h6>
+          </div>
+        </ion-card>
+      </div>
+    </div>
 
-    <div class="poster-container">
-      <h5 style="margin: 0px; margin-left: 20px; margin-top: 3px;">FULL CAST</h5>
-      <ion-card *ngFor="let cast of credits.cast" class="card" (click)="addMyList(item)">
-        <div>
-          <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av.png'}}" class="poster">
-          <h6 class="movie-title">
-            {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
-          </h6>
-        </div>
-      </ion-card>
+    <div class="list">
+      <h5>RECOMMENDATIONS:</h5>
+      <div class="poster-container">
+        <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec()">
+          <div>
+            <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster2">
+            <h6 class="movie-title">
+              {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+            </h6>
+          </div>
+        </ion-card>
+      </div>
     </div>
   </div>
 </ion-content>
