@@ -12,6 +12,9 @@
       <ion-list no-padding>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
           <ion-item color="secondary" [routerLink]="p.url" routerDirection = "root" [class.active-item]="selectedPath == p.url">
+              <ion-thumbnail item-start>
+                  <ion-icon name={{p.icon}} color="primary" style="font-size:35px; margin-top: 10px;"></ion-icon>
+              </ion-thumbnail>
             <ion-label color="primary">{{p.title}}</ion-label>
           </ion-item>
         </ion-menu-toggle>

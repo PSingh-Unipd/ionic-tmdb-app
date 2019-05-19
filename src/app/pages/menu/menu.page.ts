@@ -10,15 +10,18 @@ export class MenuPage implements OnInit {
   pages = [
     {
       title: 'Explore Movies',
-      url: '/menu/explore'
+      url: '/menu/explore',
+      icon: 'film'
     },
     {
       title: 'My Watchlist',
-      url: '/menu/list'
+      url: '/menu/list',
+      icon: 'time'
     },
     {
       title: 'My Favorites',
-      url: '/menu/favorite'
+      url: '/menu/favorite',
+      icon: 'heart'
     }
   ];
 
