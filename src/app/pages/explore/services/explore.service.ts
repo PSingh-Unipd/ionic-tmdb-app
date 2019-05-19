@@ -21,4 +21,8 @@ export class ExploreService extends BaseService{
     getTopRated(): Observable<any> {
         return this.MovieREST('', 'top_rated', '&language=en-US&page=1');
     }
+
+    getGenere(): Observable<any> {
+        return this._http.get('https://api.themoviedb.org/3/genre/movie/list?api_key='+this.ApiKey+'&language=en-US');
+    }
 }

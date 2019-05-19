@@ -75,6 +75,7 @@
     margin-bottom: 10px;
     margin-top: 8px;
 }
+
 .poster {
     width: 140px;
     height: 200px;
@@ -84,6 +85,7 @@
 .lastest-movies {
     font-family: 'Fjalla One', sans-serif;
     > h5 {
+        margin: 0px;
         margin-left: 10px;
         color: #fff;
     }
@@ -91,6 +93,7 @@
 
 .search-container {
     position: relative;
+    margin-bottom: 15px;
 }
 
 .filter-select{
