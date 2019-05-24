@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ExplorePage } from './explore.page';
 import { ExploreService } from './services/explore.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgCircleProgressModule.forRoot({})
   ],
   providers: [ExploreService],
   declarations: [ExplorePage]

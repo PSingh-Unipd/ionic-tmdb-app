@@ -29,13 +29,25 @@
   </div>
 
   <ion-row class="moviesList">
-    <ion-col size="6" *ngFor="let item of results" >
+    <ion-col size="6" *ngFor="let item of results">
       <ion-card class="card" (click)="addMyList(item)">
         <div>
           <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-          <h6 class="movie-title">
-            {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
-          </h6>
+          <ion-row no-padding>
+            <ion-col size="8" no-padding>
+              <h6 class="movie-title">
+                {{(item.title.length>13)? (item.title | slice:0:13)+'..':(item.title)}}
+              </h6>
+              <p>{{item.release_date}}</p>
+            </ion-col>
+            <ion-col size="4" no-padding>
+                <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="4"
+                [percent]="10 * item.vote_average" [titleColor]="'#fff'" [titleFontSize]="12" [radius]="20" [showSubtitle]=false
+                [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                [animationDuration]="300">
+              </circle-progress>
+            </ion-col>
+          </ion-row>
         </div>
       </ion-card>
     </ion-col>
