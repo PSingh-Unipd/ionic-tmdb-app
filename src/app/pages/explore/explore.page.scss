@@ -8,56 +8,6 @@
     padding: 5px;
 }
 
-.logo {
-    display: block;
-    width: 44px;
-}
-
-.search {
-    &__container {
-        padding-top: 64px;
-    }
-    
-    &__title {
-        font-size: 22px;
-        font-weight: 900;
-        text-align: center;
-        color: #ff8b88;
-    }
-    
-    &__input {
-        width: 100%;
-        padding: 12px 24px;
-        background-color: transparent;
-        transition: transform 250ms ease-in-out;
-        font-size: 14px;
-        line-height: 18px;
-        color: #fff;
-        background-color: transparent;
-        border-radius: 10px;
-        border: 1px solid #fff;
-        transition: all 250ms ease-in-out;
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-        
-        &::placeholder {
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        
-        &:hover,
-        &:focus {
-            padding: 12px 0;
-            outline: 0;
-            border: 1px solid transparent;
-            border-bottom: 1px solid #fff;
-            border-radius: 0;
-            background-position: 100% center;
-        }
-    }
-}
-
 .poster-container {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -99,11 +49,12 @@
 .filter-select{
     position: absolute;
     z-index: 1;
-    max-height: 300px;
+    max-height: 500px;
     width: 100%;
     overflow-y: auto;
     background-color: white;
     border-radius: 3px;
+    top: 50px;
 
     .filter-select-item {
         display: grid;

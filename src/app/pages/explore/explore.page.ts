@@ -29,7 +29,6 @@ export class ExplorePage implements OnInit {
     public toastController: ToastController) { }
 
   ngOnInit(): void {
-    //console.log('STAMPA HMAC DI PROVA', encode.hmac("608381389396","Nc33R5e1t2Hr6Bo1").toString(encode.base64));
     
     this._storage.get('mwl').then((elements) => {
       if (elements) {
@@ -62,9 +61,9 @@ export class ExplorePage implements OnInit {
     );
     
     this.queryField.valueChanges.pipe(
-      debounceTime(1500),
+      debounceTime(1000),
       switchMap(
-        queryField => this._service.search(queryField)
+        queryField => this._service.search(queryField.length > 2? queryField : '%%')
       )
     ).subscribe(response => {
       this.searchResults = response.results;
@@ -80,7 +79,6 @@ export class ExplorePage implements OnInit {
       date: new Date()
     };
     if (this.mwl.find(el => el.id == movie.id) == null) {
-      console.log('Stampo la lista per primo', this.mwl);
       this.mwl.unshift(movie);
       this._storage.set('mwl', this.mwl);
       this.presentToast('Movie added to Watchlist!');
@@ -111,7 +109,6 @@ export class ExplorePage implements OnInit {
       message: message,
       duration: 3000
     });
-    toast.present().then(res => console.log(res));
   }
 
   async addMyList(item) {
@@ -159,6 +156,10 @@ export class ExplorePage implements OnInit {
   }
 
   onClickedOutside(event) {
+    this.searchResults = null;
+  }
+  reset(event){
+    console.log('stampa evento', event);
     this.searchResults = null;
   }
 }

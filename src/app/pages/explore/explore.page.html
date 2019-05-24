@@ -8,13 +8,8 @@
 </ion-header>
 
 <ion-content class="bg" padding>
-  <div class="container">
-    <div class="logo-container">
-      <img class="logo" src="assets/main-logo.png"
-        alt="logo">
-    </div>
     <div class="search-container" (clickOutside)="onClickedOutside($event)">
-      <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="queryField" />
+      <ion-searchbar animated debounce="500" placeholder="Search a movie" [formControl]="queryField" color="light" (ionClear)="reset($event)"></ion-searchbar>
       <div class="filter-select">
         <div *ngFor="let item of searchResults" class="filter-select-item" (click)="addMyList(item)">
           <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" alt="" class="filter-select-item-poster">
@@ -27,7 +22,6 @@
             </p>
           </div>
         </div>
-      </div>
     </div>
   </div>
 
