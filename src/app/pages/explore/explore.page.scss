@@ -1,60 +1,18 @@
-.card {
-    --background: rgb(10, 36, 46);
-}
-
-.container{
-    display: grid;
-    grid-template-columns: 60px auto;
-    padding: 5px;
-}
-
-.poster-container {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-
-  .card {
-    text-align: center;
-    display: inline-block;
-  }
-}
-
-.movie-title {
-    color: #fff;
-    font-size: 15px;
+/* Search-bar styling */
+.search-container{
     margin-bottom: 10px;
-    margin-top: 8px;
 }
 
-.poster {
-    width: 140px;
-    height: 200px;
-    margin: auto;
-}
-
-.lastest-movies {
-    font-family: 'Fjalla One', sans-serif;
-    > h5 {
-        margin: 0px;
-        margin-left: 10px;
-        color: #fff;
-    }
-}
-
-.search-container {
-    position: relative;
-    margin-bottom: 15px;
-}
-
+/* Search-bar results styling */
 .filter-select{
     position: absolute;
-    z-index: 1;
-    max-height: 500px;
-    width: 100%;
+    left: 20px;
+    right: 20px;
     overflow-y: auto;
+    z-index: 1;
+    max-height: 400px;
     background-color: white;
-    border-radius: 3px;
-    top: 50px;
+    border-radius: 5px;
 
     .filter-select-item {
         display: grid;
@@ -71,7 +29,6 @@
         margin-left: 5px;
         font-size: 10pt;
         color: #081C24;
-        font-family: 'Fjalla One', sans-serif;
     }
 
     .filter-select-item:hover {
@@ -80,23 +37,24 @@
             color: #081C24;
         }
     }
-
-    .tre-poster {
-        width: 100%;
-    }
 }
 
-.middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+/* Cards styling (one card rappresent one movie), body of this page */
+.card {
     text-align: center;
-}
-  
-.container:hover .middle {
-    opacity: 1;
+    display: inline-block;
+    --background: rgb(10, 36, 46);
+    margin: 0px;
+
+    .movie-title {
+        color: #fff;
+        font-size: 15px;
+        margin-bottom: 10px;
+        margin-top: 8px;
+    }
+    
+    .poster {
+        width: 100%;
+        margin: auto;
+    }
 }

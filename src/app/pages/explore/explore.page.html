@@ -8,27 +8,29 @@
 </ion-header>
 
 <ion-content class="bg" padding>
-    <div class="search-container" (clickOutside)="onClickedOutside($event)">
-      <ion-searchbar animated debounce="500" placeholder="Search a movie" [formControl]="queryField" color="light" (ionClear)="reset($event)"></ion-searchbar>
-      <div class="filter-select">
-        <div *ngFor="let item of searchResults" class="filter-select-item" (click)="addMyList(item)">
-          <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" alt="" class="filter-select-item-poster">
-          <div class="filter-select-item-details">
-            <p class="filter-select-item-title">
-              {{item.title}}
-            </p>
-            <p class="filter-select-item-title">
-              {{item.release_date}}
-            </p>
-          </div>
+
+  <div class="search-container" (clickOutside)="onClickedOutside($event)">
+    <ion-searchbar animated debounce="500" placeholder="Search a movie" [formControl]="queryField" color="light"
+      (ionClear)="reset($event)"></ion-searchbar>
+    <div class="filter-select">
+      <div *ngFor="let item of searchResults" class="filter-select-item" (click)="addMyList(item)">
+        <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" alt=""
+          class="filter-select-item-poster">
+        <div class="filter-select-item-details">
+          <p class="filter-select-item-title">
+            {{item.title}}
+          </p>
+          <p class="filter-select-item-title">
+            {{item.release_date}}
+          </p>
         </div>
+      </div>
     </div>
   </div>
 
-  <div class="lastest-movies">
-    <h5>IN THEATERS</h5>
-    <div class="poster-container">
-      <ion-card *ngFor="let item of results" class="card" (click)="addMyList(item)">
+  <ion-row class="moviesList">
+    <ion-col size="6" *ngFor="let item of results" >
+      <ion-card class="card" (click)="addMyList(item)">
         <div>
           <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
           <h6 class="movie-title">
@@ -36,20 +38,6 @@
           </h6>
         </div>
       </ion-card>
-    </div>
-  </div>
-
-  <div class="lastest-movies">
-    <h5>TOP RATED</h5>
-    <div class="poster-container">
-      <ion-card *ngFor="let item of trendings" class="card" (click)="addMyList(item)">
-        <div>
-          <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
-          <h6 class="movie-title">
-            {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
-          </h6>
-        </div>
-      </ion-card>
-    </div>
-  </div>
+    </ion-col>
+  </ion-row>
 </ion-content>
