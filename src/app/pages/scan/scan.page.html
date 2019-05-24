@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar class="bg">
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="primary">Scan barcode</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg" padding>
+  <div class="scan-button">
+      <ion-button expand="full" color="primary" (click)="scan()">SCAN</ion-button>
+  </div>
+  <ion-list no-padding *ngIf="loaded==true">
+      <ion-list-header color="secondary">
+        <ion-label color="primary">Possible movies for this barcode:{{prova}}</ion-label>
+      </ion-list-header>
+        <ion-item *ngFor="let item of movies; let i = index" color="secondary">
+          <ion-label no-padding>
+            <ion-card class="card">
+              <div class="wrapper">
+                <div class="one">
+                  <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster">
+                </div>
+                <div class="two">
+                  <h5>{{(item.title.length>18)? (item.title | slice:0:18)+'..':(item.title)}}</h5>
+                </div>
+                <div class="three">
+                    <ion-button expand="block" color="secondary" (click)="scan()" (click)="add(item)">ADD</ion-button>
+                </div>
+              </div>
+            </ion-card>
+          </ion-label>
+        </ion-item>
+    </ion-list>
+    <div class="no-movie" *ngIf="movies.length==0 && loaded==false">
+      <img src="assets/search.svg">
+      <h3>Click 'SCAN' button to start!</h3>
+    </div>
+</ion-content>

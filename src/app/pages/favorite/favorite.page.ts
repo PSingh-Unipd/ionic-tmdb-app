@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
 import { Movie } from 'src/app/interfaces/movie.interface';
-import { DetailPage } from '../detail/detail.page';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-favorite',
@@ -11,13 +11,12 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./favorite.page.scss'],
 })
 export class FavoritePage implements OnInit {
-
+  scandata;
   fml: Movie[] = [];
   loaded: boolean = false;
   constructor(
     private router: Router,
     private storage: Storage,
-    private _modal: ModalController,
     private toastController: ToastController) { }
 
   ngOnInit() {
@@ -59,6 +58,5 @@ export class FavoritePage implements OnInit {
     this.storage.set('fml', this.fml);
     this.presentToast('Movie removed from favorites!');
     this.loaded = true;
-  }
-
+  }  
 }

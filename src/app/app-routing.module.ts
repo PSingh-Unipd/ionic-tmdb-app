@@ -5,6 +5,7 @@ import { CastPageModule } from './pages/cast/cast.module';
 const routes: Routes = [
   { path: '', loadChildren: './pages/menu/menu.module#MenuPageModule' },
   { path: 'cast', loadChildren: './pages/cast/cast.module#CastPageModule' }
+
 ];
 
 @NgModule({

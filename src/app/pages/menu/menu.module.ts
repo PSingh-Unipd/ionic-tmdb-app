@@ -25,6 +25,10 @@ const routes: Routes = [
       { 
         path: 'details', 
         loadChildren: '../detail/detail.module#DetailPageModule' 
+      },
+      { 
+        path: 'scan', 
+        loadChildren: '../scan/scan.module#ScanPageModule' 
       }
     ]
   },

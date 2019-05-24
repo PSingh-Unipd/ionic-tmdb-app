@@ -15,4 +15,9 @@ export class BaseService {
     public SearchREST(str, languege, params) {
         return this.http.get<any>('https://api.themoviedb.org/3/search/movie?api_key='+this.ApiKey+languege+str+params);
     }
+
+    public ListREST(listID, languege) {
+        return this.http.get<any>('https://api.themoviedb.org/3/list/'+listID+'?api_key='+this.ApiKey+languege);
+    }
+
 }

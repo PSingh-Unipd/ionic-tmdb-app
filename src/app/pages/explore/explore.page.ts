@@ -5,9 +5,8 @@ import { ExploreService } from './services/explore.service';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { ActionSheetController, ToastController } from '@ionic/angular';
-import { ModalController } from '@ionic/angular';
-import { DetailPage } from '../detail/detail.page';
 import { NavigationExtras, Router } from '@angular/router';
+import encode from '../../common/crypt-hmac';
 
 @Component({
   selector: 'app-explore',
@@ -20,6 +19,7 @@ export class ExplorePage implements OnInit {
   trendings: any[];
   mwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
   fml: Movie[] = [];
+  moviesGeneres: any[];
   queryField: FormControl = new FormControl();
   constructor(
     private router: Router,
@@ -29,6 +29,8 @@ export class ExplorePage implements OnInit {
     public toastController: ToastController) { }
 
   ngOnInit(): void {
+    //console.log('STAMPA HMAC DI PROVA', encode.hmac("608381389396","Nc33R5e1t2Hr6Bo1").toString(encode.base64));
+    
     this._storage.get('mwl').then((elements) => {
       if (elements) {
         this.mwl = elements;
@@ -41,13 +43,19 @@ export class ExplorePage implements OnInit {
       }
     });
 
-    this._service.getMovies().subscribe(
+    /*this._service.getMovies().subscribe(
+      data => {
+        this.results = data.results;
+      }
+    );*/
+    
+    this._service.getMovies('upcoming').subscribe(
       data => {
         this.results = data.results;
       }
     );
 
-    this._service.getTopRated().subscribe(
+    this._service.getMovies('now_playing').subscribe(
       response => {
         this.trendings = response.results;
       }
