@@ -26,7 +26,6 @@ export class CastPage implements OnInit {
     forkJoin([cast, movies]).subscribe(results => {
       this.detail = results[0];
       this.movies = results[1];
-      console.log('STAMPA DEI FILM', this.movies);
       if (this.detail.biography == '')
         this.detail.biography = 'Biography not found for this actor!';
       this.loaded = true;

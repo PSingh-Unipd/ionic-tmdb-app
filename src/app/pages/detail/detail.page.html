@@ -9,11 +9,14 @@
 </ion-header>
 
 <ion-content color="secondary">
-  <ion-spinner *ngIf="loaded == false" name="crescent"></ion-spinner>
+  <div class="spinner-container" *ngIf="loaded == false">
+    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
+    <p>loading...</p>
+  </div>
   <div *ngIf="loaded == true">
     <div class="background-poster">
       <img class="bg-image" src="https://image.tmdb.org/t/p/original/{{detail.backdrop_path}}" />
-      <ion-icon name="play" class="playBtn" (click)="playTrailer()"></ion-icon>
+      <ion-icon *ngIf="videos.results.length >0" name="play" class="playBtn" (click)="playTrailer()"></ion-icon>
     </div>
     <div class="title-container">
       <ion-row>
@@ -21,7 +24,7 @@
           <h3>
             {{detail.title}}
           </h3>
-          <p>{{detail.release_date.substring(0, 4)}} <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
+          <p>{{detail.release_date.substring(0, 4)}} | <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
         </ion-col>
         <ion-col size="4">
           <div class="rating">
@@ -62,7 +65,7 @@
       </div>
     </div>
 
-    <div class="list">
+    <div class="list" *ngIf="movieRecommendations.length > 0">
       <h5>RECOMMENDATIONS:</h5>
       <div class="poster-container">
         <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">

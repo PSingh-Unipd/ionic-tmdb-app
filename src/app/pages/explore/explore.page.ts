@@ -202,13 +202,6 @@ export class ExplorePage implements OnInit {
           }
         },
         {
-          text: 'Coming Soon',
-          icon: 'film',
-          handler: () => {
-            this.loadMovies('upcoming');
-          }
-        },
-        {
           text: 'Top Rated',
           icon: 'film',
           handler: () => {
@@ -220,6 +213,13 @@ export class ExplorePage implements OnInit {
           icon: 'film',
           handler: () => {
             this.loadMoviesList('1309');
+          }
+        },
+        {
+          text: 'Oscar Winner',
+          icon: 'film',
+          handler: () => {
+            this.loadMoviesList('28');
           }
         },
         {
@@ -237,7 +237,7 @@ export class ExplorePage implements OnInit {
           }
         },
         {
-          text: 'Disney Clssic',
+          text: 'Disney Classics',
           icon: 'film',
           handler: () => {
             this.loadMoviesList('338');

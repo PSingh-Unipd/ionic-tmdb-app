@@ -6,6 +6,10 @@
 </ion-header>
 
 <ion-content color="secondary">
+  <div class="spinner-container" *ngIf="loaded == false">
+    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
+    <p>loading...</p>
+  </div>
   <div *ngIf="loaded == true">
     <div class="title-container">
       <ion-row>
@@ -13,7 +17,7 @@
           <h3>
             {{detail.name}}
           </h3>
-          <p><span>{{detail.gender == 2 ? 'Male' : 'Female'}} </span> |
+          <p><span>{{detail.gender == 1 ? 'Female' : 'Male'}} </span> |
             {{detail.birthday != nulls? detail.birthday.substring(0, 4): '----'}} - {{detail.place_of_birth}}</p>
         </ion-col>
         <ion-col size="4">
@@ -46,7 +50,8 @@
       <div class="poster-container">
         <ion-card *ngFor="let item of movies.cast" class="card" (click)="movieDetails(item)">
           <div>
-            <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}" class="poster2">
+            <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}"
+              class="poster2">
             <h6 class="movie-title">
               {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
             </h6>
@@ -55,18 +60,19 @@
       </div>
     </div>
 
-    <div class="list">
-        <h5>PART OF CREW:</h5>
-        <div class="poster-container">
-          <ion-card *ngFor="let item of movies.crew" class="card" (click)="movieDetails(item)">
-            <div>
-              <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}" class="poster2">
-              <h6 class="movie-title">
-                {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
-              </h6>
-            </div>
-          </ion-card>
-        </div>
+    <div class="list" *ngIf="movies.crew.length > 0">
+      <h5>PART OF CREW:</h5>
+      <div class="poster-container">
+        <ion-card *ngFor="let item of movies.crew" class="card" (click)="movieDetails(item)">
+          <div>
+            <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}"
+              class="poster2">
+            <h6 class="movie-title">
+              {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+            </h6>
+          </div>
+        </ion-card>
       </div>
+    </div>
   </div>
 </ion-content>
