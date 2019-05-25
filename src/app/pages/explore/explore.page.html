@@ -4,6 +4,7 @@
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
     <ion-title color="primary">Explore Movies</ion-title>
+    <ion-icon slot="end" (click)="loadList()" name="albums" class="back-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -28,7 +29,13 @@
     </div>
   </div>
 
-  <ion-row class="moviesList">
+  <div class="spinner-container" *ngIf="loaded == false">
+    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
+    <p>loading</p>
+  </div>
+
+
+  <ion-row class="moviesList" *ngIf="loaded == true">
     <ion-col size="6" *ngFor="let item of results">
       <ion-card class="card" (click)="addMyList(item)">
         <div>
@@ -41,9 +48,9 @@
               <p>{{item.release_date}}</p>
             </ion-col>
             <ion-col size="4" no-padding>
-                <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="4"
-                [percent]="10 * item.vote_average" [titleColor]="'#fff'" [titleFontSize]="12" [radius]="20" [showSubtitle]=false
-                [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+              <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="4"
+                [percent]="10 * item.vote_average" [titleColor]="'#fff'" [titleFontSize]="12" [radius]="20"
+                [showSubtitle]=false [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
                 [animationDuration]="300">
               </circle-progress>
             </ion-col>
@@ -52,4 +59,11 @@
       </ion-card>
     </ion-col>
   </ion-row>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..." color="primary">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
 </ion-content>

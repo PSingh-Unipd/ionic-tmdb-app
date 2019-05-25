@@ -14,3 +14,22 @@
 .bg {
     --background : #081C24;
 }
+
+
+.back-button {
+    font-size: 30px; 
+    padding-right:10px; 
+    color: #01D277;
+}
+
+.spinner-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    p {
+        color: #01D277;
+    }
+}
