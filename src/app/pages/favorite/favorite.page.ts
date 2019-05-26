@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/interfaces/movie.interface';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { TranslateService } from 'src/app/common/translate.service';
 
 @Component({
   selector: 'app-favorite',
@@ -20,6 +20,7 @@ export class FavoritePage implements OnInit {
     private toastController: ToastController) { }
 
   ngOnInit() {
+
     this.storage.get('fml').then((elements) => {
       if (elements) {
         this.fml = elements;

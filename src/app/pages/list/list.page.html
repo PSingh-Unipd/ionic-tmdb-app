@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">My Watchlist</ion-title>
+    <ion-title color="primary">{{ 'WATCHLIST.title' | translate:params }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg">
   <ion-list no-padding *ngIf="loaded==true && mwl.length>0">
     <ion-list-header color="secondary">
-      <ion-label color="primary">Movies I'll liked to watch:</ion-label>
+      <ion-label color="primary">{{ 'WATCHLIST.sub-title' | translate:params }}</ion-label>
     </ion-list-header>
     <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
       <ion-item *ngFor="let item of mwl; let i = index" color="secondary">
@@ -46,6 +46,6 @@
   </ion-list>
   <div class="no-movie" *ngIf="mwl.length==0">
     <img src="assets/movie_img.svg">
-    <h3>No movies added to Watchlist yet!</h3>
+    <h3>{{ 'WATCHLIST.add-msg' | translate:params }}</h3>
   </div>
 </ion-content>

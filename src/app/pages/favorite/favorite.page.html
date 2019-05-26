@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">My Favorite Movies</ion-title>
+    <ion-title color="primary">{{ 'FAVORITE.title' | translate:params }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg">
   <ion-list no-padding *ngIf="loaded==true && fml.length>0">
     <ion-list-header color="secondary">
-      <ion-label color="primary">My favorite movies of all times:</ion-label>
+      <ion-label color="primary">{{ 'FAVORITE.sub-title' | translate:params }}</ion-label>
     </ion-list-header>
     <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
       <ion-item *ngFor="let item of fml; let i = index" color="secondary">
@@ -43,6 +43,6 @@
   </ion-list>
   <div class="no-movie" *ngIf="fml.length==0">
     <img src="assets/movie_img.svg">
-    <h3>No movies added to favorites yet!</h3>
+    <h3>{{ 'FAVORITE.add-msg' | translate:params }}</h3>
   </div>
 </ion-content>

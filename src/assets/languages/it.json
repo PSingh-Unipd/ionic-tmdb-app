@@ -1,0 +1,34 @@
+{
+    "EXPLORE": {
+        "title": "Explora film",
+        "search": "Cerca un film",
+        "loading": "caricamento altri film..."
+    },
+    "FAVORITE": {
+        "title": "Miei film preferiti",
+        "sub-title": "Lista dei miei film preferti:",
+        "add-msg": "Ancora nessun film aggiunto!"
+    },
+    "WATCHLIST": {
+        "title": "La mia Watchlist",
+        "sub-title": "Film che vorrei guardare::",
+        "add-msg": "Ancora nessun film aggiunto!"
+    },
+    "MOVIE-DETAILS": {
+        "title": "Informazioni film",
+        "cast": "IL CAST",
+        "rec": "SIMILI",
+        "crew": "PRODUZIONE"
+    },
+    "CAST-DETAILS": {
+        "title": "Informazioni persona",
+        "cast": "HA RECITATO IN",
+        "crew": "PRODUZIONE IN"
+    },
+    "MENU": {
+        "first": "Scansione Barcode",
+        "second": "Explora film",
+        "third": "La mia Watchlist",
+        "forth": "Film preferiti"
+    }
+}

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">Explore Movies</ion-title>
+    <ion-title color="primary">{{ 'EXPLORE.title' | translate:params }}</ion-title>
     <ion-icon slot="end" (click)="loadList()" name="albums" class="back-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -11,7 +11,7 @@
 <ion-content class="bg" padding>
 
   <div class="search-container" (clickOutside)="onClickedOutside($event)">
-    <ion-searchbar animated debounce="500" placeholder="Search a movie" [formControl]="queryField" color="light"
+    <ion-searchbar animated debounce="500" placeholder="{{ 'EXPLORE.search' | translate:params }}" [formControl]="queryField" color="light"
       (ionClear)="reset($event)"></ion-searchbar>
     <div class="filter-select">
       <div *ngFor="let item of searchResults" class="filter-select-item" (click)="addMyList(item)">
@@ -31,7 +31,7 @@
 
   <div class="spinner-container" *ngIf="loaded == false">
     <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
-    <p>loading...</p>
+    <p>{{ 'EXPLORE.loading' | translate:params }}</p>
   </div>
 
 

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">Movie details</ion-title>
+    <ion-title color="primary">{{ 'MOVIE-DETAILS.title' | translate:params }}</ion-title>
     <ion-icon slot="end" (click)="close()" name="arrow-round-back" class="back-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -11,7 +11,7 @@
 <ion-content color="secondary">
   <div class="spinner-container" *ngIf="loaded == false">
     <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
-    <p>loading...</p>
+    <p>{{ 'EXPLORE.loading' | translate:params }}</p>
   </div>
   <div *ngIf="loaded == true">
     <div class="background-poster">
@@ -51,7 +51,7 @@
       </ion-row>
     </div>
     <div class="list">
-      <h5>FULL CAST</h5>
+      <h5>{{ 'MOVIE-DETAILS.cast' | translate:params }}</h5>
       <div class="poster-container">
         <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
           <div>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="list" *ngIf="movieRecommendations.length > 0">
-      <h5>RECOMMENDATIONS:</h5>
+      <h5>{{ 'MOVIE-DETAILS.rec' | translate:params }}:</h5>
       <div class="poster-container">
         <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">
           <div>

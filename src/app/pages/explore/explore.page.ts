@@ -4,7 +4,7 @@ import { switchMap, debounceTime } from 'rxjs/operators';
 import { ExploreService } from './services/explore.service';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
-import { ActionSheetController, ToastController, IonInfiniteScroll } from '@ionic/angular';
+import { ActionSheetController, ToastController, IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import encode from '../../common/crypt-hmac';
 
@@ -31,7 +31,7 @@ export class ExplorePage implements OnInit {
     private _service: ExploreService,
     private _storage: Storage,
     private actionSheetController: ActionSheetController,
-    public toastController: ToastController) { }
+    public alertController: AlertController) { }
 
   ngOnInit(): void {
 
@@ -132,10 +132,12 @@ export class ExplorePage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 3000
+    const alert = await this.alertController.create({
+      message:  message,
+      buttons: ['OK']
     });
+
+    await alert.present();
   }
 
   async addMyList(item) {

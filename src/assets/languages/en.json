@@ -1,0 +1,34 @@
+{
+    "EXPLORE": {
+        "title": "Explore Movies",
+        "search": "Search a movie",
+        "loading": "loding more movies..."
+    },
+    "FAVORITE": {
+        "title": "My favorite Movies",
+        "sub-title": "List of my favorite movies:",
+        "add-msg": "No movies added to favorites!"
+    },
+    "WATCHLIST": {
+        "title": "My Watchlist",
+        "sub-title": "Movies I'll like to watch:",
+        "add-msg": "No movies added to Watchlist!"
+    },
+    "MOVIE-DETAILS": {
+        "title": "Movie details",
+        "cast": "FULL CAST",
+        "rec": "RECOMMENDATIONS",
+        "crew": "CREW"
+    },
+    "CAST-DETAILS": {
+        "title": "Cast details",
+        "cast": "CAST IN MOVIES",
+        "crew": "PAST OF CREW"
+    },
+    "MENU": {
+        "first": "Scan Barcode",
+        "second": "Explore Movies",
+        "third": "My Watchlist",
+        "forth": "My Favorites"
+    }
+}

@@ -8,6 +8,7 @@ import { ExplorePage } from './explore.page';
 import { ExploreService } from './services/explore.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     HttpClientModule,
-    NgCircleProgressModule.forRoot({})
+    NgCircleProgressModule.forRoot({}),
+    TranslateModule
   ],
   providers: [ExploreService],
   declarations: [ExplorePage]
