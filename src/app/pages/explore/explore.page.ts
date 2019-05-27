@@ -136,7 +136,6 @@ export class ExplorePage implements OnInit {
       message:  message,
       buttons: ['OK']
     });
-
     await alert.present();
   }
 

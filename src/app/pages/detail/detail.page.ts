@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ActionSheetController, ToastController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, ActionSheetController, ToastController, AlertController } from '@ionic/angular';
 import { DetailService } from './services/detail.service';
 import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
@@ -25,7 +25,7 @@ export class DetailPage implements OnInit {
   mwl: Movie[] = [];
   fml: Movie[] = [];
   constructor(
-    private _controller: ModalController,
+    public alertController: AlertController,
     private _service: DetailService,
     public _player: YoutubeVideoPlayer,
     private _storage: Storage,
@@ -118,11 +118,11 @@ export class DetailPage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const toast = await this._toastController.create({
-      message: message,
-      duration: 3000
+    const alert = await this.alertController.create({
+      message:  message,
+      buttons: ['OK']
     });
-    toast.present().then();
+    await alert.present();
   }
 
   async addMyList() {
