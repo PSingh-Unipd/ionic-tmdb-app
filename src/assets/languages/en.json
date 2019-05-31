@@ -2,7 +2,8 @@
     "EXPLORE": {
         "title": "Explore Movies",
         "search": "Search a movie",
-        "loading": "loding more movies..."
+        "mloading": "loding more movies...",
+        "loading": "loading..."
     },
     "FAVORITE": {
         "title": "My favorite Movies",

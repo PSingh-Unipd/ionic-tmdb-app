@@ -61,7 +61,7 @@
   </ion-row>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..." color="primary">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'EXPLORE.mloading' | translate:params }}" color="primary">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

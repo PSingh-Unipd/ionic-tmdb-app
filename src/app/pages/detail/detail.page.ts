@@ -74,6 +74,7 @@ export class DetailPage implements OnInit {
       this.videos = results[2];
       this.movieRecommendations = results[3].results;
       this.loaded = true;
+      console.log('STAMPA FILM', results);
     });
   }
 

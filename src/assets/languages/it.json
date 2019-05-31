@@ -2,7 +2,8 @@
     "EXPLORE": {
         "title": "Explora film",
         "search": "Cerca un film",
-        "loading": "caricamento altri film..."
+        "mloading": "caricamento altri film...",
+        "loading": "caricamento..."
     },
     "FAVORITE": {
         "title": "Miei film preferiti",

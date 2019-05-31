@@ -24,7 +24,7 @@
           <h3>
             {{detail.title}}
           </h3>
-          <p>{{detail.release_date.substring(0, 4)}} | <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
+          <p>{{detail.release_date.substring(0, 10)}} | <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
         </ion-col>
         <ion-col size="4">
           <div class="rating">
@@ -51,7 +51,7 @@
       </ion-row>
     </div>
     <div class="list">
-      <h5>{{ 'MOVIE-DETAILS.cast' | translate:params }}</h5>
+      <h5 style="padding-top: 15px !important;">{{ 'MOVIE-DETAILS.cast' | translate:params }}</h5>
       <div class="poster-container">
         <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
           <div>
@@ -60,6 +60,23 @@
             <h6 class="movie-title">
               {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
             </h6>
+            <p>({{(cast.character.length>16)? (cast.character | slice:0:14)+'..':(cast.character)}})</p>
+          </div>
+        </ion-card>
+      </div>
+    </div>
+
+    <div class="list">
+      <h5>{{ 'MOVIE-DETAILS.crew' | translate:params }}</h5>
+      <div class="poster-container">
+        <ion-card *ngFor="let crew of credits.crew" class="card" (click)="castDetail(cast)">
+          <div>
+            <img src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av.png'}}"
+              class="poster">
+            <h6 class="movie-title">
+              {{(crew.name.length>14)? (crew.name | slice:0:12)+'..':(crew.name)}} 
+            </h6>
+            <p>({{(crew.job.length>16)? (crew.job | slice:0:14)+'..':(crew.job)}})</p>
           </div>
         </ion-card>
       </div>
