@@ -9,7 +9,6 @@ import { TranslateService } from './common/translate.service';
 const routes: Routes = [
   { path: '', loadChildren: './pages/menu/menu.module#MenuPageModule' },
   { path: 'cast', loadChildren: './pages/cast/cast.module#CastPageModule' }
-
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {

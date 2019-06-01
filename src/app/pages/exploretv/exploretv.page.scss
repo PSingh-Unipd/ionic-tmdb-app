@@ -1,0 +1,69 @@
+/* Search-bar styling */
+.search-container{
+    margin-bottom: 10px;
+}
+
+/* Search-bar results styling */
+.filter-select{
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    overflow-y: auto;
+    z-index: 1;
+    max-height: 400px;
+    background-color: white;
+    border-radius: 5px;
+    font-family: 'Open Sans', sans-serif;
+
+    .filter-select-item {
+        display: grid;
+        grid-template-columns: 60px auto;
+        padding: 10px;
+    }
+
+    .filter-select-item-poster {
+        height: 80px;
+        width: 60px;
+    }
+
+    .filter-select-item-title {
+        margin-left: 5px;
+        font-size: 10pt;
+        color: #081C24;
+    }
+
+    .filter-select-item:hover {
+        background-color: #01D277;    
+        .filter-select-item-title {
+            color: #081C24;
+        }
+    }
+}
+
+/* Cards styling (one card rappresent one movie), body of this page */
+.card {
+    text-align: center;
+    display: inline-block;
+    --background: rgb(10, 36, 46);
+    margin: 0px;
+    font-family: 'Open Sans', sans-serif;
+
+    .movie-title {
+        padding-left: 3px;
+        color: #fff;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin: 0px;
+        margin-top: 15px
+    }
+
+    p {
+        margin: 0px;
+        font-size: 10px;
+    }
+    
+    .poster {
+        width: 100%;
+        margin: auto;
+    }
+}

@@ -8,12 +8,15 @@
 </ion-header>
 
 <ion-content class="bg">
-  <ion-list no-padding *ngIf="loaded==true && fml.length>0">
+    <ion-searchbar animated debounce="500" [formControl]="filterVal" placeholder="{{ 'WATCHLIST.filter' | translate:params }}" color="light"
+    (ionClear)="reset($event)">
+  </ion-searchbar>
+  <ion-list no-padding *ngIf="loaded==true && filteredItems.length>0">
     <ion-list-header color="secondary">
       <ion-label color="primary">{{ 'FAVORITE.sub-title' | translate:params }}</ion-label>
     </ion-list-header>
     <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
-      <ion-item *ngFor="let item of fml; let i = index" color="secondary">
+      <ion-item *ngFor="let item of filteredItems; let i = index" color="secondary">
         <ion-label>
           <ion-card class="card">
             <div class="wrapper">
@@ -25,7 +28,7 @@
               </div>
               <div class="three">
                 <h6>
-                  <ion-datetime value={{item.date.toString()}} no-padding></ion-datetime>
+                    Added: {{item.date.toString().substring(0, 10)}}
                 </h6>
               </div>
               <div class="four" (click)="movieDetails(item)">

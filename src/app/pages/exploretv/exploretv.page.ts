@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { switchMap, debounceTime } from 'rxjs/operators';
-import { ExploreService } from './services/explore.service';
+import { ExploreTvService } from './services/exploretv.service';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
-import { ActionSheetController, ToastController, IonInfiniteScroll, AlertController } from '@ionic/angular';
+import { ActionSheetController, IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.page.html',
-  styleUrls: ['./explore.page.scss'],
+  selector: 'app-exploretv',
+  templateUrl: './exploretv.page.html',
+  styleUrls: ['./exploretv.page.scss'],
 })
-export class ExplorePage implements OnInit {
+export class ExploretvPage implements OnInit {
+
   results: any[] = [];
   searchResults: any[];
   loaded: boolean = false;
@@ -27,7 +28,7 @@ export class ExplorePage implements OnInit {
 
   constructor(
     private router: Router,
-    private _service: ExploreService,
+    private _service: ExploreTvService,
     private _storage: Storage,
     private actionSheetController: ActionSheetController,
     public alertController: AlertController) { }
@@ -55,23 +56,23 @@ export class ExplorePage implements OnInit {
       this.searchResults = response.results;
     });
 
-    this.loadMovies('now_playing');
+    this.loadTVSeries('on_the_air');
   }
 
-  loadMovies(type: string) {
+  loadTVSeries(type: string) {
     this.loaded = false;
     this.results = [];
     this.infiniteScroll.disabled = false;
-    this._service.getMovies(type).subscribe(
+    this._service.getTvSeries(type).subscribe(
       response => {
         this.copy = response.results;
         this.shallowCopy();
-        setTimeout(() => this.loaded = true, 500);
+        setTimeout(() => this.loaded = true, 200);
       }
     );
   }
 
-  loadMoviesList(id: string) {
+  loadShowList(id: string) {
     this.loaded = false;
     this.results = [];
     this.infiniteScroll.disabled = false;
@@ -140,23 +141,23 @@ export class ExplorePage implements OnInit {
 
   async addMyList(item) {
     const actionSheet = await this.actionSheetController.create({
-      header: item.title.toUpperCase(),
+      header: item.name.toUpperCase(),
       buttons: [
         {
-          text: 'Movie details',
+          text: 'Show details',
           icon: 'information-circle',
           handler: () => {
-            this.movieDetails(item);
+            this.showDetails(item);
           }
         }, {
-          text: 'Watchlist',
+          text: 'Add in Watchlist',
           icon: 'add-circle',
           handler: () => {
             this.addMyWatchList(item);
           }
         },
         {
-          text: 'Favorite Movie',
+          text: 'Add to Favorite',
           icon: 'heart',
           handler: () => {
             this.addFavoriteList(item);
@@ -173,11 +174,11 @@ export class ExplorePage implements OnInit {
     await actionSheet.present();
   }
 
-  movieDetails(item: Movie) {
+  showDetails(item) {
     const navigationExtras: NavigationExtras = {
       state: {
         id: item.id,
-        type: 'movie'
+        type: 'show'
       }
     };
     this.router.navigate(['/menu/details'], navigationExtras);
@@ -196,52 +197,31 @@ export class ExplorePage implements OnInit {
       header: 'Explore movies from these lists:',
       buttons: [
         {
-          text: 'Now Showing',
-          icon: 'film',
+          text: 'On Tv Now',
+          icon: 'tv',
           handler: () => {
-            this.loadMovies('now_playing');
+            this.loadTVSeries('on_the_air');
+          }
+        },
+        {
+          text: 'Popular',
+          icon: 'tv',
+          handler: () => {
+            this.loadTVSeries('popular');
           }
         },
         {
           text: 'Top Rated',
-          icon: 'film',
+          icon: 'tv',
           handler: () => {
-            this.loadMovies('top_rated');
+            this.loadTVSeries('top_rated');
           }
         },
         {
-          text: 'IMDB Top 250',
+          text: 'IMDB Top 100 shows',
           icon: 'film',
           handler: () => {
-            this.loadMoviesList('1309');
-          }
-        },
-        {
-          text: 'Oscar Winner',
-          icon: 'film',
-          handler: () => {
-            this.loadMoviesList('28');
-          }
-        },
-        {
-          text: 'Marvel',
-          icon: 'film',
-          handler: () => {
-            this.loadMoviesList('1');
-          }
-        },
-        {
-          text: 'DC Universe',
-          icon: 'film',
-          handler: () => {
-            this.loadMoviesList('3');
-          }
-        },
-        {
-          text: 'Disney Classics',
-          icon: 'film',
-          handler: () => {
-            this.loadMoviesList('338');
+            this.loadShowList('113136');
           }
         },
         {

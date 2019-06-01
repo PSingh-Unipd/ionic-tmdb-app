@@ -19,6 +19,11 @@ export class MenuPage implements OnInit {
       icon: 'film'
     },
     {
+      title: 'Explore TV',
+      url: '/menu/tv',
+      icon: 'tv'
+    },
+    {
       title: 'My Watchlist',
       url: '/menu/list',
       icon: 'time'

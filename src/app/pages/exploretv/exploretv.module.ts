@@ -3,19 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { DetailPage } from './detail.page';
-import { DetailService } from './services/detail.service';
+import { ExploretvPage } from './exploretv.page';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { TranslateModule } from '@ngx-translate/core';
-import { MoviedetailsComponent } from './components/moviedetails/moviedetails.component';
-import { ShowdetailsComponent } from './components/showdetails/showdetails.component';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { ExploreTvService } from './services/exploretv.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetailPage
+    component: ExploretvPage
   }
 ];
 
@@ -23,14 +21,15 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ClickOutsideModule,
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     HttpClientModule,
     NgCircleProgressModule.forRoot({}),
-    TranslateModule
+    TranslateModule  
   ],
-  providers: [DetailService,YoutubeVideoPlayer],
-  declarations: [DetailPage, MoviedetailsComponent, ShowdetailsComponent]
+  declarations: [ExploretvPage],
+  providers: [ExploreTvService]
 })
-export class DetailPageModule {}
+export class ExploretvPageModule {}

@@ -29,6 +29,10 @@ const routes: Routes = [
       { 
         path: 'scan', 
         loadChildren: '../scan/scan.module#ScanPageModule' 
+      },
+      { 
+        path: 'tv', 
+        loadChildren: '../exploretv/exploretv.module#ExploretvPageModule' 
       }
     ]
   },

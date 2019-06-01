@@ -11,16 +11,16 @@ export class BaseService {
 
     constructor(public http: HttpClient) { }
 
-    public MovieREST(id, path, languege) {
-        return this.http.get<any>('https://api.themoviedb.org/3/movie/'+id+path+'?api_key='+this.ApiKey+languege);
+    public DetailsREST(id, path, languege, type) {
+        return this.http.get<any>('https://api.themoviedb.org/3/'+type+'/'+id+path+'?api_key='+this.ApiKey+languege);
     }
 
     public PersonREST(id, path, languege) {
         return this.http.get<any>('https://api.themoviedb.org/3/person/'+id+path+'?api_key='+this.ApiKey+languege);
     }
 
-    public SearchREST(str, languege, params) {
-        return this.http.get<any>('https://api.themoviedb.org/3/search/movie?api_key='+this.ApiKey+languege+str+params);
+    public SearchREST(str, languege, params, type) {
+        return this.http.get<any>('https://api.themoviedb.org/3/search/'+type +'?api_key='+this.ApiKey+languege+str+params);
     }
 
     public ListREST(listID, languege) {

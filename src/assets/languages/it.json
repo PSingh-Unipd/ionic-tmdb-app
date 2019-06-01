@@ -13,7 +13,8 @@
     "WATCHLIST": {
         "title": "La mia Watchlist",
         "sub-title": "Film che vorrei guardare::",
-        "add-msg": "Ancora nessun film aggiunto!"
+        "add-msg": "Ancora nessun film aggiunto!",
+        "filter": "Filtra nella lista"
     },
     "MOVIE-DETAILS": {
         "title": "Informazioni film",

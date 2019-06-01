@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/Movie.interface';
-import { ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NavigationExtras } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -12,21 +14,30 @@ import { NavigationExtras } from '@angular/router';
 })
 export class ListPage implements OnInit {
 
+  filterVal: FormControl = new FormControl();
   mwl: Movie[] = [];
   fml: Movie[] = [];
   loaded: boolean = false;
+  filteredItems: any;
 
   constructor(
     private router: Router,
     private storage: Storage,
-    private _modal: ModalController,
     public toastController: ToastController) { }
 
   ngOnInit() {
+    this.filterVal.valueChanges.pipe(
+      debounceTime(300)
+    ).subscribe(val => {
+      console.log('STAMPA VAL', val);
+      this.filterItem(val);
+    });
+
     this.storage.get('mwl').then((elements) => {
       if (elements) {
         this.mwl = elements;
         this.loaded = true;
+        this.assignCopy();
       }
     });
     this.storage.get('fml').then((elements) => {
@@ -37,12 +48,6 @@ export class ListPage implements OnInit {
   }
 
   async movieDetails(item: Movie) {
-    /*
-    const modal = await this._modal.create({
-      component: DetailPage,
-      componentProps: { movieId: item.id }
-    });
-    return await modal.present();*/
     const navigationExtras: NavigationExtras = {
       state: {
         id: item.id
@@ -56,10 +61,15 @@ export class ListPage implements OnInit {
     this.mwl.splice(event.detail.to, 0, temp);
     event.detail.complete();
     this.storage.set('mwl', this.mwl);
+    this.assignCopy();
+  }
+
+  reset(event) {
+    this.assignCopy();
   }
 
   addFavorite(item: Movie) {
-     if (this.fml.find(el => el.id == item.id) == null) {
+    if (this.fml.find(el => el.id == item.id) == null) {
       this.fml.unshift(item);
       this.storage.set('fml', this.fml);
       this.presentToast('Movie added to favorite!');
@@ -68,7 +78,7 @@ export class ListPage implements OnInit {
     }
   }
 
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 4000
@@ -76,11 +86,24 @@ export class ListPage implements OnInit {
     toast.present().then();
   }
 
-  removeFromList(index : number) {
+  removeFromList(index: number) {
     this.loaded = false;
     this.mwl.splice(index, 1);
     this.storage.set('mwl', this.mwl);
     this.presentToast('Movie removed from Watchlist!');
     this.loaded = true;
+  }
+
+  assignCopy() {
+    this.filteredItems = Object.assign([], this.mwl);
+  }
+
+  filterItem(value) {
+    if (!value) {
+      this.assignCopy();
+    }
+    this.filteredItems = Object.assign([], this.mwl).filter(
+      item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
+    )
   }
 }

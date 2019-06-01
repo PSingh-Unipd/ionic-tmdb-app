@@ -4,18 +4,18 @@ import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/common/base.service';
 
 @Injectable()
-export class ExploreService extends BaseService{
+export class ExploreTvService extends BaseService{
 
     constructor(private _http: HttpClient) { 
         super(_http);
     }
 
     search(queryString: string): Observable<any> {
-        return this.SearchREST(queryString, '&language=en-US&query=', '&page=1&include_adult=false', 'movie');
+        return this.SearchREST(queryString, '&language=en-US&query=', '&page=1&include_adult=false', 'tv');
     }
 
-    getMovies(type:string): Observable<any> { // now_playing, upcoming, top_rated
-        return this.DetailsREST('', type, '&language=en-US', 'movie');
+    getTvSeries(type:string): Observable<any> { 
+        return this.DetailsREST('', type, '&language=en-US', 'tv');
     }
 
     getList(list): Observable<any> {

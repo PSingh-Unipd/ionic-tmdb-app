@@ -3,7 +3,8 @@ import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { TranslateService } from 'src/app/common/translate.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorite',
@@ -14,6 +15,8 @@ export class FavoritePage implements OnInit {
   scandata;
   fml: Movie[] = [];
   loaded: boolean = false;
+  filteredItems: any;
+  filterVal: FormControl = new FormControl();
   constructor(
     private router: Router,
     private storage: Storage,
@@ -21,9 +24,16 @@ export class FavoritePage implements OnInit {
 
   ngOnInit() {
 
+    this.filterVal.valueChanges.pipe(
+      debounceTime(300)
+    ).subscribe(val => {
+      this.filterItem(val);
+    });
+
     this.storage.get('fml').then((elements) => {
       if (elements) {
         this.fml = elements;
+        this.assignCopy();
         this.loaded = true;
       }
     });
@@ -43,6 +53,7 @@ export class FavoritePage implements OnInit {
     this.fml.splice(event.detail.to, 0, temp);
     event.detail.complete();
     this.storage.set('fml', this.fml);
+    this.assignCopy();
   }
 
   async presentToast(message:string) {
@@ -60,4 +71,21 @@ export class FavoritePage implements OnInit {
     this.presentToast('Movie removed from favorites!');
     this.loaded = true;
   }  
+
+  assignCopy() {
+    this.filteredItems = Object.assign([], this.fml);
+  }
+
+  filterItem(value) {
+    if (!value) {
+      this.assignCopy();
+    }
+    this.filteredItems = Object.assign([], this.fml).filter(
+      item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
+    )
+  }
+
+  reset(event) {
+    this.assignCopy();
+  }
 }
