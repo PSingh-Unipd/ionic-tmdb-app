@@ -14,7 +14,7 @@ export class ExploreService extends BaseService{
         return this.SearchREST(queryString, '&language=en-US&query=', '&page=1&include_adult=false', 'movie');
     }
 
-    getMovies(type:string): Observable<any> { // now_playing, upcoming, top_rated
+    getMovies(type:string): Observable<any> {
         return this.DetailsREST('', type, '&language=en-US', 'movie');
     }
 

@@ -25,7 +25,7 @@ export class MenuPage implements OnInit {
     },
     {
       title: 'My Watchlist',
-      url: '/menu/list',
+      url: '/menu/list/movies',
       icon: 'time'
     },
     {

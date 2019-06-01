@@ -3,25 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { ListPage } from './list.page';
+import { MoviesPage } from './movies.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListPage,
-    children: [
-      {
-        path: 'movies',
-        loadChildren: './pages/movies/movies.module#MoviesPageModule'
-      },
-      {
-        path: 'shows',
-        loadChildren: './pages/shows/shows.module#ShowsPageModule'
-      }
-    ]
-  },
-  
+    component: MoviesPage
+  }
 ];
 
 @NgModule({
@@ -33,6 +22,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [ListPage]
+  declarations: [MoviesPage]
 })
-export class ListPageModule {}
+export class MoviesPageModule {}

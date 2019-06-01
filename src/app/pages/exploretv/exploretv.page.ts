@@ -19,7 +19,7 @@ export class ExploretvPage implements OnInit {
   loaded: boolean = false;
   trendings: any[];
   copy: any[];
-  mwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
+  tvwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
   fml: Movie[] = [];
   moviesGeneres: any[];
   queryField: FormControl = new FormControl();
@@ -35,9 +35,9 @@ export class ExploretvPage implements OnInit {
 
   ngOnInit(): void {
 
-    this._storage.get('mwl').then((elements) => {
+    this._storage.get('tvwl').then((elements) => {
       if (elements) {
-        this.mwl = elements;
+        this.tvwl = elements;
       }
     });
 
@@ -97,20 +97,20 @@ export class ExploretvPage implements OnInit {
     }    
   }
 
-  // Add movie to my mwl variabile in local storage
+  // Add movie to my tvwl variabile in local storage
   addMyWatchList(item): void {
     const movie: Movie = {
-      title: item.title,
+      title: item.name,
       id: item.id,
       poster: item.poster_path ? item.poster_path : null,
       date: new Date()
     };
-    if (this.mwl.find(el => el.id == movie.id) == null) {
-      this.mwl.unshift(movie);
-      this._storage.set('mwl', this.mwl);
-      this.presentToast('Movie added to Watchlist!');
+    if (this.tvwl.find(el => el.id == movie.id) == null) {
+      this.tvwl.unshift(movie);
+      this._storage.set('tvwl', this.tvwl);
+      this.presentToast('Show added to Watchlist!');
     } else {
-      this.presentToast('Movie already present in your Watchlist!');
+      this.presentToast('Show already present in your Watchlist!');
     }
   }
 
@@ -125,9 +125,9 @@ export class ExploretvPage implements OnInit {
     if (this.fml.find(el => el.id == movie.id) == null) {
       this.fml.unshift(movie);
       this._storage.set('fml', this.fml);
-      this.presentToast('Movie added to favorites!');
+      this.presentToast('Show added to favorites!');
     } else {
-      this.presentToast('Movie already present in your favorites!');
+      this.presentToast('Show already present in your favorites!');
     }
   }
 

@@ -77,7 +77,7 @@ export class ShowdetailsComponent implements OnInit {
 
   addMyWatchList(): void {
     const movie: Movie = {
-      title: this.detail.title,
+      title: this.detail.name,
       id: this.detail.id,
       poster: this.detail.poster_path ? this.detail.poster_path : null,
       date: new Date()
@@ -85,15 +85,15 @@ export class ShowdetailsComponent implements OnInit {
     if (this.mwl.find(el => el.id == movie.id) == null) {
       this.mwl.unshift(movie);
       this._storage.set('mwl', this.mwl);
-      this.presentToast('Movie added to Watchlist!');
+      this.presentToast('Show added to Watchlist!');
     } else {
-      this.presentToast('Movie already present in your Watchlist!');
+      this.presentToast('Show already present in your Watchlist!');
     }
   }
 
   addFavoriteList(): void {
     const movie: Movie = {
-      title: this.detail.title,
+      title: this.detail.name,
       id: this.detail.id,
       poster: this.detail.poster_path ? this.detail.poster_path : null,
       date: new Date()
@@ -101,9 +101,9 @@ export class ShowdetailsComponent implements OnInit {
     if (this.fml.find(el => el.id == movie.id) == null) {
       this.fml.unshift(movie);
       this._storage.set('fml', this.fml);
-      this.presentToast('Movie added to favorites!');
+      this.presentToast('Show added to favorites!');
     } else {
-      this.presentToast('Movie already present in your favorites!');
+      this.presentToast('Show already present in your favorites!');
     }
   }
 

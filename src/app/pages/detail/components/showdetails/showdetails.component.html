@@ -39,6 +39,7 @@
         </ion-col>
       </ion-row>
     </div>
+
     <div class="list">
       <h5 style="padding-top: 15px !important;">{{ 'MOVIE-DETAILS.cast' | translate:params }}</h5>
       <div class="poster-container">
@@ -71,8 +72,22 @@
       </div>
     </div>
 
+    <div class="seasons-section">
+        <h5 style="padding-left: 20px;">SEASONS</h5>
+      <ion-list no-padding>
+        <ion-item-sliding *ngFor="let season of detail.seasons">
+          <ion-item color="secondary">
+            <ion-label>{{season.name}} - # episodes: {{season.episode_count}}</ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option (click)="unread(item)">Season Info</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+
     <div class="list" *ngIf="movieRecommendations.length > 0">
-      <h5>{{ 'MOVIE-DETAILS.rec' | translate:params }}:</h5>
+      <h5 style="padding-top: 15px;">{{ 'MOVIE-DETAILS.rec' | translate:params }}:</h5>
       <div class="poster-container">
         <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">
           <div>
