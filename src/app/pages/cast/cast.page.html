@@ -46,30 +46,32 @@
     </div>
 
     <div class="list">
-      <h5>CAST IN MOVIES:</h5>
+      <h5>CAST IN MOVIES</h5>
       <div class="poster-container">
         <ion-card *ngFor="let item of movies.cast" class="card" (click)="movieDetails(item)">
           <div>
             <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}"
               class="poster2">
-            <h6 class="movie-title">
+            <h6 *ngIf="item.title != undefined" class="movie-title">
               {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
             </h6>
+            <p *ngIf="item.character != undefined">({{(item.character.length>16)? (item.character | slice:0:14)+'..':(item.character)}})</p>
           </div>
         </ion-card>
       </div>
     </div>
 
-    <div class="list" *ngIf="movies.crew.length > 0">
-      <h5>PART OF CREW:</h5>
+    <div class="list" *ngIf="shows.cast.length > 0">
+      <h5>CAST IN SHOWS</h5>
       <div class="poster-container">
-        <ion-card *ngFor="let item of movies.crew" class="card" (click)="movieDetails(item)">
+        <ion-card *ngFor="let item of shows.cast" class="card" (click)="showDetails(item)">
           <div>
             <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}"
               class="poster2">
-            <h6 class="movie-title">
-              {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+            <h6 *ngIf="item.name != undefined" class="movie-title">
+              {{(item.name.length>16)? (item.name | slice:0:16)+'..':(item.name)}}
             </h6>
+            <p *ngIf="item.character != undefined">({{(item.character.length>16)? (item.character | slice:0:14)+'..':(item.character)}})</p>
           </div>
         </ion-card>
       </div>

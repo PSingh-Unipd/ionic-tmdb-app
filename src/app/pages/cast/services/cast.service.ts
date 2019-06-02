@@ -17,4 +17,8 @@ export class CastService extends BaseService{
     getMovies(id): Observable<any> {
         return this.PersonREST(id, '/movie_credits', '&language=en-US');
     }
+
+    getShows(id): Observable<any> {
+        return this.PersonREST(id, '/tv_credits', '&language=en-US');
+    }
 }

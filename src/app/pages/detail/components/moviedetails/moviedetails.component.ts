@@ -7,6 +7,7 @@ import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
 import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
+import { SubjectElement } from 'src/app/interfaces/subject.interface';
 
 @Component({
   selector: 'app-moviedetails',
@@ -65,10 +66,6 @@ export class MoviedetailsComponent implements OnInit {
       this.loaded = true;
       console.log('STAMPA FILM', results);
     });
-  }
-
-  close() {
-    this._location.back();
   }
 
   playTrailer() {
@@ -145,7 +142,8 @@ export class MoviedetailsComponent implements OnInit {
   }
 
   async movieRec(item) {
-    this.update(item.id);
+    const temp: SubjectElement = {id: item.id, type: 'movie'};
+    this.update(temp);
   }
 
   async castDetail(item) {
@@ -164,10 +162,8 @@ export class MoviedetailsComponent implements OnInit {
     return await modal.present();
   }
 
-  update(id) {
-    this._service.dataSource.next(id);
-    this.loaded = false;
-    this.loadData();
+  update(movie: SubjectElement) {
+    this._service.updateValue(movie);
   }
 
 }

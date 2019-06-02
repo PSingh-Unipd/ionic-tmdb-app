@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CastService } from './services/cast.service';
 import { ModalController } from '@ionic/angular';
 import { forkJoin } from 'rxjs';
+import { SubjectElement } from 'src/app/interfaces/subject.interface';
 
 @Component({
   selector: 'app-cast',
@@ -13,6 +14,7 @@ export class CastPage implements OnInit {
   @Input() castID;
   detail;
   movies;
+  shows;
   loaded: boolean = false;
   constructor(
     private service: CastService,
@@ -22,10 +24,12 @@ export class CastPage implements OnInit {
 
     const cast = this.service.getDetails(this.castID);
     const movies = this.service.getMovies(this.castID);
+    const shows = this.service.getShows(this.castID);
 
-    forkJoin([cast, movies]).subscribe(results => {
+    forkJoin([cast, movies, shows]).subscribe(results => {
       this.detail = results[0];
       this.movies = results[1];
+      this.shows = results[2];
       if (this.detail.biography == '')
         this.detail.biography = 'Biography not found for this actor!';
       this.loaded = true;
@@ -37,6 +41,12 @@ export class CastPage implements OnInit {
   }
 
   movieDetails(item) {
-    this._controller.dismiss(item.id);
+    const temp: SubjectElement = {id: item.id, type: 'movie'};
+    this._controller.dismiss(temp);
+  }
+
+  showDetails(item) {
+    const temp: SubjectElement = {id: item.id, type: 'show'};
+    this._controller.dismiss(temp);
   }
 }

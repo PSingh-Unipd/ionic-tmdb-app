@@ -19,14 +19,24 @@ export class DetailPage {
     private _router: Router,
     private _location: Location) {
       
-    this._service._id.subscribe(
-      res => this.id = res
+    this._service._specInfo.subscribe(
+      res => {
+        if(res != null) {
+          this.loaded = false;
+          this.id = res.id; 
+          this.type = res.type;
+          console.log('STAMPA RESS', res);
+          setInterval(()=> this.loaded = true, 200);
+        }
+      }
     );
+
     this._route.queryParams.subscribe(params => {
       if (this._router.getCurrentNavigation().extras.state) {
         this.id = this._router.getCurrentNavigation().extras.state.id;
       }
     });
+
     this._route.queryParams.subscribe(params => {
       if (this._router.getCurrentNavigation().extras.state) {
         this.type = this._router.getCurrentNavigation().extras.state.type;

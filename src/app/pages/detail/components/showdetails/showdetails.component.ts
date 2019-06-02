@@ -7,6 +7,7 @@ import { Movie } from 'src/app/interfaces/movie.interface';
 import { Storage } from '@ionic/storage';
 import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
+import { SubjectElement } from 'src/app/interfaces/subject.interface';
 
 @Component({
   selector: 'app-showdetails',
@@ -66,11 +67,7 @@ export class ShowdetailsComponent implements OnInit {
       console.log('STAMPA FILM', results);
     });
   }
-
-  close() {
-    this._location.back();
-  }
-
+  
   playTrailer() {
     this._player.openVideo(this.videos.results[0].key);
   }
@@ -144,8 +141,9 @@ export class ShowdetailsComponent implements OnInit {
     await actionSheet.present();
   }
 
-  async movieRec(item) {
-    this.update(item.id);
+  async showRec(item) {
+    const temp: SubjectElement = {id: item.id, type: 'show'};
+    this.update(temp);
   }
 
   async castDetail(item) {
@@ -164,10 +162,8 @@ export class ShowdetailsComponent implements OnInit {
     return await modal.present();
   }
 
-  update(id) {
-    this._service.dataSource.next(id);
-    this.loaded = false;
-    this.loadData();
+  update(val: SubjectElement) {
+    this._service.updateValue(val);
   }
 
 }
