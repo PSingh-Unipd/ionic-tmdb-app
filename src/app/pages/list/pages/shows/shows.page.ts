@@ -40,10 +40,11 @@ export class ShowsPage implements OnInit {
     });
   }
 
-  async movieDetails(item: Movie) {
+  async showDetails(item: Movie) {
     const navigationExtras: NavigationExtras = {
       state: {
-        id: item.id
+        id: item.id,
+        type: 'show'
       }
     };
     this.router.navigate(['/menu/details'], navigationExtras);

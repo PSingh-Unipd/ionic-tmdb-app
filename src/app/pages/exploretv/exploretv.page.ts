@@ -219,7 +219,7 @@ export class ExploretvPage implements OnInit {
         },
         {
           text: 'IMDB Top 100 shows',
-          icon: 'film',
+          icon: 'tv',
           handler: () => {
             this.loadShowList('113136');
           }

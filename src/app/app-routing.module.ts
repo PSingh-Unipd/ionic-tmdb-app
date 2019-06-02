@@ -5,10 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateService } from './common/translate.service';
+import { InfoPageModule } from './pages/info/info.module';
 
 const routes: Routes = [
   { path: '', loadChildren: './pages/menu/menu.module#MenuPageModule' },
-  { path: 'cast', loadChildren: './pages/cast/cast.module#CastPageModule' }
+  { path: 'cast', loadChildren: './pages/cast/cast.module#CastPageModule' },
+  { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' }
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -19,6 +21,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     CastPageModule,
+    InfoPageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

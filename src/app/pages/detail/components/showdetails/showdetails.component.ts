@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
+import { InfoPage } from 'src/app/pages/info/info.page';
 
 @Component({
   selector: 'app-showdetails',
@@ -114,7 +115,7 @@ export class ShowdetailsComponent implements OnInit {
 
   async addMyList() {
     const actionSheet = await this._actionSheetController.create({
-      header: this.detail.title.toUpperCase(),
+      header: this.detail.name.toUpperCase(),
       buttons: [
         {
           text: 'Watchlist',
@@ -159,6 +160,14 @@ export class ShowdetailsComponent implements OnInit {
         }
       });
 
+    return await modal.present();
+  }
+
+  async seasonDetail(item) {
+    const modal = await this._modal.create({
+      component: InfoPage,
+      componentProps: { seasonInfo: item }
+    });
     return await modal.present();
   }
 

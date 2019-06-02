@@ -27,4 +27,8 @@ export class BaseService {
         return this.http.get<any>('https://api.themoviedb.org/3/list/'+listID+'?api_key='+this.ApiKey+languege);
     }
 
+    public SeasonREST(seasonNumber, showId) {
+        return this.http.get<any>('https://api.themoviedb.org/3/tv/'+ showId +'/season/'+ seasonNumber +'?api_key='+this.ApiKey+'&language=en-US');
+    }
+
 }

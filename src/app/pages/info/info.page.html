@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title color="primary">Season Info</ion-title>
+    <ion-icon slot="end" (click)="close()" name="arrow-round-back" class="back-button"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="secondary">
+  <div class="spinner-container" *ngIf="loaded == false">
+    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
+    <p>loading...</p>
+  </div>
+  <div *ngIf="loaded == true">
+    <div class="title-container">
+      <ion-row>
+        <ion-col size="12">
+          <h5>
+            Season Name: {{season.name}}
+          </h5>
+          <p> {{season.air_date}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="poster-section">
+      <ion-row padding>
+        <ion-col size="5">
+          <img src="{{season.poster_path ? 'https://image.tmdb.org/t/p/w185'+season.poster_path : 'assets/no-av.png'}}"
+            class="poster">
+        </ion-col>
+        <ion-col size="7">
+          <p>{{(season.overview.length > 340)? (season.overview | slice:0:340)+'...':(season.overview)}}</p>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <h4 style="margin-left: 20px; margin-bottom: 10px;">Episodes</h4>
+    <div class="title-container">
+        <div class="hr"></div>
+        <ion-row *ngFor="let episode of season.episodes">
+            <ion-col size="9">
+                <h5>
+                  {{episode.name}}
+                </h5>
+                <p>{{episode.air_date}}</p>
+              </ion-col>
+              <ion-col size="3">
+                <div class="rating">
+                  <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="5"
+                    [percent]="10 * episode.vote_average" [titleColor]="'#fff'" [radius]="20" [showSubtitle]=false
+                    [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'"  [titleFontSize]="11"
+                   >
+                  </circle-progress>
+                </div>
+              </ion-col>
+              <div class="hr"></div>
+        </ion-row>
+      </div>
+  </div>
+</ion-content>

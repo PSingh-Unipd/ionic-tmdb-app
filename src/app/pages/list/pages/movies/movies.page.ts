@@ -50,7 +50,8 @@ export class MoviesPage implements OnInit {
   async movieDetails(item: Movie) {
     const navigationExtras: NavigationExtras = {
       state: {
-        id: item.id
+        id: item.id,
+        type: 'movie'
       }
     };
     this.router.navigate(['/menu/details'], navigationExtras);

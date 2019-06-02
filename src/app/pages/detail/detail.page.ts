@@ -25,7 +25,6 @@ export class DetailPage {
           this.loaded = false;
           this.id = res.id; 
           this.type = res.type;
-          console.log('STAMPA RESS', res);
           setInterval(()=> this.loaded = true, 200);
         }
       }
