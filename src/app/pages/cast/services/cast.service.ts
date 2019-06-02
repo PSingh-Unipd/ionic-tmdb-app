@@ -11,14 +11,14 @@ export class CastService extends BaseService{
     }
 
     getDetails(id): Observable<any> {
-        return this.PersonREST(id, '', '&language=en-US');
+        return this.PersonREST(id, '');
     }
 
     getMovies(id): Observable<any> {
-        return this.PersonREST(id, '/movie_credits', '&language=en-US');
+        return this.PersonREST(id, '/movie_credits');
     }
 
     getShows(id): Observable<any> {
-        return this.PersonREST(id, '/tv_credits', '&language=en-US');
+        return this.PersonREST(id, '/tv_credits');
     }
 }

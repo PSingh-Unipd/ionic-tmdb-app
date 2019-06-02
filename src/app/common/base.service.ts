@@ -8,27 +8,28 @@ export class BaseService {
     you can get your key for free from https://www.themoviedb.org/ 
     -> just register with a valid email and vualá */
     ApiKey: string = '29371e05e1dfa0327af74c0805fef777';
+    languege: string = '&language=en-US';
 
     constructor(public http: HttpClient) { }
 
-    public DetailsREST(id, path, languege, type) {
-        return this.http.get<any>('https://api.themoviedb.org/3/'+type+'/'+id+path+'?api_key='+this.ApiKey+languege);
+    public DetailsREST(id, path, type) {
+        return this.http.get<any>('https://api.themoviedb.org/3/'+type+'/'+id+path+'?api_key='+this.ApiKey+this.languege);
     }
 
-    public PersonREST(id, path, languege) {
-        return this.http.get<any>('https://api.themoviedb.org/3/person/'+id+path+'?api_key='+this.ApiKey+languege);
+    public PersonREST(id, path) {
+        return this.http.get<any>('https://api.themoviedb.org/3/person/'+id+path+'?api_key='+this.ApiKey+this.languege);
     }
 
-    public SearchREST(str, languege, params, type) {
-        return this.http.get<any>('https://api.themoviedb.org/3/search/'+type +'?api_key='+this.ApiKey+languege+str+params);
+    public SearchREST(str, params, type) {
+        return this.http.get<any>('https://api.themoviedb.org/3/search/'+type +'?api_key='+this.ApiKey+this.languege+'&query='+str+params);
     }
 
-    public ListREST(listID, languege) {
-        return this.http.get<any>('https://api.themoviedb.org/3/list/'+listID+'?api_key='+this.ApiKey+languege);
+    public ListREST(listID) {
+        return this.http.get<any>('https://api.themoviedb.org/3/list/'+listID+'?api_key='+this.ApiKey+this.languege);
     }
 
     public SeasonREST(seasonNumber, showId) {
-        return this.http.get<any>('https://api.themoviedb.org/3/tv/'+ showId +'/season/'+ seasonNumber +'?api_key='+this.ApiKey+'&language=en-US');
+        return this.http.get<any>('https://api.themoviedb.org/3/tv/'+ showId +'/season/'+ seasonNumber +'?api_key='+this.ApiKey+this.languege);
     }
 
 }

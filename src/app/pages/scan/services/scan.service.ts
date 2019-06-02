@@ -20,6 +20,6 @@ export class ScanService extends BaseService {
     }
 
     search(queryString: string): Observable<any> {
-        return this.SearchREST(queryString, '&language=en-US&query=', '&page=1&include_adult=false', 'movie');
+        return this.SearchREST(queryString, '&page=1&include_adult=false', 'movie');
     }
 }

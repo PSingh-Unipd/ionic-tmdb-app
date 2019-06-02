@@ -19,11 +19,11 @@ export class DetailService extends BaseService{
     }
     
     getDetails(id, type): Observable<any> {
-        return this.DetailsREST(id, '', '&language=en-US&page=1', type);
+        return this.DetailsREST(id, '', type);
     }
 
     getVideos(id, type): Observable<any> {
-        return this.DetailsREST(id, '/videos', '&language=en-US&page=1', type);
+        return this.DetailsREST(id, '/videos', type);
     }
 
     getCredits(id, type) {
@@ -31,6 +31,6 @@ export class DetailService extends BaseService{
     }
 
     getRecommendations(id, type) {
-        return this.DetailsREST(id, '/recommendations', '&language=en-US&page=1', type);
+        return this.DetailsREST(id, '/recommendations', type);
     }
 }
