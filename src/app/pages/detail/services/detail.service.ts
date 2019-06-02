@@ -27,7 +27,7 @@ export class DetailService extends BaseService{
     }
 
     getCredits(id, type) {
-        return this.DetailsREST(id, '/credits', '', type);
+        return this.DetailsREST(id, '/credits', type);
     }
 
     getRecommendations(id, type) {
