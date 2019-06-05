@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-movies',
@@ -23,13 +23,12 @@ export class MoviesPage implements OnInit {
   constructor(
     private router: Router,
     private storage: Storage,
-    public toastController: ToastController) { }
+    public alertController: AlertController) { }
 
   ngOnInit() {
     this.filterVal.valueChanges.pipe(
       debounceTime(300)
     ).subscribe(val => {
-      console.log('STAMPA VAL', val);
       this.filterItem(val);
     });
 
@@ -40,6 +39,7 @@ export class MoviesPage implements OnInit {
         this.assignCopy();
       }
     });
+
     this.storage.get('fml').then((elements) => {
       if (elements) {
         this.fml = elements;
@@ -80,18 +80,19 @@ export class MoviesPage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const toast = await this.toastController.create({
+    const alert = await this.alertController.create({
       message: message,
-      duration: 4000
+      buttons: ['OK']
     });
-    toast.present().then();
+    await alert.present();
   }
 
   removeFromList(index: number) {
     this.loaded = false;
     this.mwl.splice(index, 1);
     this.storage.set('mwl', this.mwl);
-    this.presentToast('Movie removed from Watchlist!');
+    this.presentToast('Movie removed from your Watchlist!');
+    this.assignCopy();
     this.loaded = true;
   }
 

@@ -12,13 +12,13 @@
     },
     "WATCHLIST": {
         "title": "My Watchlist",
-        "sub-title": "Movies I'll like to watch:",
+        "sub-title": "Movies I'll like to watch",
         "add-msg": "No movies added to Watchlist!",
         "add-msgtv": "No Shows added to Watchlist!",
         "filter": "Filter in list"
     },
     "MOVIE-DETAILS": {
-        "title": "Movie details",
+        "title": "More details",
         "cast": "FULL CAST",
         "rec": "RECOMMENDATIONS",
         "crew": "CREW"

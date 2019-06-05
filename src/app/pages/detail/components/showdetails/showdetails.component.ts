@@ -23,7 +23,7 @@ export class ShowdetailsComponent implements OnInit {
   videos;
   movieRecommendations;
   loaded: boolean = false;
-  mwl: Movie[] = [];
+  tvwl: Movie[] = [];
   fml: Movie[] = [];
   constructor(
     public alertController: AlertController,
@@ -38,9 +38,9 @@ export class ShowdetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this._storage.get('mwl').then((elements) => {
+    this._storage.get('tvwl').then((elements) => {
       if (elements) {
-        this.mwl = elements;
+        this.tvwl = elements;
       }
     });
 
@@ -80,9 +80,9 @@ export class ShowdetailsComponent implements OnInit {
       poster: this.detail.poster_path ? this.detail.poster_path : null,
       date: new Date()
     };
-    if (this.mwl.find(el => el.id == movie.id) == null) {
-      this.mwl.unshift(movie);
-      this._storage.set('mwl', this.mwl);
+    if (this.tvwl.find(el => el.id == movie.id) == null) {
+      this.tvwl.unshift(movie);
+      this._storage.set('tvwl', this.tvwl);
       this.presentToast('Show added to Watchlist!');
     } else {
       this.presentToast('Show already present in your Watchlist!');

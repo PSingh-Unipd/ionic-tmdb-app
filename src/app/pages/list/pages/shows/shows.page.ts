@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-shows',
@@ -22,7 +22,7 @@ export class ShowsPage implements OnInit {
   constructor(
     private router: Router,
     private storage: Storage,
-    public toastController: ToastController) { }
+    public alertController: AlertController) { }
 
   ngOnInit() {
     this.filterVal.valueChanges.pipe(
@@ -63,18 +63,19 @@ export class ShowsPage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const toast = await this.toastController.create({
+    const alert = await this.alertController.create({
       message: message,
-      duration: 4000
+      buttons: ['OK']
     });
-    toast.present().then();
+    await alert.present();
   }
 
   removeFromList(index: number) {
     this.loaded = false;
     this.tvwl.splice(index, 1);
     this.storage.set('tvwl', this.tvwl);
-    this.presentToast('Movie removed from Watchlist!');
+    this.presentToast('Show removed from your Watchlist!');
+    this.assignCopy();
     this.loaded = true;
   }
 

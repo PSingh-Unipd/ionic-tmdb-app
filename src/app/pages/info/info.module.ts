@@ -9,7 +9,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'info',
     component: InfoPage
   }
 ];
