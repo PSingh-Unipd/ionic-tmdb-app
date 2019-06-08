@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MenuPage } from './menu.page';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 const routes: Routes = [
   {
@@ -12,27 +13,27 @@ const routes: Routes = [
     children: [
       {
         path: 'explore',
-        loadChildren: '../explore/explore.module#ExplorePageModule'
+        loadChildren: './pages/explore/explore.module#ExplorePageModule'
       },
       { 
         path: 'list', 
-        loadChildren: '../list/list.module#ListPageModule' 
+        loadChildren: './pages/list/list.module#ListPageModule' 
       },
       { 
         path: 'favorite', 
-        loadChildren: '../favorite/favorite.module#FavoritePageModule' 
+        loadChildren: './pages/favorite/favorite.module#FavoritePageModule' 
       },
       { 
         path: 'details', 
-        loadChildren: '../detail/detail.module#DetailPageModule' 
+        loadChildren: './pages/detail/detail.module#DetailPageModule' 
       },
       { 
         path: 'scan', 
-        loadChildren: '../scan/scan.module#ScanPageModule' 
+        loadChildren: './pages/scan/scan.module#ScanPageModule' 
       },
       { 
         path: 'tv', 
-        loadChildren: '../exploretv/exploretv.module#ExploretvPageModule' 
+        loadChildren: './pages/exploretv/exploretv.module#ExploretvPageModule' 
       }
     ]
   },
@@ -49,6 +50,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MenuPage]
+  declarations: [MenuPage],
+  providers: [LocalStorageService]
 })
 export class MenuPageModule { }

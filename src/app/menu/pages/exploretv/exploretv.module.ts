@@ -9,6 +9,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { ExploreTvService } from './services/exploretv.service';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 const routes: Routes = [
   {

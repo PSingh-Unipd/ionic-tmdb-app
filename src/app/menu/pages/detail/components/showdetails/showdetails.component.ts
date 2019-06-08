@@ -8,7 +8,8 @@ import { Storage } from '@ionic/storage';
 import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
-import { InfoPage } from 'src/app/pages/info/info.page';
+import { InfoPage } from 'src/app/menu/pages/info/info.page';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
   selector: 'app-showdetails',
@@ -24,32 +25,20 @@ export class ShowdetailsComponent implements OnInit {
   movieRecommendations;
   loaded: boolean = false;
   tvwl: Movie[] = [];
-  fml: Movie[] = [];
   constructor(
     public alertController: AlertController,
     private _service: DetailService,
     public _player: YoutubeVideoPlayer,
-    private _storage: Storage,
+    private _storage: LocalStorageService,
     private _actionSheetController: ActionSheetController,
     public _toastController: ToastController,
-    private _location: Location,
     private _modal: ModalController) {
   }
 
   ngOnInit() {
-
-    this._storage.get('tvwl').then((elements) => {
-      if (elements) {
-        this.tvwl = elements;
-      }
-    });
-
-    this._storage.get('fml').then((elements) => {
-      if (elements) {
-        this.fml = elements;
-      }
-    });
-
+    this._storage._oservables.tv.subscribe(
+      val => this.tvwl = val
+    );
     this.loadData();
   }
 
@@ -65,7 +54,6 @@ export class ShowdetailsComponent implements OnInit {
       this.videos = results[2];
       this.movieRecommendations = results[3].results;
       this.loaded = true;
-      console.log('STAMPA FILM', results);
     });
   }
   
@@ -82,14 +70,14 @@ export class ShowdetailsComponent implements OnInit {
     };
     if (this.tvwl.find(el => el.id == movie.id) == null) {
       this.tvwl.unshift(movie);
-      this._storage.set('tvwl', this.tvwl);
+      this._storage.updateTvSeriesWL(this.tvwl);
       this.presentToast('Show added to Watchlist!');
     } else {
       this.presentToast('Show already present in your Watchlist!');
     }
   }
 
-  addFavoriteList(): void {
+  /*addFavoriteList(): void {
     const movie: Movie = {
       title: this.detail.name,
       id: this.detail.id,
@@ -103,7 +91,7 @@ export class ShowdetailsComponent implements OnInit {
     } else {
       this.presentToast('Show already present in your favorites!');
     }
-  }
+  }*/
 
   async presentToast(message: string) {
     const alert = await this.alertController.create({
@@ -124,13 +112,7 @@ export class ShowdetailsComponent implements OnInit {
             this.addMyWatchList();
           }
         },
-        {
-          text: 'Favorite Movie',
-          icon: 'heart',
-          handler: () => {
-            this.addFavoriteList();
-          }
-        }, {
+       {
           text: 'Cancel',
           icon: 'close',
           role: 'cancel',

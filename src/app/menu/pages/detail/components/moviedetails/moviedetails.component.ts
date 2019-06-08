@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
   selector: 'app-moviedetails',
@@ -23,32 +24,20 @@ export class MoviedetailsComponent implements OnInit {
   movieRecommendations;
   loaded: boolean = false;
   mwl: Movie[] = [];
-  fml: Movie[] = [];
   constructor(
     public alertController: AlertController,
     private _service: DetailService,
     public _player: YoutubeVideoPlayer,
-    private _storage: Storage,
+    private _storage: LocalStorageService,
     private _actionSheetController: ActionSheetController,
     public _toastController: ToastController,
-    private _location: Location,
     private _modal: ModalController) {
   }
 
   ngOnInit() {
-
-    this._storage.get('mwl').then((elements) => {
-      if (elements) {
-        this.mwl = elements;
-      }
-    });
-
-    this._storage.get('fml').then((elements) => {
-      if (elements) {
-        this.fml = elements;
-      }
-    });
-
+    this._storage._oservables.movies.subscribe(
+      data => this.mwl = data
+    );
     this.loadData();
   }
 
@@ -81,26 +70,10 @@ export class MoviedetailsComponent implements OnInit {
     };
     if (this.mwl.find(el => el.id == movie.id) == null) {
       this.mwl.unshift(movie);
-      this._storage.set('mwl', this.mwl);
-      this.presentToast('Movie added to Watchlist!');
+      this._storage.updateMoviesWL(this.mwl);
+      this.presentToast('Movie added to your Watchlist!');
     } else {
       this.presentToast('Movie already present in your Watchlist!');
-    }
-  }
-
-  addFavoriteList(): void {
-    const movie: Movie = {
-      title: this.detail.title,
-      id: this.detail.id,
-      poster: this.detail.poster_path ? this.detail.poster_path : null,
-      date: new Date()
-    };
-    if (this.fml.find(el => el.id == movie.id) == null) {
-      this.fml.unshift(movie);
-      this._storage.set('fml', this.fml);
-      this.presentToast('Movie added to favorites!');
-    } else {
-      this.presentToast('Movie already present in your favorites!');
     }
   }
 
@@ -124,12 +97,6 @@ export class MoviedetailsComponent implements OnInit {
           }
         },
         {
-          text: 'Favorite Movie',
-          icon: 'heart',
-          handler: () => {
-            this.addFavoriteList();
-          }
-        }, {
           text: 'Cancel',
           icon: 'close',
           role: 'cancel',

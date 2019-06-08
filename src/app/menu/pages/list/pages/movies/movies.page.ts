@@ -6,6 +6,7 @@ import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { ToastController, AlertController } from '@ionic/angular';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
   selector: 'app-movies',
@@ -16,14 +17,17 @@ export class MoviesPage implements OnInit {
 
   filterVal: FormControl = new FormControl();
   mwl: Movie[] = [];
-  fml: Movie[] = [];
   loaded: boolean = false;
   filteredItems: any;
 
   constructor(
-    private router: Router,
-    private storage: Storage,
-    public alertController: AlertController) { }
+    private _router: Router,
+    private _storage: LocalStorageService,
+    public _alertController: AlertController) { 
+      this._storage._oservables.moviesLoading.subscribe(value =>
+        this.loaded = value
+      );
+    }
 
   ngOnInit() {
     this.filterVal.valueChanges.pipe(
@@ -32,18 +36,9 @@ export class MoviesPage implements OnInit {
       this.filterItem(val);
     });
 
-    this.storage.get('mwl').then((elements) => {
-      if (elements) {
-        this.mwl = elements;
-        this.loaded = true;
-        this.assignCopy();
-      }
-    });
-
-    this.storage.get('fml').then((elements) => {
-      if (elements) {
-        this.fml = elements;
-      }
+    this._storage._oservables.movies.subscribe(data => {
+      this.mwl = data;
+      this.assignCopy();
     });
   }
 
@@ -54,14 +49,14 @@ export class MoviesPage implements OnInit {
         type: 'movie'
       }
     };
-    this.router.navigate(['/menu/details'], navigationExtras);
+    this._router.navigate(['/menu/details'], navigationExtras);
   }
 
   reorderItems(event) {
     const temp = this.mwl.splice(event.detail.from, 1)[0];
     this.mwl.splice(event.detail.to, 0, temp);
     event.detail.complete();
-    this.storage.set('mwl', this.mwl);
+    this._storage.updateMoviesWL(this.mwl);
     this.assignCopy();
   }
 
@@ -69,18 +64,8 @@ export class MoviesPage implements OnInit {
     this.assignCopy();
   }
 
-  addFavorite(item: Movie) {
-    if (this.fml.find(el => el.id == item.id) == null) {
-      this.fml.unshift(item);
-      this.storage.set('fml', this.fml);
-      this.presentToast('Movie added to favorite!');
-    } else {
-      this.presentToast('Movie already present in your favorites!');
-    }
-  }
-
   async presentToast(message: string) {
-    const alert = await this.alertController.create({
+    const alert = await this._alertController.create({
       message: message,
       buttons: ['OK']
     });
@@ -90,7 +75,7 @@ export class MoviesPage implements OnInit {
   removeFromList(index: number) {
     this.loaded = false;
     this.mwl.splice(index, 1);
-    this.storage.set('mwl', this.mwl);
+    this._storage.updateMoviesWL(this.mwl);
     this.presentToast('Movie removed from your Watchlist!');
     this.assignCopy();
     this.loaded = true;

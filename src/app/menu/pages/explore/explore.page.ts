@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { switchMap, debounceTime } from 'rxjs/operators';
 import { ExploreService } from './services/explore.service';
-import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { ActionSheetController, ToastController, IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
   selector: 'app-explore',
@@ -26,25 +26,23 @@ export class ExplorePage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   constructor(
-    private router: Router,
+    private _router: Router,
     private _service: ExploreService,
-    private _storage: Storage,
-    private actionSheetController: ActionSheetController,
-    public alertController: AlertController) { }
+    private _storage: LocalStorageService,
+    private _actionSheetController: ActionSheetController,
+    public _alertController: AlertController) { }
 
   ngOnInit(): void {
 
-    this._storage.get('mwl').then((elements) => {
-      if (elements) {
-        this.mwl = elements;
-      }
-    });
+    this._storage._oservables.movies.subscribe(
+      data => this.mwl = data
+    );
 
-    this._storage.get('fml').then((elements) => {
+   /* this._storage.get('fml').then((elements) => {
       if (elements) {
         this.fml = elements;
       }
-    });
+    });*/
 
     this.queryField.valueChanges.pipe(
       debounceTime(1000),
@@ -85,7 +83,7 @@ export class ExplorePage implements OnInit {
   }
 
   shallowCopy() {
-    if(this.copy.length > this.results.length && this.copy.length > 10) {
+    if (this.copy.length > this.results.length && this.copy.length > 10) {
       const temp = this.copy.slice(0, 10);
       temp.filter(el => this.results.push(el));
       this.copy.splice(0, 10);
@@ -93,7 +91,7 @@ export class ExplorePage implements OnInit {
     else {
       this.copy.filter(el => this.results.push(el));
       this.copy = [];
-    }    
+    }
   }
 
   // Add movie to my mwl variabile in local storage
@@ -106,7 +104,7 @@ export class ExplorePage implements OnInit {
     };
     if (this.mwl.find(el => el.id == movie.id) == null) {
       this.mwl.unshift(movie);
-      this._storage.set('mwl', this.mwl);
+      this._storage.updateMoviesWL(this.mwl);
       this.presentToast('Movie added to Watchlist!');
     } else {
       this.presentToast('Movie already present in your Watchlist!');
@@ -123,7 +121,7 @@ export class ExplorePage implements OnInit {
     };
     if (this.fml.find(el => el.id == movie.id) == null) {
       this.fml.unshift(movie);
-      this._storage.set('fml', this.fml);
+      this._storage.updateMoviesWL(this.mwl);
       this.presentToast('Movie added to favorites!');
     } else {
       this.presentToast('Movie already present in your favorites!');
@@ -131,15 +129,15 @@ export class ExplorePage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const alert = await this.alertController.create({
-      message:  message,
+    const alert = await this._alertController.create({
+      message: message,
       buttons: ['OK']
     });
     await alert.present();
   }
 
   async addMyList(item) {
-    const actionSheet = await this.actionSheetController.create({
+    const actionSheet = await this._actionSheetController.create({
       header: item.title.toUpperCase(),
       buttons: [
         {
@@ -180,7 +178,7 @@ export class ExplorePage implements OnInit {
         type: 'movie'
       }
     };
-    this.router.navigate(['/menu/details'], navigationExtras);
+    this._router.navigate(['/menu/details'], navigationExtras);
   }
 
   onClickedOutside(event) {
@@ -192,7 +190,7 @@ export class ExplorePage implements OnInit {
   }
 
   async loadList() {
-    const actionSheet = await this.actionSheetController.create({
+    const actionSheet = await this._actionSheetController.create({
       header: 'Explore movies from these lists:',
       buttons: [
         {
@@ -260,7 +258,7 @@ export class ExplorePage implements OnInit {
     setTimeout(() => {
       console.log('Done');
       event.target.complete();
-      
+
       if (this.copy.length == 0) {
         event.target.disabled = true;
       } else {

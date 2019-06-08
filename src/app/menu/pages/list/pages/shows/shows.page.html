@@ -2,7 +2,7 @@
   <ion-searchbar animated debounce="500" [formControl]="filterVal"
     placeholder="{{ 'WATCHLIST.filter' | translate:params }}" color="light" (ionClear)="reset($event)">
   </ion-searchbar>
-  <ion-list no-padding *ngIf="loaded==true && tvwl.length>0">
+  <ion-list no-padding *ngIf="loaded == true && filteredItems.length>0">
     <ion-list-header color="secondary">
       <ion-label color="primary">{{ 'WATCHLIST.sub-title' | translate:params }}</ion-label>
     </ion-list-header>
@@ -26,10 +26,10 @@
                 <ion-icon name="information-circle"></ion-icon>
               </div>
               <div class="five">
-                <ion-icon name="clock" (click)="addFavorite(item)"></ion-icon>
+                <ion-icon name="alarm" (click)="notify()"></ion-icon>
               </div>
               <div class="six">
-                <ion-icon name="eye" (click)="removeFromList(i)"></ion-icon>
+                <ion-icon name="checkmark-circle-outline" (click)="removeFromList(i)"></ion-icon>
               </div>
             </div>
           </ion-card>
@@ -38,8 +38,8 @@
       </ion-item>
     </ion-reorder-group>
   </ion-list>
-  <div class="no-movie" *ngIf="tvwl.length==0">
+  <div class="no-movie" *ngIf="filteredItems.length==0">
     <img src="assets/movie_img.svg">
-    <h3>{{ 'WATCHLIST.add-msgtv' | translate:params }}</h3>
+    <h4>{{ 'WATCHLIST.add-msgtv' | translate:params }}</h4>
   </div>
 </ion-content>

@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { CastPageModule } from './pages/cast/cast.module';
+import { CastPageModule } from './menu/pages/cast/cast.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateService } from './common/translate.service';
-import { InfoPageModule } from './pages/info/info.module';
+import { InfoPageModule } from './menu/pages/info/info.module';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 const routes: Routes = [
-  { path: '', loadChildren: './pages/menu/menu.module#MenuPageModule' },
-  { path: 'cast', loadChildren: './pages/cast/cast.module#CastPageModule' },
-  { path: 'info', loadChildren: './pages/info/info.module#InfoPageModule' }
+  { path: '', loadChildren: './menu/menu.module#MenuPageModule' },
+  { path: 'cast', loadChildren: './menu/pages/cast/cast.module#CastPageModule' },
+  { path: 'info', loadChildren: './menu/pages/info/info.module#InfoPageModule' }
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -31,6 +32,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   exports: [RouterModule],
-  providers: [TranslateService]
+  providers: [TranslateService, LocalNotifications]
 })
 export class AppRoutingModule { }

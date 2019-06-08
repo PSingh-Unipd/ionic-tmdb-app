@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { ActionSheetController, IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
   selector: 'app-exploretv',
@@ -29,23 +30,15 @@ export class ExploretvPage implements OnInit {
   constructor(
     private router: Router,
     private _service: ExploreTvService,
-    private _storage: Storage,
     private actionSheetController: ActionSheetController,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    public _storage: LocalStorageService) { }
 
   ngOnInit(): void {
 
-    this._storage.get('tvwl').then((elements) => {
-      if (elements) {
-        this.tvwl = elements;
-      }
-    });
-
-    this._storage.get('fml').then((elements) => {
-      if (elements) {
-        this.fml = elements;
-      }
-    });
+    this._storage._oservables.tv.subscribe(
+      val => this.tvwl = val
+    );
 
     this.queryField.valueChanges.pipe(
       debounceTime(1000),
@@ -107,7 +100,7 @@ export class ExploretvPage implements OnInit {
     };
     if (this.tvwl.find(el => el.id == movie.id) == null) {
       this.tvwl.unshift(movie);
-      this._storage.set('tvwl', this.tvwl);
+      this._storage.updateTvSeriesWL(this.tvwl);
       this.presentToast('Show added to Watchlist!');
     } else {
       this.presentToast('Show already present in your Watchlist!');
@@ -116,19 +109,7 @@ export class ExploretvPage implements OnInit {
 
   // Add movie to my fml variabile in local storage
   addFavoriteList(item): void {
-    const movie: Movie = {
-      title: item.title,
-      id: item.id,
-      poster: item.poster_path ? item.poster_path : null,
-      date: new Date()
-    };
-    if (this.fml.find(el => el.id == movie.id) == null) {
-      this.fml.unshift(movie);
-      this._storage.set('fml', this.fml);
-      this.presentToast('Show added to favorites!');
-    } else {
-      this.presentToast('Show already present in your favorites!');
-    }
+    //
   }
 
   async presentToast(message: string) {

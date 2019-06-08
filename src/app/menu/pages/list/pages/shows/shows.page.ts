@@ -6,6 +6,7 @@ import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
+import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
   selector: 'app-shows',
@@ -20,9 +21,13 @@ export class ShowsPage implements OnInit {
   filteredItems: any;
 
   constructor(
-    private router: Router,
-    private storage: Storage,
-    public alertController: AlertController) { }
+    private _router: Router,
+    private _storageService: LocalStorageService,
+    private _alertController: AlertController) { 
+      this._storageService._oservables.tvLoading.subscribe(
+        value => this.loaded = value
+      );
+    }
 
   ngOnInit() {
     this.filterVal.valueChanges.pipe(
@@ -31,13 +36,12 @@ export class ShowsPage implements OnInit {
       this.filterItem(val);
     });
 
-    this.storage.get('tvwl').then((elements) => {
-      if (elements) {
-        this.tvwl = elements;
-        this.loaded = true;
+    this._storageService._oservables.tv.subscribe(
+      el => {
+        this.tvwl = el;
         this.assignCopy();
       }
-    });
+    );
   }
 
   async showDetails(item: Movie) {
@@ -47,14 +51,14 @@ export class ShowsPage implements OnInit {
         type: 'show'
       }
     };
-    this.router.navigate(['/menu/details'], navigationExtras);
+    this._router.navigate(['/menu/details'], navigationExtras);
   }
 
   reorderItems(event) {
     const temp = this.tvwl.splice(event.detail.from, 1)[0];
     this.tvwl.splice(event.detail.to, 0, temp);
     event.detail.complete();
-    this.storage.set('tvwl', this.tvwl);
+    this._storageService.updateTvSeriesWL(this.tvwl);
     this.assignCopy();
   }
 
@@ -63,17 +67,18 @@ export class ShowsPage implements OnInit {
   }
 
   async presentToast(message: string) {
-    const alert = await this.alertController.create({
+    const alert = await this._alertController.create({
       message: message,
       buttons: ['OK']
     });
     await alert.present();
   }
 
+
   removeFromList(index: number) {
     this.loaded = false;
     this.tvwl.splice(index, 1);
-    this.storage.set('tvwl', this.tvwl);
+    this._storageService.updateTvSeriesWL(this.tvwl);
     this.presentToast('Show removed from your Watchlist!');
     this.assignCopy();
     this.loaded = true;
@@ -91,5 +96,4 @@ export class ShowsPage implements OnInit {
       item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
     )
   }
-
 }

@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { ListPage } from './list.page';
 import { TranslateModule } from '@ngx-translate/core';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -33,6 +34,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [ListPage]
+  declarations: [ListPage],
+  providers: []
 })
 export class ListPageModule {}
