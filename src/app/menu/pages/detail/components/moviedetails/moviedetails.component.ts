@@ -4,8 +4,6 @@ import { DetailService } from '../../services/detail.service';
 import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { Movie } from 'src/app/interfaces/movie.interface';
-import { Storage } from '@ionic/storage';
-import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
 import { LocalStorageService } from 'src/app/common/services/storage.service';
@@ -24,6 +22,8 @@ export class MoviedetailsComponent implements OnInit {
   movieRecommendations;
   loaded: boolean = false;
   mwl: Movie[] = [];
+  cbluray: Movie[] = [];
+  cdvd: Movie[] = [];
   constructor(
     public alertController: AlertController,
     private _service: DetailService,
@@ -37,6 +37,13 @@ export class MoviedetailsComponent implements OnInit {
   ngOnInit() {
     this._storage._oservables.movies.subscribe(
       data => this.mwl = data
+    );
+    this._storage._oservables.cbluray.subscribe(
+      data => this.cbluray = data
+    );
+
+    this._storage._oservables.cdvd.subscribe(
+      data => this.cdvd = data
     );
     this.loadData();
   }
@@ -77,6 +84,42 @@ export class MoviedetailsComponent implements OnInit {
     }
   }
 
+  // Add movie to my fml variabile in local storage
+  addBlurayCollection(item): void {
+    const movie: Movie = {
+      title: item.title,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date(),
+      type: 'movie'
+    };
+    if (this.cbluray.find(el => el.id == movie.id) == null) {
+      this.cbluray.unshift(movie);
+      this._storage.updateCbluray(this.cbluray);
+      this.presentToast('Movie added to you Bluray collection!');
+    } else {
+      this.presentToast('Movie already present in your Bluray collection!');
+    }
+  }
+
+  // Add movie to my fml variabile in local storage
+  addDvdCollection(item): void {
+    const movie: Movie = {
+      title: item.title,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date(),
+      type: 'movie'
+    };
+    if (this.cdvd.find(el => el.id == movie.id) == null) {
+      this.cdvd.unshift(movie);
+      this._storage.updateCdvd(this.cdvd);
+      this.presentToast('Movie added to you DVD collection!');
+    } else {
+      this.presentToast('Movie already present in your DVD collection!');
+    }
+  }
+
   async presentToast(message: string) {
     const alert = await this.alertController.create({
       message: message,
@@ -90,10 +133,24 @@ export class MoviedetailsComponent implements OnInit {
       header: this.detail.title.toUpperCase(),
       buttons: [
         {
-          text: 'Watchlist',
+          text: 'Add to Watchlist',
           icon: 'add-circle',
           handler: () => {
             this.addMyWatchList();
+          }
+        },
+        {
+          text: 'Add to DVD collection',
+          icon: 'disc',
+          handler: () => {
+            this.addDvdCollection(this.detail);
+          }
+        },
+        {
+          text: 'Add to Bluray collection',
+          icon: 'disc',
+          handler: () => {
+            this.addBlurayCollection(this.detail);
           }
         },
         {

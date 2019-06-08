@@ -2,5 +2,7 @@ export interface Movie {
     title: string,
     id: number,
     poster: string,
-    date: Date
+    date: Date,
+    type ?: string,
+    duration ?: any,
 }

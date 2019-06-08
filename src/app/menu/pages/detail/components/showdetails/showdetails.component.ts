@@ -17,7 +17,7 @@ import { LocalStorageService } from 'src/app/common/services/storage.service';
   styleUrls: ['../../detail.page.scss'],
 })
 export class ShowdetailsComponent implements OnInit {
-  
+
   @Input() showID: string;
   detail;
   credits;
@@ -25,6 +25,8 @@ export class ShowdetailsComponent implements OnInit {
   movieRecommendations;
   loaded: boolean = false;
   tvwl: Movie[] = [];
+  cbluray: Movie[] = [];
+  cdvd: Movie[] = [];
   constructor(
     public alertController: AlertController,
     private _service: DetailService,
@@ -38,6 +40,14 @@ export class ShowdetailsComponent implements OnInit {
   ngOnInit() {
     this._storage._oservables.tv.subscribe(
       val => this.tvwl = val
+    );
+
+    this._storage._oservables.cbluray.subscribe(
+      data => this.cbluray = data
+    );
+
+    this._storage._oservables.cdvd.subscribe(
+      data => this.cdvd = data
     );
     this.loadData();
   }
@@ -56,7 +66,7 @@ export class ShowdetailsComponent implements OnInit {
       this.loaded = true;
     });
   }
-  
+
   playTrailer() {
     this._player.openVideo(this.videos.results[0].key);
   }
@@ -77,21 +87,43 @@ export class ShowdetailsComponent implements OnInit {
     }
   }
 
-  /*addFavoriteList(): void {
+  // Add movie to my fml variabile in local storage
+  addBlurayCollection(item): void {
     const movie: Movie = {
-      title: this.detail.name,
-      id: this.detail.id,
-      poster: this.detail.poster_path ? this.detail.poster_path : null,
-      date: new Date()
+      title: item.name,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date(),
+      type: 'show'
     };
-    if (this.fml.find(el => el.id == movie.id) == null) {
-      this.fml.unshift(movie);
-      this._storage.set('fml', this.fml);
-      this.presentToast('Show added to favorites!');
+    if (this.cbluray.find(el => el.id == movie.id) == null) {
+      this.cbluray.unshift(movie);
+      this._storage.updateCbluray(this.cbluray);
+      this.presentToast('Show added to you Bluray collection!');
     } else {
-      this.presentToast('Show already present in your favorites!');
+      this.presentToast('Show already present in your Bluray collection!');
     }
-  }*/
+  }
+
+  // Add movie to my fml variabile in local storage
+  addDvdCollection(item): void {
+    const movie: Movie = {
+      title: item.name,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date(),
+      type: 'show'
+    };
+    if (this.cdvd.find(el => el.id == movie.id) == null) {
+      this.cdvd.unshift(movie);
+      this._storage.updateCdvd(this.cdvd);
+      this.presentToast('Show added to you DVD collection!');
+    } else {
+      this.presentToast('Show already present in your DVD collection!');
+    }
+  }
+
+
 
   async presentToast(message: string) {
     const alert = await this.alertController.create({
@@ -112,7 +144,21 @@ export class ShowdetailsComponent implements OnInit {
             this.addMyWatchList();
           }
         },
-       {
+        {
+          text: 'Add to DVD collection',
+          icon: 'disc',
+          handler: () => {
+            this.addDvdCollection(this.detail);
+          }
+        },
+        {
+          text: 'Add to Bluray collection',
+          icon: 'disc',
+          handler: () => {
+            this.addBlurayCollection(this.detail);
+          }
+        },
+        {
           text: 'Cancel',
           icon: 'close',
           role: 'cancel',
@@ -125,7 +171,7 @@ export class ShowdetailsComponent implements OnInit {
   }
 
   async showRec(item) {
-    const temp: SubjectElement = {id: item.id, type: 'show'};
+    const temp: SubjectElement = { id: item.id, type: 'show' };
     this.update(temp);
   }
 

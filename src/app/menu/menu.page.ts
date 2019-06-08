@@ -29,9 +29,9 @@ export class MenuPage implements OnInit {
       icon: 'time'
     },
     {
-      title: 'My Favorites',
-      url: '/menu/favorite',
-      icon: 'heart'
+      title: 'My collections',
+      url: '/menu/collections/bluray',
+      icon: 'disc'
     }
   ];
 

@@ -2,26 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { ListPage } from './list.page';
-import { TranslateModule } from '@ngx-translate/core';
 
+import { IonicModule } from '@ionic/angular';
+
+import { CollectionsPage } from './collections.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListPage,
+    component: CollectionsPage,
     children: [
       {
-        path: 'movies',
-        loadChildren: './pages/movies/movies.module#MoviesPageModule'
+        path: 'dvd',
+        loadChildren: './pages/dvd/dvd.module#DvdPageModule'
       },
       {
-        path: 'shows',
-        loadChildren: './pages/shows/shows.module#ShowsPageModule'
+        path: 'bluray',
+        loadChildren: './pages/bluray/bluray.module#BlurayPageModule'
       }
     ]
-  }  
+  }
 ];
 
 @NgModule({
@@ -33,7 +34,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [ListPage],
-  providers: []
+  declarations: [CollectionsPage]
 })
-export class ListPageModule {}
+export class CollectionsPageModule {}

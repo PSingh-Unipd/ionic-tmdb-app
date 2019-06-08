@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { FavoritePage } from './favorite.page';
+import { DvdPage } from './dvd.page';
 import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
     path: '',
-    component: FavoritePage
+    component: DvdPage
   }
 ];
 
@@ -17,11 +17,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [FavoritePage]
+  declarations: [DvdPage]
 })
-export class FavoritePageModule {}
+export class DvdPageModule {}

@@ -20,8 +20,8 @@ const routes: Routes = [
         loadChildren: './pages/list/list.module#ListPageModule' 
       },
       { 
-        path: 'favorite', 
-        loadChildren: './pages/favorite/favorite.module#FavoritePageModule' 
+        path: 'collections', 
+        loadChildren: './pages/collections/collections.module#CollectionsPageModule' 
       },
       { 
         path: 'details', 

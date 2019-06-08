@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/Movie.interface';
 import { Router } from '@angular/router';
 import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { ToastController, AlertController } from '@ionic/angular';
 import { LocalStorageService } from 'src/app/common/services/storage.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-movies',

@@ -21,7 +21,8 @@ export class ExploretvPage implements OnInit {
   trendings: any[];
   copy: any[];
   tvwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
-  fml: Movie[] = [];
+  cbluray: Movie[] = [];
+  cdvd: Movie[] = [];
   moviesGeneres: any[];
   queryField: FormControl = new FormControl();
 
@@ -38,6 +39,14 @@ export class ExploretvPage implements OnInit {
 
     this._storage._oservables.tv.subscribe(
       val => this.tvwl = val
+    );
+
+    this._storage._oservables.cbluray.subscribe(
+      data => this.cbluray = data
+    );
+
+    this._storage._oservables.cdvd.subscribe(
+      data => this.cdvd = data
     );
 
     this.queryField.valueChanges.pipe(
@@ -108,8 +117,39 @@ export class ExploretvPage implements OnInit {
   }
 
   // Add movie to my fml variabile in local storage
-  addFavoriteList(item): void {
-    //
+  addBlurayCollection(item): void {
+    const movie: Movie = {
+      title: item.name,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date(),
+      type: 'show'
+    };
+    if (this.cbluray.find(el => el.id == movie.id) == null) {
+      this.cbluray.unshift(movie);
+      this._storage.updateCbluray(this.cbluray);
+      this.presentToast('Show added to you Bluray collection!');
+    } else {
+      this.presentToast('Show already present in your Bluray collection!');
+    }
+  }
+
+  // Add movie to my fml variabile in local storage
+  addDvdCollection(item): void {
+    const movie: Movie = {
+      title: item.name,
+      id: item.id,
+      poster: item.poster_path ? item.poster_path : null,
+      date: new Date(),
+      type: 'show'
+    };
+    if (this.cdvd.find(el => el.id == movie.id) == null) {
+      this.cdvd.unshift(movie);
+      this._storage.updateCdvd(this.cdvd);
+      this.presentToast('Show added to you DVD collection!');
+    } else {
+      this.presentToast('Show already present in your DVD collection!');
+    }
   }
 
   async presentToast(message: string) {
@@ -138,10 +178,17 @@ export class ExploretvPage implements OnInit {
           }
         },
         {
-          text: 'Add to Favorite',
-          icon: 'heart',
+          text: 'Add to DVD collection',
+          icon: 'disc',
           handler: () => {
-            this.addFavoriteList(item);
+            this.addDvdCollection(item);
+          }
+        },
+        {
+          text: 'Add to Bluray collection',
+          icon: 'disc',
+          handler: () => {
+            this.addBlurayCollection(item);
           }
         }, {
           text: 'Cancel',

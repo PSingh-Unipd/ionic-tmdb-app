@@ -1,0 +1,26 @@
+
+.card {
+    display: inline-block;
+    --background: rgb(10, 36, 46);
+    font-family: 'Open Sans', sans-serif;
+
+    .movie-title {
+        color: #fff;
+        font-size: 12px;
+        margin: auto;
+        margin-top: 5px;
+        text-transform: uppercase;
+    }
+    
+    .poster{
+        position: absolute;
+        width: 140px;
+        height: 168px;
+        top: 17px;
+    }
+    
+    .bg-image {
+        width: 143px;
+        height: 190px;
+    }
+}
