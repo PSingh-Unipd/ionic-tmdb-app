@@ -38,7 +38,6 @@ export class BlurayPage implements OnInit {
 
     this._storage._oservables.cbluray.subscribe(data => {
       this.blurayCollection = data;
-      console.log('STAMPA film', this.blurayCollection);
       this.assignCopy();
     });
   }

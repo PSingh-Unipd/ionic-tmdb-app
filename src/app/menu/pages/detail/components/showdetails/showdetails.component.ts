@@ -87,7 +87,6 @@ export class ShowdetailsComponent implements OnInit {
     }
   }
 
-  // Add movie to my fml variabile in local storage
   addBlurayCollection(item): void {
     const movie: Movie = {
       title: item.name,
@@ -105,7 +104,6 @@ export class ShowdetailsComponent implements OnInit {
     }
   }
 
-  // Add movie to my fml variabile in local storage
   addDvdCollection(item): void {
     const movie: Movie = {
       title: item.name,

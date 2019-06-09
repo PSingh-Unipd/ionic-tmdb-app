@@ -30,16 +30,12 @@ const routes: Routes = [
       { 
         path: 'scan', 
         loadChildren: './pages/scan/scan.module#ScanPageModule' 
-      },
-      { 
-        path: 'tv', 
-        loadChildren: './pages/exploretv/exploretv.module#ExploretvPageModule' 
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/menu/explore'
+    redirectTo: '/menu/explore/movies'
   }
 ];
 

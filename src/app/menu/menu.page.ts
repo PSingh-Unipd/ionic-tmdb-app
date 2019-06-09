@@ -8,20 +8,15 @@ import { Router, RouterEvent } from '@angular/router';
 })
 export class MenuPage implements OnInit {
   pages = [
-    {
+    /*{
       title: 'Scan Barcode',
       url: '/menu/scan',
       icon: 'search'
-    },
+    },*/
     {
-      title: 'Explore Movies',
-      url: '/menu/explore',
+      title: 'Explore',
+      url: '/menu/explore/movies',
       icon: 'film'
-    },
-    {
-      title: 'Explore TV',
-      url: '/menu/tv',
-      icon: 'tv'
     },
     {
       title: 'My Watchlist',

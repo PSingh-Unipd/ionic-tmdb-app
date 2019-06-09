@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { ExploretvPage } from './exploretv.page';
-import { HttpClientModule } from '@angular/common/http';
-import { NgCircleProgressModule } from 'ng-circle-progress';
+import { TvPage } from './tv.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { HttpClientModule } from '@angular/common/http';
 import { ExploreTvService } from './services/exploretv.service';
-import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: ExploretvPage
+    component: TvPage
   }
 ];
 
@@ -28,9 +27,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgCircleProgressModule.forRoot({}),
-    TranslateModule  
+    TranslateModule 
   ],
-  declarations: [ExploretvPage],
+  declarations: [TvPage],
   providers: [ExploreTvService]
 })
-export class ExploretvPageModule {}
+export class TvPageModule {}

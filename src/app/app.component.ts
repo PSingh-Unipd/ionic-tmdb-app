@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void { 
     const lan : string = this.confirmLanguage(this._translate.getDefaultLanguage());
     console.log('stampa della lingua', lan);
-    this._translate.setLanguage(lan);
+    this._translate.setLanguage('en');
   }
   
   constructor(

@@ -2,25 +2,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { switchMap, debounceTime } from 'rxjs/operators';
 import { ExploreTvService } from './services/exploretv.service';
-import { Storage } from '@ionic/storage';
 import { Movie } from 'src/app/interfaces/movie.interface';
 import { ActionSheetController, IonInfiniteScroll, AlertController } from '@ionic/angular';
 import { NavigationExtras, Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({
-  selector: 'app-exploretv',
-  templateUrl: './exploretv.page.html',
-  styleUrls: ['./exploretv.page.scss'],
+  selector: 'app-tv',
+  templateUrl: './tv.page.html',
+  styleUrls: ['../../explore.page.scss'],
 })
-export class ExploretvPage implements OnInit {
+export class TvPage implements OnInit {
 
   results: any[] = [];
   searchResults: any[];
   loaded: boolean = false;
   trendings: any[];
   copy: any[];
-  tvwl: Movie[] = []; // My Watchlist -> Read from local storage all film in my list
+  tvwl: Movie[] = []; 
   cbluray: Movie[] = [];
   cdvd: Movie[] = [];
   moviesGeneres: any[];
@@ -110,7 +109,7 @@ export class ExploretvPage implements OnInit {
     if (this.tvwl.find(el => el.id == movie.id) == null) {
       this.tvwl.unshift(movie);
       this._storage.updateTvSeriesWL(this.tvwl);
-      this.presentToast('Show added to Watchlist!');
+      this.presentToast('Show added to yout Watchlist!');
     } else {
       this.presentToast('Show already present in your Watchlist!');
     }
@@ -128,7 +127,7 @@ export class ExploretvPage implements OnInit {
     if (this.cbluray.find(el => el.id == movie.id) == null) {
       this.cbluray.unshift(movie);
       this._storage.updateCbluray(this.cbluray);
-      this.presentToast('Show added to you Bluray collection!');
+      this.presentToast('Show added to your Bluray collection!');
     } else {
       this.presentToast('Show already present in your Bluray collection!');
     }
@@ -146,7 +145,7 @@ export class ExploretvPage implements OnInit {
     if (this.cdvd.find(el => el.id == movie.id) == null) {
       this.cdvd.unshift(movie);
       this._storage.updateCdvd(this.cdvd);
-      this.presentToast('Show added to you DVD collection!');
+      this.presentToast('Show added to your DVD collection!');
     } else {
       this.presentToast('Show already present in your DVD collection!');
     }
@@ -171,7 +170,7 @@ export class ExploretvPage implements OnInit {
             this.showDetails(item);
           }
         }, {
-          text: 'Add in Watchlist',
+          text: 'Add to my Watchlist',
           icon: 'add-circle',
           handler: () => {
             this.addMyWatchList(item);
@@ -179,14 +178,14 @@ export class ExploretvPage implements OnInit {
         },
         {
           text: 'Add to DVD collection',
-          icon: 'disc',
+          icon: 'add-circle',
           handler: () => {
             this.addDvdCollection(item);
           }
         },
         {
           text: 'Add to Bluray collection',
-          icon: 'disc',
+          icon: 'add-circle',
           handler: () => {
             this.addBlurayCollection(item);
           }
@@ -222,7 +221,7 @@ export class ExploretvPage implements OnInit {
 
   async loadList() {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Explore movies from these lists:',
+      header: 'Some top lists:',
       buttons: [
         {
           text: 'On Tv Now',
@@ -276,5 +275,6 @@ export class ExploretvPage implements OnInit {
       }
     }, 500);
   }
+
 
 }

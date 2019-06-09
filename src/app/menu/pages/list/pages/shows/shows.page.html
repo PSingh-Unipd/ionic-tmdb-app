@@ -4,7 +4,7 @@
   </ion-searchbar>
   <ion-list no-padding *ngIf="loaded == true && filteredItems.length>0">
     <ion-list-header color="secondary">
-      <ion-label color="primary">{{ 'WATCHLIST.sub-title' | translate:params }}</ion-label>
+      <ion-label color="primary">{{ 'WATCHLIST.show-title' | translate:params }}</ion-label>
     </ion-list-header>
     <ion-reorder-group disabled="false" (ionItemReorder)="reorderItems($event)">
       <ion-item *ngFor="let item of filteredItems; let i = index" color="secondary">

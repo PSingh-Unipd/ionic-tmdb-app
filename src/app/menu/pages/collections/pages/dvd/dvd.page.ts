@@ -37,7 +37,7 @@ export class DvdPage implements OnInit {
       this.filterItem(val);
     });
 
-    this._storage._oservables.cbluray.subscribe(data => {
+    this._storage._oservables.cdvd.subscribe(data => {
       this.dvdCollection = data;
       this.assignCopy();
     });
@@ -83,7 +83,6 @@ export class DvdPage implements OnInit {
     await actionSheet.present();
   }
 
-
   reset(event) {
     this.assignCopy();
   }
@@ -118,6 +117,4 @@ export class DvdPage implements OnInit {
       item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
     )
   }
-
-
 }

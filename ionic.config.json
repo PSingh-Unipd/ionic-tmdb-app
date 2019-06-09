@@ -1,5 +1,5 @@
 {
-  "name": "MovieDB",
+  "name": "TV - your movies and shows manager",
   "integrations": {
     "cordova": {}
   },
