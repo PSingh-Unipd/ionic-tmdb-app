@@ -15,6 +15,7 @@ import { LocalStorageService } from 'src/app/common/services/storage.service';
 export class TvPage implements OnInit {
 
   results: any[] = [];
+  params = '';
   searchResults: any[];
   loaded: boolean = false;
   trendings: any[];

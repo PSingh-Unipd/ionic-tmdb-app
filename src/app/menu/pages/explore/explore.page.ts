@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./explore.page.scss'],
 })
 export class ExplorePage {
+  params = '';
   constructor() { }
 }

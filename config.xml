@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>TV - Movies and TV shows manager</name>
+<widget id="tv.film.shows.manager.CoveredEe" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>TV - manage your movies and shows</name>
     <description>App to manage my movies, tv shosw, collections and watchlists.</description>
-    <author email="psingh.unipd@gmail.com" href="http://ionicframework.com/">CoveredEe</author>
+    <author email="coveredee.app@gmail.com" href="https://github.com/SinghParwinder">CoveredEe</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

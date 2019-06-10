@@ -24,6 +24,8 @@ export class MoviedetailsComponent implements OnInit {
   mwl: Movie[] = [];
   cbluray: Movie[] = [];
   cdvd: Movie[] = [];
+  params = '';
+  
   constructor(
     public alertController: AlertController,
     private _service: DetailService,

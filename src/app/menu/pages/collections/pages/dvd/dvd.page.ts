@@ -19,6 +19,7 @@ export class DvdPage implements OnInit {
   dvdCollection: Movie[] = [];
   loaded: boolean = false;
   filteredItems: any;
+  params = '';
 
   constructor(
     private _router: Router,

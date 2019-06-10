@@ -18,6 +18,7 @@ export class BlurayPage implements OnInit {
   blurayCollection: Movie[] = [];
   loaded: boolean = false;
   filteredItems: any;
+  params = '';
 
   constructor(
     private _router: Router,

@@ -10,6 +10,7 @@ import { InfoService } from './services/info.service';
 export class InfoPage implements OnInit {
 
   @Input() seasonInfo;
+  params = '';
   season;
   loaded: boolean = false;
   constructor(

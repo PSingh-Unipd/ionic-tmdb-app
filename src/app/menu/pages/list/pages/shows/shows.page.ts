@@ -19,7 +19,7 @@ export class ShowsPage implements OnInit {
   tvwl: Movie[] = [];
   loaded: boolean = false;
   filteredItems: any;
-
+  params = '';
   constructor(
     private _router: Router,
     private _storageService: LocalStorageService,

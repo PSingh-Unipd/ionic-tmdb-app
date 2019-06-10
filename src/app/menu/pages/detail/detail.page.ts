@@ -12,6 +12,7 @@ export class DetailPage {
 
   id: String;
   type: String;
+  params = '';
   loaded: boolean = false;
   constructor(
     private _service: DetailService,

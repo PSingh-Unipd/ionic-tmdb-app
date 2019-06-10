@@ -27,7 +27,7 @@ export class ExploreMoviesPage implements OnInit {
   queryField: FormControl = new FormControl();
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-
+  params = '';
   constructor(
     private _router: Router,
     private _service: ExploreService,

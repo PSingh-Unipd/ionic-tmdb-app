@@ -5,4 +5,5 @@ export interface Movie {
     date: Date,
     type ?: string,
     duration ?: any,
+    seasons ?: any[]
 }

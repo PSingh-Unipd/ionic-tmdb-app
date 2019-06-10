@@ -4,7 +4,7 @@
   </div>
   <div *ngIf="loaded == true">
     <div class="background-poster">
-      <img class="bg-image" src="https://image.tmdb.org/t/p/original/{{detail.backdrop_path}}" />
+      <img class="bg-image" src="{{detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500'+detail.backdrop_path : 'assets/no-av-trailer.png'}}" />
       <ion-icon *ngIf="videos.results.length >0" name="play" class="playBtn" (click)="playTrailer()"></ion-icon>
     </div>
     <div class="title-container">
@@ -45,7 +45,7 @@
       <div class="poster-container">
         <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
           <div>
-            <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av.png'}}"
+            <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av-person.png'}}"
               class="poster">
             <h6 class="movie-title">
               {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}

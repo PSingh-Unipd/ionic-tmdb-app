@@ -18,6 +18,7 @@ export class MoviesPage implements OnInit {
   mwl: Movie[] = [];
   loaded: boolean = false;
   filteredItems: any;
+  params = '';
 
   constructor(
     private _router: Router,
