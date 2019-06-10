@@ -185,14 +185,14 @@ export class ExploreMoviesPage implements OnInit {
         },
         {
           text: 'Add to DVD collection',
-          icon: 'disc',
+          icon: 'add-circle',
           handler: () => {
             this.addDvdCollection(item);
           }
         },
         {
           text: 'Add to Bluray collection',
-          icon: 'disc',
+          icon: 'add-circle',
           handler: () => {
             this.addBlurayCollection(item);
           }

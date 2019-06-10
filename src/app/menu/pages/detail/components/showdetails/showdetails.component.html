@@ -30,7 +30,7 @@
     <div class="poster-section">
       <ion-row padding>
         <ion-col size="5">
-          <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}"
+          <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av-person.png'}}"
             class="poster">
         </ion-col>
         <ion-col size="7">
@@ -61,7 +61,7 @@
       <div class="poster-container">
         <ion-card *ngFor="let crew of credits.crew" class="card" (click)="castDetail(crew)">
           <div>
-            <img src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av.png'}}"
+            <img src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av-person.png'}}"
               class="poster">
             <h6 class="movie-title">
               {{(crew.name.length>14)? (crew.name | slice:0:12)+'..':(crew.name)}} 
@@ -87,11 +87,11 @@
     </div>
 
     <div class="list" *ngIf="movieRecommendations.length > 0">
-      <h5 style="padding-top: 15px;">{{ 'MOVIE-DETAILS.rec' | translate:params }}:</h5>
+      <h5 style="padding-top: 15px;">{{ 'MOVIE-DETAILS.rec' | translate:params }}</h5>
       <div class="poster-container">
         <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="showRec(item)">
           <div>
-            <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster2">
+            <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" class="poster2">
             <h6 class="movie-title">
               {{(item.name.length>16)? (item.name | slice:0:16)+'..':(item.name)}}
             </h6>

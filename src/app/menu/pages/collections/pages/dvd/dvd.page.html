@@ -8,7 +8,7 @@
         <ion-card class="card" (click)="manageItem(item)">
           <div>
             <ion-row>
-              <img src="https://image.tmdb.org/t/p/w185{{item.poster}}" class="poster">
+              <img src="{{item.poster ? 'https://image.tmdb.org/t/p/w185'+item.poster : 'assets/no-av.png'}}" class="poster">
               <img src="assets/dvdcover.png" class="bg-image">
             </ion-row>
             <ion-row>

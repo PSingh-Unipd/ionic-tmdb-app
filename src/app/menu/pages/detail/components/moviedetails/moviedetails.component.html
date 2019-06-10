@@ -4,7 +4,7 @@
   </div>
   <div *ngIf="loaded == true">
     <div class="background-poster">
-      <img class="bg-image" src="https://image.tmdb.org/t/p/original/{{detail.backdrop_path}}" />
+      <img class="bg-image" src="{{detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500'+detail.backdrop_path : 'assets/no-av-trailer.png'}}" />
       <ion-icon *ngIf="videos.results.length >0" name="play" class="playBtn" (click)="playTrailer()"></ion-icon>
     </div>
     <div class="title-container">
@@ -44,7 +44,7 @@
       <div class="poster-container">
         <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
           <div>
-            <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av.png'}}"
+            <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av-person.png'}}"
               class="poster">
             <h6 class="movie-title">
               {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
@@ -60,7 +60,7 @@
       <div class="poster-container">
         <ion-card *ngFor="let crew of credits.crew" class="card" (click)="castDetail(crew)">
           <div>
-            <img src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av.png'}}"
+            <img src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av-person.png'}}"
               class="poster">
             <h6 class="movie-title">
               {{(crew.name.length>14)? (crew.name | slice:0:12)+'..':(crew.name)}} 
@@ -72,11 +72,11 @@
     </div>
 
     <div class="list" *ngIf="movieRecommendations.length > 0">
-      <h5>{{ 'MOVIE-DETAILS.rec' | translate:params }}:</h5>
+      <h5>{{ 'MOVIE-DETAILS.rec' | translate:params }}</h5>
       <div class="poster-container">
         <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">
           <div>
-            <img src="https://image.tmdb.org/t/p/w185{{item.poster_path}}" class="poster2">
+            <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" class="poster2">
             <h6 class="movie-title">
               {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
             </h6>

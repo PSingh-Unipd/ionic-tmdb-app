@@ -144,14 +144,14 @@ export class ShowdetailsComponent implements OnInit {
         },
         {
           text: 'Add to DVD collection',
-          icon: 'disc',
+          icon: 'add-circle',
           handler: () => {
             this.addDvdCollection(this.detail);
           }
         },
         {
           text: 'Add to Bluray collection',
-          icon: 'disc',
+          icon: 'add-circle',
           handler: () => {
             this.addBlurayCollection(this.detail);
           }

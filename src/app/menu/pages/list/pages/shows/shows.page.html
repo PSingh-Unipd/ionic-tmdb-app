@@ -12,7 +12,7 @@
           <ion-card class="card">
             <div class="wrapper">
               <div class="one">
-                <img src="https://image.tmdb.org/t/p/w185{{item.poster}}" class="poster">
+                <img src="{{item.poster ? 'https://image.tmdb.org/t/p/w185'+item.poster : 'assets/no-av.png'}}" class="poster">
               </div>
               <div class="two">
                 <h5>{{(item.title.length>18)? (item.title | slice:0:18)+'..':(item.title)}}</h5>
@@ -26,10 +26,10 @@
                 <ion-icon name="information-circle"></ion-icon>
               </div>
               <div class="five">
-                <ion-icon name="alarm" (click)="notify()"></ion-icon>
+                <ion-icon name="checkmark-circle-outline" (click)="removeFromList(i)"></ion-icon>
               </div>
               <div class="six">
-                <ion-icon name="checkmark-circle-outline" (click)="removeFromList(i)"></ion-icon>
+                <!--ion-icon name="checkmark-circle-outline" (click)="removeFromList(i)"></ion-icon-->
               </div>
             </div>
           </ion-card>
