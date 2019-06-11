@@ -14,7 +14,7 @@ npm install
 ```
 ionic serve
 ```
-Note: this application is optimized for mobile device only, so use developer tools/mobile device when testing this application on your browser.
+Note: this application is optimized for mobile device only, so use developer tools/mobile device when testing this application on your browser. When you have your API key, just add it on the file src/app/common/base.service.ts for correct working of the application.
 ### Build 
 ```
 ionic cordova build android --prod --release
