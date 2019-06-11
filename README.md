@@ -10,9 +10,15 @@ This repo contains a simple application built with Ionic 4 framework using Angul
 npm install
 ```
 
-### Browse Ionic 4 app
+### Browse
 ```
 ionic serve
+```
+Note: this application is optimized for mobile device only, so use developer tools/mobile device when testing this application on your browser.
+### Build 
+```
+ionic cordova build android --prod --release
+ionic cordova ios android --prod --release
 ```
 ### Demo
 https://play.google.com/store/apps/details?id=tv.film.shows.manager.CoveredEe
@@ -23,5 +29,4 @@ This application use the TMDB public API. You can get a free API key just by reg
 https://www.themoviedb.org/?language=en-US
 
 ### LICENSE 
-
 This project is licensed under the MIT License - see the LICENSE.md file for details
