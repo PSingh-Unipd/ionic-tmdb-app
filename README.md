@@ -3,7 +3,7 @@
 ### About this repo
 This repo contains a simple application built with Ionic 4 framework using Angular 7. It's a simple app for android and ios for managing watchlists and collections of movies and tv shows.
 
-- [App Store Link](https://play.google.com/store/apps/details?id=tv.film.shows.manager.CoveredEe)
+- [Play Store Link](https://play.google.com/store/apps/details?id=tv.film.shows.manager.CoveredEe)
 
 ### Installation
 ```
