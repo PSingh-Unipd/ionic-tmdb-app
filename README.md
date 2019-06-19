@@ -1,5 +1,11 @@
 ##  Simple Ionic App
 
+<p float="left">
+  <img src="./screens/screen1.png" width="100" />
+  <img src="./screens/screen1.png" width="100" /> 
+  <img src="./screens/screen1.png" width="100" />
+</p>
+
 ### About this repo
 This repo contains a simple application built with Ionic 4 framework using Angular 7. It's a simple app for android and ios for managing watchlists and collections of movies and tv shows.
 
