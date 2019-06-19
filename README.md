@@ -1,4 +1,4 @@
-##  Simple Ionic App
+##  Ionic TMDB app
 
 <p float="left">
   <img src="./screens/screen1.jpg" width="200" />
