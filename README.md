@@ -1,9 +1,9 @@
 ##  Simple Ionic App
 
 <p float="left">
-  <img src="./screens/screen1.png" width="100" />
-  <img src="./screens/screen1.png" width="100" /> 
-  <img src="./screens/screen1.png" width="100" />
+  <img src="./screens/screen1.jpg" width="100" />
+  <img src="./screens/screen1.jpg" width="100" /> 
+  <img src="./screens/screen1.jpg" width="100" />
 </p>
 
 ### About this repo
