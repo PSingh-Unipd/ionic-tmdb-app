@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { BaseService } from 'src/app/common/base.service';
+import { BaseService } from 'src/app/common/services/base.service';
 import { HttpClient } from '@angular/common/http';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
 

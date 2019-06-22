@@ -13,23 +13,19 @@ const routes: Routes = [
     children: [
       {
         path: 'explore',
-        loadChildren: './pages/explore/explore.module#ExplorePageModule'
+        loadChildren: '../pages/explore/explore.module#ExplorePageModule'
       },
       { 
         path: 'list', 
-        loadChildren: './pages/list/list.module#ListPageModule' 
+        loadChildren: '../pages/list/list.module#ListPageModule' 
       },
       { 
         path: 'collections', 
-        loadChildren: './pages/collections/collections.module#CollectionsPageModule' 
+        loadChildren: '../pages/collections/collections.module#CollectionsPageModule' 
       },
       { 
         path: 'details', 
-        loadChildren: './pages/detail/detail.module#DetailPageModule' 
-      },
-      { 
-        path: 'scan', 
-        loadChildren: './pages/scan/scan.module#ScanPageModule' 
+        loadChildren: '../pages/detail/detail.module#DetailPageModule' 
       }
     ]
   },

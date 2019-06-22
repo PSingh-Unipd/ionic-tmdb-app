@@ -4,11 +4,9 @@ import { DetailService } from '../../services/detail.service';
 import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
 import { Movie } from 'src/app/interfaces/movie.interface';
-import { Storage } from '@ionic/storage';
-import { Location } from '@angular/common';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
-import { InfoPage } from 'src/app/menu/pages/info/info.page';
+import { InfoPage } from 'src/app/pages/info/info.page';
 import { LocalStorageService } from 'src/app/common/services/storage.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseService } from 'src/app/common/base.service';
+import { BaseService } from 'src/app/common/services/base.service';
 
 @Injectable()
 export class ExploreTvService extends BaseService{
