@@ -1,24 +1,48 @@
 <ion-header>
-    <ion-toolbar class="bg">
-      <ion-buttons slot="start">
-        <ion-menu-button color="primary"></ion-menu-button>
-      </ion-buttons>
-      <ion-title color="primary">{{ 'EXPLORE.title' | translate:params }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content class="bg">
-    <ion-tabs >
-      <!-- Tab bar -->
-      <ion-tab-bar slot="bottom" color="medium">
-        <ion-tab-button tab="movies">
-            <ion-label>Movies</ion-label>
-          <ion-icon name="Film"></ion-icon>
-        </ion-tab-button>
-        <ion-tab-button tab="tv">
-            <ion-label>Shows</ion-label>
-          <ion-icon name="tv"></ion-icon>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-content>
+  <ion-toolbar color="secondary" class="bg">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-segment [(ngModel)]="selected" (ionChange)="updateSelected()">
+      <ion-segment-button value="movie">
+        MOVIES
+      </ion-segment-button>
+      <ion-segment-button value="tv">
+        TV-SHOWS
+      </ion-segment-button>
+    </ion-segment>
+    <ion-buttons slot="end">
+      <ion-button (click)="listFilter()">
+        <ion-icon slot="icon-only" name="options"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg">
+  <div class="search-container" (clickOutside)="onClickedOutside($event)">
+    <ion-searchbar animated debounce="500" placeholder="{{ 'EXPLORE.searchtv' | translate:params }}"
+      [formControl]="queryField" color="light" (ionClear)="reset($event)"></ion-searchbar>
+    <div class="filter-select">
+      <div *ngFor="let item of searchResults" class="filter-select-item" (click)="addMyList(item)">
+        <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" alt=""
+          class="filter-select-item-poster">
+        <div class="filter-select-item-details">
+          <p class="filter-select-item-title">
+            {{item.title}}
+          </p>
+          <p class="filter-select-item-title">
+            {{item.release_date}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading == false" class="listContainer">
+    <app-info-list [data]="data" (manageItem)='itemAction($event)'></app-info-list>
+  </div>
+  <div class="spinner-container" *ngIf="loading == true">
+    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
+    <p>{{ 'EXPLORE.loading' | translate:params }}</p>
+  </div>
+</ion-content>

@@ -1,17 +1,10 @@
-<ion-content class="bg" padding>
 
-
-  <div class="spinner-container" *ngIf="loaded == false">
-    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
-    <p>{{ 'EXPLORE.loading' | translate:params }}</p>
-  </div>
-
-
-  <ion-row class="moviesList" *ngIf="loaded == true">
-    <ion-col size="6" *ngFor="let item of results">
-      <ion-card class="card" (click)="addMyList(item)">
+  <ion-row>
+    <ion-col size="6" *ngFor="let item of shallowData">
+      <ion-card class="card" (click)="manageItemEvent(item)">
         <div>
-          <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" class="poster">
+          <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}"
+            class="poster">
           <ion-row no-padding>
             <ion-col size="8" no-padding>
               <h6 class="movie-title">
@@ -37,5 +30,3 @@
       color="primary">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
-</ion-content>

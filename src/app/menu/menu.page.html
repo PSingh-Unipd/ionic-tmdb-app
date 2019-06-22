@@ -1,25 +1,23 @@
-<ion-split-pane color="secondary">
-  <ion-menu contentId="content">
-    <ion-header>
-      <ion-toolbar color="secondary">
-        <ion-title color="primary">
-          Menu
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="explore">
+    <ion-tab-button tab="schedule">
+      <ion-icon name="film"></ion-icon>
+      <ion-label>Explore</ion-label>
+    </ion-tab-button>
 
-    <ion-content color="secondary">
-      <ion-list no-padding>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-          <ion-item color="secondary" [routerLink]="p.url" routerDirection = "root" [class.active-item]="selectedPath == p.url">
-              <ion-thumbnail item-start>
-                  <ion-icon name={{p.icon}} color="primary" style="font-size:35px; margin-top: 10px;"></ion-icon>
-              </ion-thumbnail>
-            <ion-label color="primary">{{p.title}}</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
-  <ion-router-outlet id="content" main></ion-router-outlet>
-</ion-split-pane>
+    <ion-tab-button tab="list">
+      <ion-icon name="time"></ion-icon>
+      <ion-label>Watchlist</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="map">
+      <ion-icon name="disc"></ion-icon>
+      <ion-label>Collections</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="collections">
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label>About</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

@@ -11,11 +11,11 @@ export class ExploreService extends BaseService{
     }
 
     search(queryString: string): Observable<any> {
-        return this.SearchREST(queryString, '&page=1&include_adult=false', 'movie');
+        return this.SearchREST(queryString, '&page=1&include_adult=false', 'tv');
     }
 
-    getMovies(type:string): Observable<any> {
-        return this.DetailsREST('', type, 'movie');
+    getMovies(type:string): Observable<any> { 
+        return this.DetailsREST('', type,'tv');
     }
 
     getList(list): Observable<any> {

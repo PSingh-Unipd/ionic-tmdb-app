@@ -1,6 +1,9 @@
 /* Search-bar styling */
 .search-container{
-    margin-bottom: 10px;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    background-color: #081C24;
 }
 
 /* Search-bar results styling */
@@ -40,30 +43,6 @@
     }
 }
 
-/* Cards styling (one card rappresent one movie), body of this page */
-.card {
-    text-align: center;
-    display: inline-block;
-    --background: rgb(10, 36, 46);
-    margin: 0px;
-    font-family: 'Open Sans', sans-serif;
-
-    .movie-title {
-        padding-left: 3px;
-        color: #fff;
-        font-size: 12px;
-        text-transform: uppercase;
-        margin: 0px;
-        margin-top: 15px
-    }
-
-    p {
-        margin: 0px;
-        font-size: 10px;
-    }
-    
-    .poster {
-        width: 100%;
-        margin: auto;
-    }
+.listContainer {
+    margin-top: 60px;
 }

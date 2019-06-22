@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/menu/explore/movies'
+    redirectTo: '/menu/explore'
   }
 ];
 
