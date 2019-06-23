@@ -1,4 +1,4 @@
-export interface Movie {
+export interface StorageItem {
     title: string,
     id: number,
     poster: string,

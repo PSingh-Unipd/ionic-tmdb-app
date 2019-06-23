@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { Movie } from 'src/app/interfaces/Movie.interface';
+import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { Router } from '@angular/router';
 import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -16,7 +15,7 @@ import { LocalStorageService } from 'src/app/common/services/storage.service';
 export class ShowsPage implements OnInit {
 
   filterVal: FormControl = new FormControl();
-  tvwl: Movie[] = [];
+  tvwl: StorageItem[] = [];
   loaded: boolean = false;
   filteredItems: any;
   params = '';
@@ -44,7 +43,7 @@ export class ShowsPage implements OnInit {
     );
   }
 
-  async showDetails(item: Movie) {
+  async showDetails(item: StorageItem) {
     const navigationExtras: NavigationExtras = {
       state: {
         id: item.id,

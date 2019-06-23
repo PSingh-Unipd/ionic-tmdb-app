@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ExplorePage } from './explore.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { InfoListComponent } from './components/info-list/info-list.component';
 import { ExploreService } from './services/explore.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ClickOutsideModule } from 'ng-click-outside';
@@ -30,7 +29,7 @@ const routes: Routes = [
     NgCircleProgressModule.forRoot({}),
     TranslateModule
   ],
-  declarations: [ExplorePage, InfoListComponent],
+  declarations: [ExplorePage],
   providers: [ExploreService]
 })
 export class ExplorePageModule {}

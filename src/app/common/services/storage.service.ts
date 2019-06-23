@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
-import { Movie } from 'src/app/interfaces/movie.interface';
+import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 @Injectable()
@@ -10,10 +10,10 @@ export class LocalStorageService {
     private notfications: any[];
 
     private data =  {
-        movies: new BehaviorSubject<Movie[]>([]),
-        tv :new BehaviorSubject<Movie[]>([]),
-        cbluray :new BehaviorSubject<Movie[]>([]),
-        cdvd :new BehaviorSubject<Movie[]>([])
+        movies: new BehaviorSubject<StorageItem[]>([]),
+        tv :new BehaviorSubject<StorageItem[]>([]),
+        cbluray :new BehaviorSubject<StorageItem[]>([]),
+        cdvd :new BehaviorSubject<StorageItem[]>([])
     }
 
     private loadings = {
@@ -72,22 +72,22 @@ export class LocalStorageService {
         });
     }
 
-    updateTvSeriesWL(_value: Movie[]) {
+    updateTvSeriesWL(_value: StorageItem[]) {
         this.data.tv.next(_value);
         this._storage.set('tvwl', _value);
     }
     
-    updateMoviesWL(_value: Movie[]) {
+    updateMoviesWL(_value: StorageItem[]) {
         this.data.movies.next(_value);
         this._storage.set('mwl', _value);
     }
 
-    updateCdvd(_value: Movie[]) {
+    updateCdvd(_value: StorageItem[]) {
         this.data.cdvd.next(_value);
         this._storage.set('cdvd', _value);
     }
 
-    updateCbluray(_value: Movie[]) {
+    updateCbluray(_value: StorageItem[]) {
         this.data.cbluray.next(_value);
         this._storage.set('cbluray', _value);
     }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from 'src/app/interfaces/Movie.interface';
+import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { Router } from '@angular/router';
 import { NavigationExtras } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -16,7 +16,7 @@ export class DvdPage implements OnInit {
 
   
   filterVal: FormControl = new FormControl();
-  dvdCollection: Movie[] = [];
+  dvdCollection: StorageItem[] = [];
   loaded: boolean = false;
   filteredItems: any;
   params = '';
@@ -44,7 +44,7 @@ export class DvdPage implements OnInit {
     });
   }
 
-  async movieDetails(item: Movie) {
+  async movieDetails(item: StorageItem) {
     const navigationExtras: NavigationExtras = {
       state: {
         id: item.id,
@@ -96,7 +96,7 @@ export class DvdPage implements OnInit {
     await alert.present();
   }
 
-  removeFromList(item: Movie) {
+  removeFromList(item: StorageItem) {
     const index = this.dvdCollection.indexOf(item);
     this.loaded = false;
     this.dvdCollection.splice(index, 1);
