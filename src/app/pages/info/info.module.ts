@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { InfoPage } from './info.page';
-import { InfoService } from './services/info.service';
+import { InfoService } from './providers/info.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 const routes: Routes = [

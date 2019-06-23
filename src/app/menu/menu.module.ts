@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MenuPage } from './menu.page';
-import { LocalStorageService } from 'src/app/common/services/storage.service';
+import { LocalStorageService } from 'src/app/common/providers/storage.service';
 
 const routes: Routes = [
   {
@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       { 
         path: 'list', 
-        loadChildren: '../pages/list/list.module#ListPageModule' 
+        loadChildren: '../pages/watchlist/watchlist.module#WatchListPageModule' 
       },
       { 
         path: 'collections', 
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/menu/explore/movies'
+    redirectTo: '/menu/explore'
   }
 ];
 

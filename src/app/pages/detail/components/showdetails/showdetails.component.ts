@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ActionSheetController, ToastController, AlertController } from '@ionic/angular';
-import { DetailService } from '../../services/detail.service';
+import { DetailService } from '../../providers/detail.service';
 import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
-import { Movie } from 'src/app/interfaces/movie.interface';
+import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
 import { InfoPage } from 'src/app/pages/info/info.page';
-import { LocalStorageService } from 'src/app/common/services/storage.service';
+import { LocalStorageService } from 'src/app/common/providers/storage.service';
 
 @Component({
   selector: 'app-showdetails',
@@ -22,9 +22,9 @@ export class ShowdetailsComponent implements OnInit {
   videos;
   movieRecommendations;
   loaded: boolean = false;
-  tvwl: Movie[] = [];
-  cbluray: Movie[] = [];
-  cdvd: Movie[] = [];
+  tvwl: StorageItem[] = [];
+  cbluray: StorageItem[] = [];
+  cdvd: StorageItem[] = [];
   params = '';
   constructor(
     public alertController: AlertController,
@@ -71,7 +71,7 @@ export class ShowdetailsComponent implements OnInit {
   }
 
   addMyWatchList(): void {
-    const movie: Movie = {
+    const movie: StorageItem = {
       title: this.detail.name,
       id: this.detail.id,
       poster: this.detail.poster_path ? this.detail.poster_path : null,
@@ -87,7 +87,7 @@ export class ShowdetailsComponent implements OnInit {
   }
 
   addBlurayCollection(item): void {
-    const movie: Movie = {
+    const movie: StorageItem = {
       title: item.name,
       id: item.id,
       poster: item.poster_path ? item.poster_path : null,
@@ -104,7 +104,7 @@ export class ShowdetailsComponent implements OnInit {
   }
 
   addDvdCollection(item): void {
-    const movie: Movie = {
+    const movie: StorageItem = {
       title: item.name,
       id: item.id,
       poster: item.poster_path ? item.poster_path : null,

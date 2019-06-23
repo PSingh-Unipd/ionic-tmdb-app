@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 
 @Component({
@@ -6,32 +6,11 @@ import { Router, RouterEvent } from '@angular/router';
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
 })
-export class MenuPage implements OnInit {
-  pages = [
-    {
-      title: 'Explore',
-      url: '/menu/explore/movies',
-      icon: 'film'
-    },
-    {
-      title: 'My Watchlist',
-      url: '/menu/list/movies',
-      icon: 'time'
-    },
-    {
-      title: 'My collections',
-      url: '/menu/collections/bluray',
-      icon: 'disc'
-    }
-  ];
-
+export class MenuPage {
   selectedPath = '';
   constructor(private _router: Router) {
     this._router.events.subscribe(
       (event: RouterEvent) => this.selectedPath = event.url
     );
    }
-
-  ngOnInit() {
-  }
 }

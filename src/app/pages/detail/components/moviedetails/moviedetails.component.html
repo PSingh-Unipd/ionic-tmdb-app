@@ -1,87 +1,89 @@
 <div class="spinner-container" *ngIf="loaded == false">
-    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
-    <p>{{ 'EXPLORE.loading' | translate:params }}</p>
+  <div id="loader"></div>
+</div>
+<div *ngIf="loaded == true">
+  <div class="background-poster">
+    <img class="bg-image"
+      src="{{detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500'+detail.backdrop_path : 'assets/no-av-trailer.png'}}" />
+    <ion-icon *ngIf="videos.results.length >0" name="play" class="playBtn" (click)="playTrailer()"></ion-icon>
   </div>
-  <div *ngIf="loaded == true">
-    <div class="background-poster">
-      <img class="bg-image" src="{{detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500'+detail.backdrop_path : 'assets/no-av-trailer.png'}}" />
-      <ion-icon *ngIf="videos.results.length >0" name="play" class="playBtn" (click)="playTrailer()"></ion-icon>
-    </div>
-    <div class="title-container">
-      <ion-row>
-        <ion-col size="8">
-          <h3>
-            {{detail.title}}
-          </h3>
-          <p>{{detail.release_date.substring(0, 10)}} | <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
-        </ion-col>
-        <ion-col size="4">
-          <div class="rating">
-            <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
-              [percent]="10 * detail.vote_average" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
-              [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
-              [animationDuration]="300">
-            </circle-progress>
-          </div>
-        </ion-col>
-      </ion-row>
-    </div>
+  <div class="title-container">
+    <ion-row>
+      <ion-col size="8">
+        <h3>
+          {{detail.title}}
+        </h3>
+        <p>{{detail.release_date.substring(0, 10)}} | <span *ngFor="let gen of detail.genres">{{gen.name}}, </span></p>
+      </ion-col>
+      <ion-col size="4">
+        <div class="rating">
+          <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
+            [percent]="10 * detail.vote_average" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
+            [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="300">
+          </circle-progress>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
 
-    <div class="poster-section">
-      <ion-row padding>
-        <ion-col size="5">
-          <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}"
+  <div class="poster-section">
+    <ion-row padding>
+      <ion-col size="5">
+        <img src="{{detail.poster_path ? 'https://image.tmdb.org/t/p/w185'+detail.poster_path : 'assets/no-av.png'}}"
+          class="poster">
+      </ion-col>
+      <ion-col size="7">
+        <p>{{(detail.overview.length >210)? (detail.overview | slice:0:210)+'...':(detail.overview)}}</p>
+        <ion-button expand="block" color="primary" padding (click)="addMyList()">add</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="list">
+    <h5 style="padding-top: 15px !important;">{{ 'MOVIE-DETAILS.cast' | translate:params }}</h5>
+    <div class="poster-container">
+      <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
+        <div>
+          <img
+            src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av-person.png'}}"
             class="poster">
-        </ion-col>
-        <ion-col size="7">
-          <p>{{(detail.overview.length >210)? (detail.overview | slice:0:210)+'...':(detail.overview)}}</p>
-          <ion-button expand="block" color="primary" padding (click)="addMyList()">add</ion-button>
-        </ion-col>
-      </ion-row>
-    </div>
-    <div class="list">
-      <h5 style="padding-top: 15px !important;">{{ 'MOVIE-DETAILS.cast' | translate:params }}</h5>
-      <div class="poster-container">
-        <ion-card *ngFor="let cast of credits.cast" class="card" (click)="castDetail(cast)">
-          <div>
-            <img src="{{cast.profile_path ? 'https://image.tmdb.org/t/p/w92'+cast.profile_path : 'assets/no-av-person.png'}}"
-              class="poster">
-            <h6 class="movie-title">
-              {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
-            </h6>
-            <p>({{(cast.character.length>16)? (cast.character | slice:0:14)+'..':(cast.character)}})</p>
-          </div>
-        </ion-card>
-      </div>
-    </div>
-
-    <div class="list">
-      <h5>{{ 'MOVIE-DETAILS.crew' | translate:params }}</h5>
-      <div class="poster-container">
-        <ion-card *ngFor="let crew of credits.crew" class="card" (click)="castDetail(crew)">
-          <div>
-            <img src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av-person.png'}}"
-              class="poster">
-            <h6 class="movie-title">
-              {{(crew.name.length>14)? (crew.name | slice:0:12)+'..':(crew.name)}} 
-            </h6>
-            <p>({{(crew.job.length>16)? (crew.job | slice:0:14)+'..':(crew.job)}})</p>
-          </div>
-        </ion-card>
-      </div>
-    </div>
-
-    <div class="list" *ngIf="movieRecommendations.length > 0">
-      <h5>{{ 'MOVIE-DETAILS.rec' | translate:params }}</h5>
-      <div class="poster-container">
-        <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">
-          <div>
-            <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}" class="poster2">
-            <h6 class="movie-title">
-              {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
-            </h6>
-          </div>
-        </ion-card>
-      </div>
+          <h6 class="movie-title">
+            {{(cast.name.length>14)? (cast.name | slice:0:12)+'..':(cast.name)}}
+          </h6>
+          <p>({{(cast.character.length>16)? (cast.character | slice:0:14)+'..':(cast.character)}})</p>
+        </div>
+      </ion-card>
     </div>
   </div>
+
+  <div class="list">
+    <h5>{{ 'MOVIE-DETAILS.crew' | translate:params }}</h5>
+    <div class="poster-container">
+      <ion-card *ngFor="let crew of credits.crew" class="card" (click)="castDetail(crew)">
+        <div>
+          <img
+            src="{{crew.profile_path ? 'https://image.tmdb.org/t/p/w92'+crew.profile_path : 'assets/no-av-person.png'}}"
+            class="poster">
+          <h6 class="movie-title">
+            {{(crew.name.length>14)? (crew.name | slice:0:12)+'..':(crew.name)}}
+          </h6>
+          <p>({{(crew.job.length>16)? (crew.job | slice:0:14)+'..':(crew.job)}})</p>
+        </div>
+      </ion-card>
+    </div>
+  </div>
+
+  <div class="list" *ngIf="movieRecommendations.length > 0">
+    <h5>{{ 'MOVIE-DETAILS.rec' | translate:params }}</h5>
+    <div class="poster-container">
+      <ion-card *ngFor="let item of movieRecommendations" class="card" (click)="movieRec(item)">
+        <div>
+          <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}"
+            class="poster2">
+          <h6 class="movie-title">
+            {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
+          </h6>
+        </div>
+      </ion-card>
+    </div>
+  </div>
+</div>

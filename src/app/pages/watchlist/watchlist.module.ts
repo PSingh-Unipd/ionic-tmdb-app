@@ -2,18 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
-
-import { CollectionsPage } from './collections.page';
+import { WatchListPage } from './watchlist.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { CollectionsService } from './providers/collections.service';
+import { WatchListService } from './providers/watchlist.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: CollectionsPage
-  }
+    component: WatchListPage
+  }  
 ];
 
 @NgModule({
@@ -25,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [CollectionsPage],
-  providers: [CollectionsService]
+  declarations: [WatchListPage],
+  providers: [WatchListService]
 })
-export class CollectionsPageModule {}
+export class WatchListPageModule {}

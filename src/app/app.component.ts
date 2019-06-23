@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from './common/services/translate.service';
-import { callNgModuleLifecycle } from '@angular/core/src/view/ng_module';
+import { TranslateService } from './common/providers/translate.service';
 
 @Component({
   selector: 'app-root',

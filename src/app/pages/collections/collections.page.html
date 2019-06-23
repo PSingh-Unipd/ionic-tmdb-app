@@ -1,24 +1,57 @@
 <ion-header>
-  <ion-toolbar class="bg">
+  <ion-toolbar color="secondary">
     <ion-buttons slot="start">
-      <ion-menu-button color="primary"></ion-menu-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title color="primary">My collections</ion-title>
+    <ion-segment [(ngModel)]="selected" (ionChange)="updateSelected()">
+      <ion-segment-button value="bluray">
+        BLURAY
+      </ion-segment-button>
+      <ion-segment-button value="dvd">
+        DVD
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-searchbar animated debounce="500" [formControl]="filterVal"
+      placeholder="{{ 'WATCHLIST.filter' | translate:params }}" color="light" (ionClear)="reset($event)">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg">
-  <ion-tabs>
-    <!-- Tab bar -->
-    <ion-tab-bar slot="bottom" color="medium">
-      <ion-tab-button tab="bluray">
-        <ion-label>Bluray</ion-label>
-        <ion-icon name="disc"></ion-icon>
-      </ion-tab-button>
-      <ion-tab-button tab="dvd">
-        <ion-label>DVD</ion-label>
-        <ion-icon name="disc"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="updating...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row *ngIf="loading == false">
+    <ion-col class="collection-list" size="6" *ngFor="let item of filteredItems" class="item">
+      <ion-card class="card" (click)="manageItem(item)">
+        <div>
+          <ion-row>
+            <img src="{{item.poster ? 'https://image.tmdb.org/t/p/w185'+item.poster : 'assets/no-av.png'}}"
+              class="poster">
+            <img src="{{selected=='bluray'? 'assets/cover.png' : 'assets/dvdcover.png'}}" class="bg-image">
+          </ion-row>
+          <ion-row>
+            <h6 class="movie-title">
+              {{(item.title.length>13)? (item.title | slice:0:13)+'..':(item.title)}}
+            </h6>
+            <p>{{item.release_date}}</p>
+          </ion-row>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+
+  <div class="no-movie" *ngIf="loadNoData == true">
+    <img src="assets/movie_img.svg">
+    <h4>0 items added!</h4>
+  </div>
+  <div class="spinner-container-bottom" *ngIf="loading == true">
+    <div id="loader"></div>
+  </div>
 </ion-content>

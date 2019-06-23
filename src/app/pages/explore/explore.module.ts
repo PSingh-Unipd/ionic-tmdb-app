@@ -5,32 +5,31 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ExplorePage } from './explore.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { ExploreService } from './providers/explore.service';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
     path: '',
-    component: ExplorePage,
-    children: [
-      {
-        path: 'movies',
-        loadChildren: './pages/exploremovies/exploremovies.module#ExploreMoviesPageModule'
-      },
-      {
-        path: 'tv',
-        loadChildren: './pages/tv/tv.module#TvPageModule'
-      }
-    ]
+    component: ExplorePage
   }  
 ];
 
 @NgModule({
   imports: [CommonModule,
+    CommonModule,
     FormsModule,
+    ClickOutsideModule,
     IonicModule,
-    ReactiveFormsModule,
     RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgCircleProgressModule.forRoot({}),
     TranslateModule
   ],
-  declarations: [ExplorePage]
+  declarations: [ExplorePage],
+  providers: [ExploreService]
 })
 export class ExplorePageModule {}

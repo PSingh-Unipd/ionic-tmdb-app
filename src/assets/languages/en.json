@@ -1,8 +1,8 @@
 {
     "EXPLORE": {
         "title": "Explore",
-        "search": "Search a movie",
-        "searchtv": "Search a show",
+        "search": "Search",
+        "searchtv": "Search",
         "mloading": "loding more movies...",
         "loading": "loading..."
     },
