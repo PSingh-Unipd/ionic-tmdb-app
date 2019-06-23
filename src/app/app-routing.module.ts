@@ -4,7 +4,7 @@ import { CastPageModule } from './pages/cast/cast.module';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateService } from './common/services/translate.service';
+import { TranslateService } from './common/providers/translate.service';
 import { InfoPageModule } from './pages/info/info.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 

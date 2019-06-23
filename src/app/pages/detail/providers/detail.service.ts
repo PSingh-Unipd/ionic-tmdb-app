@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { BaseService } from 'src/app/common/services/base.service';
+import { BaseService } from 'src/app/common/providers/base.service';
 import { HttpClient } from '@angular/common/http';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
 
@@ -19,18 +19,18 @@ export class DetailService extends BaseService{
     }
     
     getDetails(id, type): Observable<any> {
-        return this.DetailsREST(id, '', type);
+        return this.detailsREST(id, '', type);
     }
 
     getVideos(id, type): Observable<any> {
-        return this.DetailsREST(id, '/videos', type);
+        return this.detailsREST(id, '/videos', type);
     }
 
     getCredits(id, type) {
-        return this.DetailsREST(id, '/credits', type);
+        return this.detailsREST(id, '/credits', type);
     }
 
     getRecommendations(id, type) {
-        return this.DetailsREST(id, '/recommendations', type);
+        return this.detailsREST(id, '/recommendations', type);
     }
 }

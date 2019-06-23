@@ -1,9 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { BaseService } from 'src/app/common/services/base.service';
+import { BaseService } from 'src/app/common/providers/base.service';
 import { StorageItem } from 'src/app/interfaces/storage-item.interface';
-import { LocalStorageService } from 'src/app/common/services/storage.service';
+import { LocalStorageService } from 'src/app/common/providers/storage.service';
 import { StorageData } from 'src/app/interfaces/storage-data.interface';
 import { map } from 'rxjs/operators';
 
@@ -44,7 +44,7 @@ export class ExploreService extends BaseService {
      * @param type - movie or tv 
      */
     search(queryString: string, type: string): Observable<any> {
-        return this.SearchREST(queryString, '&page=1&include_adult=false', type).pipe(
+        return this.searchREST(queryString, '&page=1&include_adult=false', type).pipe(
             map(res => type != 'movie' ? res.results.filter(el => {
                 el.title = el.name;
                 el.release_date = el.first_air_date;
@@ -61,7 +61,7 @@ export class ExploreService extends BaseService {
     getDefaultList(listName: string, catagory: string): void {
         this.listLoading.next(true);
 
-        this.DetailsREST('', listName, catagory).subscribe(
+        this.detailsREST('', listName, catagory).subscribe(
             res => {
                 const list: any[] = res.results;
                 if (catagory == 'tv') {
@@ -81,7 +81,7 @@ export class ExploreService extends BaseService {
     getCustomList(listName: string, tv?: boolean): void {
         this.listLoading.next(true);
 
-        this.ListREST(listName).subscribe(
+        this.listREST(listName).subscribe(
             res => {
                 const list: any[] = res.items;
                 if (tv) {

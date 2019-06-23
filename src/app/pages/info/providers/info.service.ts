@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { BaseService } from 'src/app/common/services/base.service';
+import { BaseService } from 'src/app/common/providers/base.service';
 
 @Injectable()
 export class InfoService extends BaseService{
@@ -11,7 +11,7 @@ export class InfoService extends BaseService{
     }
 
     getSeasonDetails(seasonNumber, showId): Observable<any> {
-        return this.SeasonREST(seasonNumber, showId);
+        return this.seasonREST(seasonNumber, showId);
     }
 
 }

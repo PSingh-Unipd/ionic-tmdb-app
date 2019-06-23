@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ExplorePage } from './explore.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { ExploreService } from './services/explore.service';
+import { ExploreService } from './providers/explore.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { HttpClientModule } from '@angular/common/http';

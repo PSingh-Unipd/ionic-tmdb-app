@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { DvdPage } from './dvd.page';
+import { WatchListPage } from './watchlist.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { WatchListService } from './providers/watchlist.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: DvdPage
-  }
+    component: WatchListPage
+  }  
 ];
 
 @NgModule({
@@ -22,6 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [DvdPage]
+  declarations: [WatchListPage],
+  providers: [WatchListService]
 })
-export class DvdPageModule {}
+export class WatchListPageModule {}

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { DetailPage } from './detail.page';
-import { DetailService } from './services/detail.service';
+import { DetailService } from './providers/detail.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';

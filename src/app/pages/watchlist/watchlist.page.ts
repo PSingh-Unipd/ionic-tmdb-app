@@ -1,20 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { WatchListService } from './providers/watchlist.service';
 import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { FormControl } from '@angular/forms';
-import { CollectionsService } from './providers/collections.service';
-import { Router, NavigationExtras } from '@angular/router';
-import { AlertController, ActionSheetController } from '@ionic/angular';
 import { debounceTime } from 'rxjs/operators';
+import { Router, NavigationExtras } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-collections',
-  templateUrl: './collections.page.html',
-  styleUrls: ['./collections.page.scss'],
+  selector: 'app-list',
+  templateUrl: './watchlist.page.html',
+  styleUrls: ['./watchlist.page.scss'],
 })
-export class CollectionsPage implements OnInit {
-
+export class WatchListPage implements OnInit, OnDestroy{
   filterVal: FormControl = new FormControl();
-  selected: string = 'bluray';
+  selected: string = 'movie';
   data: StorageItem[] = [];
   filteredItems: StorageItem[];
   loading: boolean = true;
@@ -22,10 +21,9 @@ export class CollectionsPage implements OnInit {
   reorder: boolean = true;
   loadNoData: boolean = false;
 
-  constructor(private _service: CollectionsService,
+  constructor(private _service: WatchListService,
     private router: Router,
-    private _alertController: AlertController,
-    private _actionSheetController: ActionSheetController) { 
+    public _alertController: AlertController) { 
     }
 
   ngOnInit(): void {
@@ -73,6 +71,11 @@ export class CollectionsPage implements OnInit {
     this._service.getListType(this.selected);
   }
 
+  reorderList(): void {
+    this.assignCopy();
+    this.reorder = !this.reorder;
+  }
+
   assignCopy() {
     this.filteredItems = Object.assign([], this.data);
   }
@@ -90,6 +93,15 @@ export class CollectionsPage implements OnInit {
     this.assignCopy();
   }
 
+  reorderItems(event) {
+    this.filterVal.setValue('');
+    const temp = this.data.splice(event.detail.from, 1)[0];
+    this.data.splice(event.detail.to, 0, temp);
+    event.detail.complete();
+    this._service.updateList(this.data, this.selected);
+    this.assignCopy();
+  }
+
   removeFromList(index: number) {
     this.presentToast(this._service.removeElement(index, this.selected));
   }
@@ -98,7 +110,7 @@ export class CollectionsPage implements OnInit {
     const navigationExtras: NavigationExtras = {
       state: {
         id: item.id,
-        type: item.type
+        type: this.selected == 'movie' ? 'movie' : 'show'
       }
     };
     this.router.navigate(['/menu/details'], navigationExtras);
@@ -110,34 +122,5 @@ export class CollectionsPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
-  }
-
-  async manageItem(item) {
-    const actionSheet = await this._actionSheetController.create({
-      header: item.title.toUpperCase(),
-      buttons: [
-        {
-          text: 'Details',
-          icon: 'information-circle',
-          handler: () => {
-            this.showDetails(item);
-          }
-        }, {
-          text: 'Remove item from list',
-          icon: 'trash',
-          handler: () => {
-            this.removeFromList(item);
-          }
-        }, 
-        {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }]
-    });
-    await actionSheet.present();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CastService } from './services/cast.service';
+import { CastService } from './providers/cast.service';
 import { ModalController } from '@ionic/angular';
 import { forkJoin } from 'rxjs';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';

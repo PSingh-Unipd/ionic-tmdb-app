@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ExploreService } from './services/explore.service';
+import { ExploreService } from './providers/explore.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { Router, NavigationExtras } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
-import { LocalStorageService } from 'src/app/common/services/storage.service';
+import { LocalStorageService } from 'src/app/common/providers/storage.service';
 
 @Component({
   selector: 'app-explore',
@@ -47,7 +47,6 @@ export class ExplorePage implements OnInit{
         queryField => this._service.search(queryField.length > 2 ? queryField : '%%', this.selected)
       )
     ).subscribe(response => {
-      console.log('STAMPA RES', response);
       this.searchResults = response;
     });
   }

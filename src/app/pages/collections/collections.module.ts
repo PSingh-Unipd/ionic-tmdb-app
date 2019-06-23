@@ -7,21 +7,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { CollectionsPage } from './collections.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { CollectionsService } from './providers/collections.service';
 
 const routes: Routes = [
   {
     path: '',
-    component: CollectionsPage,
-    children: [
-      {
-        path: 'dvd',
-        loadChildren: './pages/dvd/dvd.module#DvdPageModule'
-      },
-      {
-        path: 'bluray',
-        loadChildren: './pages/bluray/bluray.module#BlurayPageModule'
-      }
-    ]
+    component: CollectionsPage
   }
 ];
 
@@ -34,6 +25,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule
   ],
-  declarations: [CollectionsPage]
+  declarations: [CollectionsPage],
+  providers: [CollectionsService]
 })
 export class CollectionsPageModule {}

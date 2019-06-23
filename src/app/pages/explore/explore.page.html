@@ -38,13 +38,13 @@
     </div>
   </div>
   <div *ngIf="loading == false" class="listContainer">
-   <ion-row>
+    <ion-row>
       <ion-col size="6" *ngFor="let item of shallowData">
         <ion-card class="card" (click)="itemActions(item)">
           <div>
             <ion-row>
-            <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}"
-              class="poster">
+              <img src="{{item.poster_path ? 'https://image.tmdb.org/t/p/w185'+item.poster_path : 'assets/no-av.png'}}"
+                class="poster">
             </ion-row>
             <ion-row no-padding>
               <ion-col size="8" no-padding>
@@ -67,12 +67,11 @@
     </ion-row>
   </div>
   <div class="spinner-container" *ngIf="loading == true">
-    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
-    <p>{{ 'EXPLORE.loading' | translate:params }}</p>
+    <div id="loader"></div>
   </div>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'EXPLORE.mloading' | translate:params }}"
-        color="primary">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'EXPLORE.mloading' | translate:params }}"
+      color="primary">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

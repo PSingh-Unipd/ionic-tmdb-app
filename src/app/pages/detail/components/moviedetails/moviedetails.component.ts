@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ActionSheetController, ToastController, AlertController } from '@ionic/angular';
-import { DetailService } from '../../services/detail.service';
+import { DetailService } from '../../providers/detail.service';
 import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
-import { Movie } from 'src/app/interfaces/movie.interface';
+import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { CastPage } from '../../../cast/cast.page';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
-import { LocalStorageService } from 'src/app/common/services/storage.service';
+import { LocalStorageService } from 'src/app/common/providers/storage.service';
 
 @Component({
   selector: 'app-moviedetails',
@@ -21,9 +21,9 @@ export class MoviedetailsComponent implements OnInit {
   videos;
   movieRecommendations;
   loaded: boolean = false;
-  mwl: Movie[] = [];
-  cbluray: Movie[] = [];
-  cdvd: Movie[] = [];
+  mwl: StorageItem[] = [];
+  cbluray: StorageItem[] = [];
+  cdvd: StorageItem[] = [];
   params = '';
   
   constructor(
@@ -62,7 +62,6 @@ export class MoviedetailsComponent implements OnInit {
       this.videos = results[2];
       this.movieRecommendations = results[3].results;
       this.loaded = true;
-      console.log('STAMPA FILM', results);
     });
   }
 
@@ -71,7 +70,7 @@ export class MoviedetailsComponent implements OnInit {
   }
 
   addMyWatchList(): void {
-    const movie: Movie = {
+    const movie: StorageItem = {
       title: this.detail.title,
       id: this.detail.id,
       poster: this.detail.poster_path ? this.detail.poster_path : null,
@@ -88,7 +87,7 @@ export class MoviedetailsComponent implements OnInit {
 
   // Add movie to my fml variabile in local storage
   addBlurayCollection(item): void {
-    const movie: Movie = {
+    const movie: StorageItem = {
       title: item.title,
       id: item.id,
       poster: item.poster_path ? item.poster_path : null,
@@ -106,7 +105,7 @@ export class MoviedetailsComponent implements OnInit {
 
   // Add movie to my fml variabile in local storage
   addDvdCollection(item): void {
-    const movie: Movie = {
+    const movie: StorageItem = {
       title: item.title,
       id: item.id,
       poster: item.poster_path ? item.poster_path : null,

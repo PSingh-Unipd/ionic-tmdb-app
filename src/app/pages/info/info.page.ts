@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { InfoService } from './services/info.service';
+import { InfoService } from './providers/info.service';
 
 @Component({
   selector: 'app-info',

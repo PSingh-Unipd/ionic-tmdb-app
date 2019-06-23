@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DetailService } from './services/detail.service';
+import { DetailService } from './providers/detail.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
