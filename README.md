@@ -4,6 +4,7 @@
   <img src="./screens/screen1.jpg" width="200" />
   <img src="./screens/screen2.jpg" width="200" /> 
   <img src="./screens/screen3.jpg" width="200" />
+  <img src="./screens/screen4.jpg" width="200" />
 </p>
 
 ### About this repo
@@ -20,7 +21,8 @@ npm install
 ```
 ionic serve
 ```
-Note: this application is optimized for mobile device only, so use developer tools/mobile device when testing this application on your browser. When you have your API key, just add it on the file src/app/common/base.service.ts for correct working of the application.
+Note: this application is optimized for mobile devices only, so use developer tools->mobile device when testing this application on your browser. When you have your API key, just add it on the file src/app/common/providers/base.service.ts 
+
 ### Build 
 ```
 ionic cordova build android --prod --release
