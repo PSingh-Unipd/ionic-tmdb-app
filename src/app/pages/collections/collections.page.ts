@@ -13,6 +13,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class CollectionsPage implements OnInit {
 
+  params: string = '';
   filterVal: FormControl = new FormControl();
   selected: string = 'bluray';
   data: StorageItem[] = [];

@@ -12,7 +12,7 @@ import { LocalStorageService } from 'src/app/common/providers/storage.service';
   styleUrls: ['./explore.page.scss'],
 })
 export class ExplorePage implements OnInit{
-  
+  params: string = '';
   selected: string = 'movie';
   data : any[] = [];
   shallowData : any[] = [];

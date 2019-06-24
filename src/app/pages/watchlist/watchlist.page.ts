@@ -20,6 +20,7 @@ export class WatchListPage implements OnInit, OnDestroy{
   searchResults: any[];
   reorder: boolean = true;
   loadNoData: boolean = false;
+  params: string = '';
 
   constructor(private _service: WatchListService,
     private router: Router,
