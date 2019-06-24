@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 /**
- * Base service, used by every provider service in this application.
+ * Base class, used by every provider service in this application.
  */
 export class BaseService {
 

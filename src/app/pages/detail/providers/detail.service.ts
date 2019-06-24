@@ -4,6 +4,10 @@ import { BaseService } from 'src/app/common/providers/base.service';
 import { HttpClient } from '@angular/common/http';
 import { SubjectElement } from 'src/app/interfaces/subject.interface';
 
+/**
+ * Service to read all the information about movie or show
+ * It extends the BaseService class
+ */
 @Injectable()
 export class DetailService extends BaseService{
 

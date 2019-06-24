@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { TranslateService as Service} from '@ngx-translate/core';
 
+/**
+ * This provider service will be used to traslate app in different languges
+ * For moment only to languages are added italian and english -> check assets/languages 
+ */
 @Injectable({
   providedIn: 'root'
 })

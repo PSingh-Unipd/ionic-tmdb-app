@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { BaseService } from 'src/app/common/providers/base.service';
 
+/**
+ * Simple service, witch implement BaseService to read all the information about a person(actor, director, producer, etc)
+ */
 @Injectable()
 export class CastService extends BaseService{
 
