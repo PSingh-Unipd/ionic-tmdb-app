@@ -1,10 +1,10 @@
 ##  Ionic TMDB app
 
 <p float="left">
-  <img src="./screens/screen1.jpg" width="200" />
-  <img src="./screens/screen2.jpg" width="200" /> 
-  <img src="./screens/screen3.jpg" width="200" />
-  <img src="./screens/screen4.jpg" width="200" />
+  <img src="./screens/s1.jpg" width="200" />
+  <img src="./screens/s2.jpg" width="200" /> 
+  <img src="./screens/s3.jpg" width="200" />
+  <img src="./screens/s4.jpg" width="200" />
 </p>
 
 ### About this repo
