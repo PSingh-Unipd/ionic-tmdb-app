@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
 import { StorageItem } from 'src/app/interfaces/storage-item.interface';
-import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
+/**
+ * Storage service used to read and write data on/from local native storage
+ */
 @Injectable()
 export class LocalStorageService {
-
-    private notfications: any[];
 
     private data =  {
         movies: new BehaviorSubject<StorageItem[]>([]),
@@ -34,65 +34,74 @@ export class LocalStorageService {
         cdvdLoading: this.loadings.cdvd.asObservable()
     }
 
-    constructor(private _storage: Storage,
-        private localNotifications: LocalNotifications) {
-
+    /**
+     * All 4 arrays of data are loaded from local storage
+     * @param _storage - DI of @ionic/storage service
+     */
+    constructor(private _storage: Storage) {
         this._storage.get('tvwl').then((elements) => {
             if (elements) {
                 this.data.tv.next(elements);
             }
             this.loadings.tv.next(true);
         });
-
         this._storage.get('mwl').then((elements) => {
             if (elements) {
                 this.data.movies.next(elements);
             }
             this.loadings.movies.next(true);
         });
-
         this._storage.get('cbluray').then((elements) => {
             if (elements) {
                 this.data.cbluray.next(elements);
             }
             this.loadings.cbluray.next(true);
         });
-
         this._storage.get('cdvd').then((elements) => {
             if (elements) {
                 this.data.cdvd.next(elements);
             }
             this.loadings.cdvd.next(true);
         });
-
-        this._storage.get('noty').then((elements) => {
-            if (elements) {
-                this.notfications = elements;
-            }
-        });
     }
 
+    /**
+     * Update shows watchlist on local storage
+     * @param _value - array of shows
+     */
     updateTvSeriesWL(_value: StorageItem[]) {
         this.data.tv.next(_value);
         this._storage.set('tvwl', _value);
     }
     
+    /**
+     * Update movies watchlist on local storage
+     * @param _value - array of movies
+     */
     updateMoviesWL(_value: StorageItem[]) {
         this.data.movies.next(_value);
         this._storage.set('mwl', _value);
     }
 
+    /**
+     * Update dvd collection list on local storage
+     * @param _value - array of dvd collection items
+     */
     updateCdvd(_value: StorageItem[]) {
         this.data.cdvd.next(_value);
         this._storage.set('cdvd', _value);
     }
 
+    /**
+     * Update bluray collection list on local storage
+     * @param _value - array of bluray collection items
+     */
     updateCbluray(_value: StorageItem[]) {
         this.data.cbluray.next(_value);
         this._storage.set('cbluray', _value);
     }
 
-    notificationMovie(id: string, movieName: string) {
+    /* notificationMovie(id: string, movieName: string) {
         this.localNotifications.schedule({
             id: Number(id),
             title: 'Film in uscita oggi',
@@ -110,6 +119,6 @@ export class LocalStorageService {
 
     getDateFormat(date: Date) {
         return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
-    }
+    } */
 
 }

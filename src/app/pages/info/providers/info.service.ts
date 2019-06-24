@@ -3,6 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { BaseService } from 'src/app/common/providers/base.service';
 
+/**
+ * Service to read all the information about a season of specific tv-show
+ * It extends the BaseService class
+ */
 @Injectable()
 export class InfoService extends BaseService{
 

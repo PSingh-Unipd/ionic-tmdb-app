@@ -21,7 +21,6 @@ export class CastPage implements OnInit {
     private _controller: ModalController) { }
 
   ngOnInit() {
-
     const cast = this.service.getDetails(this.castID);
     const movies = this.service.getMovies(this.castID);
     const shows = this.service.getShows(this.castID);
@@ -31,7 +30,7 @@ export class CastPage implements OnInit {
       this.movies = results[1];
       this.shows = results[2];
       if (this.detail.biography == '')
-        this.detail.biography = 'Biography not found for this actor!';
+        this.detail.biography = 'Biography not found for this person!';
       this.loaded = true;
     });
   }
