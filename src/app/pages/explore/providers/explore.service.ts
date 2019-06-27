@@ -2,10 +2,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { BaseService } from 'src/app/common/providers/base.service';
-import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { LocalStorageService } from 'src/app/common/providers/storage.service';
-import { StorageData } from 'src/app/interfaces/storage-data.interface';
 import { map } from 'rxjs/operators';
+import { StorageItem, StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
 
 /**
  * Serive to manage all data for explore page. 

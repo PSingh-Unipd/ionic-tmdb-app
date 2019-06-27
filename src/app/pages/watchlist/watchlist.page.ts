@@ -1,17 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WatchListService } from './providers/watchlist.service';
-import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { Router, NavigationExtras } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { StorageItem, StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
+import { BaseComponent } from 'src/app/common/components/base/base.component';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/interfaces/app-state.interface';
 
 @Component({
   selector: 'app-list',
   templateUrl: './watchlist.page.html',
   styleUrls: ['./watchlist.page.scss'],
 })
-export class WatchListPage implements OnInit, OnDestroy{
+export class WatchListPage implements OnInit, OnDestroy {
   filterVal: FormControl = new FormControl();
   selected: string = 'movie';
   data: StorageItem[] = [];
@@ -24,8 +27,9 @@ export class WatchListPage implements OnInit, OnDestroy{
 
   constructor(private _service: WatchListService,
     private router: Router,
-    public _alertController: AlertController) { 
-    }
+    public _alertController: AlertController,
+    public store: Store<{ appState: AppState }>) {
+  }
 
   ngOnInit(): void {
     this.filterVal.valueChanges.pipe(
@@ -114,7 +118,7 @@ export class WatchListPage implements OnInit, OnDestroy{
         type: this.selected == 'movie' ? 'movie' : 'show'
       }
     };
-    this.router.navigate(['/menu/details'], navigationExtras);
+    this.router.navigate(['/details'], navigationExtras);
   }
 
   async presentToast(message: string) {

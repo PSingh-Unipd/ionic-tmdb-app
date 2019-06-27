@@ -11,7 +11,7 @@ export class BaseService {
      * you can get your key for free from https://www.themoviedb.org/
      * -> just register with a valid email and vualá
      */
-    ApiKey: string = '';
+    ApiKey: string = '29371e05e1dfa0327af74c0805fef777';
     languege: string = '&language=en-US';
 
     constructor(public http: HttpClient) { }

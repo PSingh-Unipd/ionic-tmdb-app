@@ -9,6 +9,10 @@ import { ExploreService } from './providers/explore.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { LocalStorageEffect } from 'src/app/state/effects/LocalStorageEffect';
+import { appReducer } from 'src/app/state/reducers/app.reducer';
 
 const routes: Routes = [
   {
@@ -27,7 +31,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgCircleProgressModule.forRoot({}),
-    TranslateModule
+    TranslateModule,
+    StoreModule.forFeature('appState', appReducer),
+    EffectsModule.forFeature([LocalStorageEffect])
   ],
   declarations: [ExplorePage],
   providers: [ExploreService]

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
-import { StorageItem } from 'src/app/interfaces/storage-item.interface';
+import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
 
 /**
  * Storage service used to read and write data on/from local native storage

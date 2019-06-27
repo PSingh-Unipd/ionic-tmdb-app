@@ -5,30 +5,42 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { Router, NavigationExtras } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { LocalStorageService } from 'src/app/common/providers/storage.service';
+import { Store, select } from '@ngrx/store';
+import * as LocalStorageActions from 'src/app/state/actions/local-storage.actions';
+import { StorageItem, StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
+import { BaseComponent } from 'src/app/common/components/base/base.component';
+import { AppState } from 'src/app/state/interfaces/app-state.interface';
 
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.page.html',
   styleUrls: ['./explore.page.scss'],
 })
-export class ExplorePage implements OnInit{
+export class ExplorePage extends BaseComponent implements OnInit {
   params: string = '';
   selected: string = 'movie';
-  data : any[] = [];
-  shallowData : any[] = [];
+  data: any[] = [];
+  shallowData: any[] = [];
   loading: boolean = true;
   searchResults: any[];
   queryField: FormControl = new FormControl();
-  
+
   constructor(private _service: ExploreService,
     private router: Router,
     private actionSheetController: ActionSheetController,
     public alertController: AlertController,
     public _storage: LocalStorageService,
-    public _alertController: AlertController) { }
+    public _alertController: AlertController,
+    public store: Store<{ appState: AppState }>) {
+    super(store);
+  }
+
 
   ngOnInit(): void {
-
+    this.store.dispatch(LocalStorageActions.LoadStorageAction());
+    this.store.select('StorageData').subscribe(
+      data => this.storageData
+    );
     this._service.data.subscribe(
       res => {
         this.data = res;
@@ -52,7 +64,7 @@ export class ExplorePage implements OnInit{
   }
 
   updateSelected() {
-    this._service.getDefaultList(this.selected =='movie'? 'now_playing' : 'on_the_air', this.selected);
+    this._service.getDefaultList(this.selected == 'movie' ? 'now_playing' : 'on_the_air', this.selected);
   }
 
   onClickedOutside(event) {
@@ -66,7 +78,7 @@ export class ExplorePage implements OnInit{
         type: this.selected == 'movie' ? 'movie' : 'show'
       }
     };
-    this.router.navigate(['/menu/details'], navigationExtras);
+    this.router.navigate(['/details'], navigationExtras);
   }
 
   async presentToast(message: string) {
@@ -91,21 +103,21 @@ export class ExplorePage implements OnInit{
           text: 'Add to my Watchlist',
           icon: 'add-circle',
           handler: () => {
-            this.presentToast(this._service.addMyWatchList(item, this.selected));
+            this.addToWatchlist(item, this.selected);
           }
-        }, 
+        },
         {
           text: 'Add to DVD collection',
           icon: 'add-circle',
           handler: () => {
-            this.presentToast(this._service.addDvdCollection(item, this.selected));
+            this.addDvdCollection(item, this.selected);
           }
         },
         {
           text: 'Add to Bluray collection',
           icon: 'add-circle',
           handler: () => {
-            this.presentToast(this._service.addBlurayCollection(item, this.selected));
+            this.addBlurayCollection(item, this.selected);
           }
         }, {
           text: 'Cancel',
@@ -254,5 +266,5 @@ export class ExplorePage implements OnInit{
         this.shallowCopy();
       }
     }, 500);
-  }  
+  }
 }

@@ -3,11 +3,11 @@ import { ModalController, ActionSheetController, ToastController, AlertControlle
 import { DetailService } from '../../providers/detail.service';
 import { forkJoin } from 'rxjs';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player/ngx';
-import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { CastPage } from '../../../cast/cast.page';
-import { SubjectElement } from 'src/app/interfaces/subject.interface';
 import { InfoPage } from 'src/app/pages/info/info.page';
 import { LocalStorageService } from 'src/app/common/providers/storage.service';
+import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
+import { DetailsElement } from 'src/app/state/interfaces/details.interfaces';
 
 @Component({
   selector: 'app-showdetails',
@@ -168,7 +168,7 @@ export class ShowdetailsComponent implements OnInit {
   }
 
   async showRec(item) {
-    const temp: SubjectElement = { id: item.id, type: 'show' };
+    const temp: DetailsElement = { id: item.id, type: 'show' };
     this.update(temp);
   }
 
@@ -196,7 +196,7 @@ export class ShowdetailsComponent implements OnInit {
     return await modal.present();
   }
 
-  update(val: SubjectElement) {
+  update(val: DetailsElement) {
     this._service.updateValue(val);
   }
 

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { FormControl } from '@angular/forms';
 import { CollectionsService } from './providers/collections.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { AlertController, ActionSheetController } from '@ionic/angular';
 import { debounceTime } from 'rxjs/operators';
+import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
 
 @Component({
   selector: 'app-collections',
@@ -102,7 +102,7 @@ export class CollectionsPage implements OnInit {
         type: item.type
       }
     };
-    this.router.navigate(['/menu/details'], navigationExtras);
+    this.router.navigate(['/details'], navigationExtras);
   }
 
   async presentToast(message: string) {

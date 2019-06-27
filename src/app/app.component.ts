@@ -3,6 +3,8 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from './common/providers/translate.service';
+import { Store } from '@ngrx/store';
+import { AppState } from './state/interfaces/app-state.interface';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit{
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private _translate: TranslateService
+    private _translate: TranslateService,
+    public store: Store<{ appState: AppState }>
   ) {
     this.initializeApp();
   }

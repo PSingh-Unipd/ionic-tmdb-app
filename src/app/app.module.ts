@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { TranslateModule } from '@ngx-translate/core';
+import { BaseComponent } from './common/components/base/base.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, BaseComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(),TranslateModule],
   providers: [

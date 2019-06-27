@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { StorageItem } from 'src/app/interfaces/storage-item.interface';
 import { LocalStorageService } from 'src/app/common/providers/storage.service';
+import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
 /**
  * Priveder service to manage all data for watchlist page. 
  * This service rappresent "Model" in Model-View-Controller pattern!
