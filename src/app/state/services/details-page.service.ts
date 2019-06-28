@@ -24,32 +24,21 @@ export class DetailsPageService extends BaseService {
             this.detailsREST(id, '/credits', type),
             this.detailsREST(id, '/recommendations', type)
         ).pipe(
-            map(([details, videos, credits, recommendations ]) => {
+            map(([details, videos, credits, recommendations]) => {
                 let temp: DetailsPageData = {
                     detail: details,
                     credits: credits,
                     videos: videos,
-                    recommendations: recommendations
+                    recommendations: recommendations.results
                 };
+                if (type == 'tv') {
+                    temp.detail.title = temp.detail.name;
+                    temp.detail.release_date = temp.detail.first_air_date;
+                    if (temp.recommendations != undefined)
+                        temp.recommendations.map(el => el.title = el.name);
+                }
                 return temp;
             })
         );
     }
-
-
-/*getDetails(id, type): Observable<any> {
-    return this.detailsREST(id, '', type);
-}
-
-getVideos(id, type): Observable<any> {
-    return this.detailsREST(id, '/videos', type);
-}
-
-getCredits(id, type) {
-    return this.detailsREST(id, '/credits', type);
-}
-
-getRecommendations(id, type) {
-    return this.detailsREST(id, '/recommendations', type);
-}*/
 }

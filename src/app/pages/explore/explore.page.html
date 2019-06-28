@@ -20,7 +20,7 @@
 </ion-header>
 <ion-content class="bg">
   <div class="search-container" (clickOutside)="onClickedOutside($event)">
-    <ion-searchbar animated debounce="500" placeholder="{{ 'EXPLORE.searchtv' | translate:params }}"
+    <ion-searchbar animated debounce="500" placeholder="Search"
       [formControl]="queryField" color="light" (ionClear)="onClickedOutside($event)"></ion-searchbar>
     <div class="filter-select">
       <div *ngFor="let item of searchResults" class="filter-select-item" (click)="itemActions(item)">
@@ -70,7 +70,7 @@
     <div id="loader"></div>
   </div>
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="{{ 'EXPLORE.mloading' | translate:params }}"
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="loading more data..."
       color="primary">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

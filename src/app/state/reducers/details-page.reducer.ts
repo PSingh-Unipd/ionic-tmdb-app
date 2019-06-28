@@ -1,20 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { DetailsPageData } from '../interfaces/details-page.interface';
+import { DetailsPageData, DetailsPageState } from '../interfaces/details-page.interface';
 import * as DetailsActions from '../actions/details-page.action';
 
-export const initialState: DetailsPageData = {
-    detail: null,
-    credits: null,
-    videos: null,
-    recommendations: null,
-    element: null
+export const initialState: DetailsPageState = {
+    data: null,
+    isLoading: false,
 };
 
 const reducer = createReducer(
     initialState,
-    on(DetailsActions.SaveDetailsDataAction, (state, action) => ({...action.payload}))
+    on(DetailsActions.SaveDetailsDataAction, (state, action) => ({...state, data:action.payload, isLoading:false})),
+    on(DetailsActions.LoadDetailsAction, (state, action) => ({...state, isLoading:true}))
 );
 
-export function DetailsPageReducer(state: DetailsPageData, action: Action) {
+export function DetailsPageReducer(state: DetailsPageState, action: Action) {
     return reducer(state, action);
 }

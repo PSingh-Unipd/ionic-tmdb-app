@@ -19,19 +19,13 @@
   </ion-toolbar>
   <ion-toolbar color="secondary">
     <ion-searchbar animated debounce="500" [formControl]="filterVal"
-      placeholder="{{ 'WATCHLIST.filter' | translate:params }}" color="light" (ionClear)="reset($event)">
+      placeholder="Filter in list" color="light" (ionClear)="reset($event)">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
-      refreshingText="updating...">
-    </ion-refresher-content>
-  </ion-refresher>
-
-  <ion-list no-padding *ngIf="loading == false">
+  <ion-list no-padding *ngIf="filteredItems.length > 0">
     <ion-reorder-group [disabled]="reorder" (ionItemReorder)="reorderItems($event)">
       <ion-item *ngFor="let item of filteredItems; let i = index" color="secondary">
         <ion-label no-padding>
@@ -78,11 +72,8 @@
       </ion-item>
     </ion-reorder-group>
   </ion-list>
-  <div class="no-movie" *ngIf="loadNoData == true">
+  <div class="no-movie" *ngIf="filteredItems.length == 0">
     <img src="assets/movie_img.svg">
     <h4>0 items added!</h4>
-  </div>
-  <div class="spinner-container-bottom" *ngIf="loading == true">
-    <div id="loader"></div>
   </div>
 </ion-content>

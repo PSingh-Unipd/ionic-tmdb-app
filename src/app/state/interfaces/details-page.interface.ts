@@ -1,6 +1,5 @@
 import { ElementType } from './element-type.interface';
 
-
 /**
  * This interface describe all the data used in details page
  */
@@ -9,5 +8,9 @@ export interface DetailsPageData {
     credits: any;
     videos: any;
     recommendations: any;
-    element?: ElementType
+}
+
+export interface DetailsPageState {
+    data: DetailsPageData;
+    isLoading: boolean;
 }

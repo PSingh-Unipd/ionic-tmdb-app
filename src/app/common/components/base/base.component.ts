@@ -74,6 +74,4 @@ export class BaseComponent implements OnDestroy {
     this.storageData.cbluray.unshift(tempItem);
     this.store.dispatch(LocalStorageActions.UpdateCollectionBlurayAction(this.storageData.cbluray));
   }
-
- 
 }

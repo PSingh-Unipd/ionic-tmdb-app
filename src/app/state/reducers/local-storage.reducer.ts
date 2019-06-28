@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as LocalStorageActions from '../actions/local-storage.actions';
 import { StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
-import { Actions } from '@ngrx/effects';
 
 export const initialState: StorageData = {
     mwl: [],

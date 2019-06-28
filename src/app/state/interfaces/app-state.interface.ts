@@ -1,13 +1,10 @@
 import { StorageData } from './local-storage.interfaces';
-import { ExplorePageData } from './explore-page.interface';
-import { PersonPageData } from './person-page.interface';
-import { DetailsPageData } from './details-page.interface';
-import { Notifications } from './notification.interface';
+import { DetailsPageState } from './details-page.interface';
 
 export interface AppState {
     LocalStorage: StorageData;
-    Details: DetailsPageData;
-    Notifications: Notifications;
+    Details: DetailsPageState;
+    Notifications: string;
     /*ExplorePage: ExplorePageData;
     PersonDetails: PersonPageData;
     lodaing: boolean;

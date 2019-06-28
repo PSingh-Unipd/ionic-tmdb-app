@@ -1,20 +1,31 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { StorageData } from '../interfaces/local-storage.interfaces';
-import { DetailsPageData } from '../interfaces/details-page.interface';
-import { Notifications } from '../interfaces/notification.interface';
+import { AppState } from '../interfaces/app-state.interface';
 
-export const getStorageData = createFeatureSelector<StorageData>('LocalStorage');
-export const getDatilsPageData = createFeatureSelector<DetailsPageData>('Details');
-export const getNotificationsData = createFeatureSelector<Notifications>('Notifications');
+export const appStateData = createFeatureSelector<AppState>('appState');
+
+export const getDatilsPageData = createSelector(
+    appStateData, 
+    state => state.Details
+);
+
+export const getStorageData = createSelector(
+    appStateData, 
+    state => state.LocalStorage
+);
+
+export const getNotificationsData = createSelector(
+    appStateData, 
+    state => state.Notifications
+);
 
 export const getWatchlistMovies = createSelector(
-    getStorageData, 
-    state => state.mwl
+    appStateData, 
+    state => state.LocalStorage.mwl
 );
 
 export const getWatchlistShows = createSelector(
-    getStorageData, 
-    state => state.tvwl
+    appStateData, 
+    state => {return {movies: state.LocalStorage.mwl, shows: state.LocalStorage.tvwl};}
 );
 
 export const getDvdCollection = createSelector(

@@ -1,79 +1,55 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { WatchListService } from './providers/watchlist.service';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { StorageItem, StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
-import { BaseComponent } from 'src/app/common/components/base/base.component';
+import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/state/interfaces/app-state.interface';
+import { getWatchlistShows } from 'src/app/state/selectors/app.selector';
+import * as StorageActions from 'src/app/state/actions/local-storage.actions';
+import { ElementType } from 'src/app/state/interfaces/element-type.interface';
+import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
 
 @Component({
   selector: 'app-list',
   templateUrl: './watchlist.page.html',
   styleUrls: ['./watchlist.page.scss'],
 })
-export class WatchListPage implements OnInit, OnDestroy {
+export class WatchListPage implements OnInit {
+
   filterVal: FormControl = new FormControl();
   selected: string = 'movie';
+  watchlistData: any;
   data: StorageItem[] = [];
-  filteredItems: StorageItem[];
-  loading: boolean = true;
+  filteredItems: StorageItem[] = [];
   searchResults: any[];
   reorder: boolean = true;
-  loadNoData: boolean = false;
-  params: string = '';
 
-  constructor(private _service: WatchListService,
+  constructor(
     private router: Router,
-    public _alertController: AlertController,
+    public alertController: AlertController,
     public store: Store<{ appState: AppState }>) {
-  }
-
-  ngOnInit(): void {
     this.filterVal.valueChanges.pipe(
       debounceTime(300)
     ).subscribe(val => {
       this.filterItem(val);
     });
-    this._service.loading.subscribe(
-      value => {
-        this.loading = value;
-      }
-    );
-    this._service.data.subscribe(
-      data => {
-        this.data = data;
-        if (this.data.length > 0) {
-          this.loadNoData = false;
-        } if (this.data.length == 0) {
-          this.loadNoData = true;
-        }
+  }
+
+  ngOnInit(): void {
+    this.store.select(getWatchlistShows).subscribe(
+      results => {
+        this.watchlistData = results;
+        this.selected == 'movie' ? this.data = results.movies : this.data = results.shows;
         this.assignCopy();
       }
     );
   }
 
-  doRefresh(event) {
-    setTimeout(() => {
-      this._service.getListType(this.selected);
-      event.target.complete();
-    }, 400);
-  }
-
-  ngOnDestroy(): void {
-    this.selected = null;
-    this.data = null;
-    this.filteredItems = null;
-    this.loading = null;
-    this.searchResults = null;
-    this.reorder = null;
-    this.loadNoData = null;
-  }
-
   updateSelected(): void {
-    this._service.getListType(this.selected);
+    this.selected == 'movie' ? this.data = this.watchlistData.movies : this.data = this.watchlistData.shows;
+    this.assignCopy();
   }
 
   reorderList(): void {
@@ -81,11 +57,11 @@ export class WatchListPage implements OnInit, OnDestroy {
     this.reorder = !this.reorder;
   }
 
-  assignCopy() {
+  assignCopy(): void {
     this.filteredItems = Object.assign([], this.data);
   }
 
-  filterItem(value) {
+  filterItem(value): void {
     if (!value) {
       this.assignCopy();
     }
@@ -94,38 +70,35 @@ export class WatchListPage implements OnInit, OnDestroy {
     )
   }
 
-  reset(event) {
+  reset(event): void {
     this.assignCopy();
   }
 
-  reorderItems(event) {
+  reorderItems(event): void {
     this.filterVal.setValue('');
     const temp = this.data.splice(event.detail.from, 1)[0];
     this.data.splice(event.detail.to, 0, temp);
     event.detail.complete();
-    this._service.updateList(this.data, this.selected);
+    this.selected == 'movie' ?
+      this.store.dispatch(StorageActions.ReorderWatchlistMoviesAction(this.data)) :
+      this.store.dispatch(StorageActions.ReorderWatchlistShowsAction(this.data));
     this.assignCopy();
   }
 
-  removeFromList(index: number) {
-    this.presentToast(this._service.removeElement(index, this.selected));
+  removeFromList(index: number): void {
+    this.data.splice(index, 1);
+    this.selected == 'movie' ?
+      this.store.dispatch(StorageActions.DeleteWatchlistMovieAction(this.data)) :
+      this.store.dispatch(StorageActions.DeleteWatchlistShowAction(this.data));
+    this.assignCopy();
   }
 
-  showDetails(item: StorageItem) {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        id: item.id,
-        type: this.selected == 'movie' ? 'movie' : 'show'
-      }
+  showDetails(item: StorageItem): void {
+    const temp: ElementType = {
+      id: item.id.toString(),
+      type: this.selected == 'movie' ? 'movie' : 'tv'
     };
-    this.router.navigate(['/details'], navigationExtras);
-  }
-
-  async presentToast(message: string) {
-    const alert = await this._alertController.create({
-      message: message,
-      buttons: ['OK']
-    });
-    await alert.present();
+    this.store.dispatch(LoadDetailsAction(temp));
+    this.router.navigate(['/details']);
   }
 }

@@ -1,30 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from './common/providers/translate.service';
 import { Store } from '@ngrx/store';
 import { AppState } from './state/interfaces/app-state.interface';
+import { getNotificationsData } from './state/selectors/app.selector';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit{
-  ngOnInit(): void { 
-    const lan : string = this.confirmLanguage(this._translate.getDefaultLanguage());
-    console.log('stampa della lingua', lan);
-    this._translate.setLanguage('en');
-  }
-  
+export class AppComponent implements OnInit {
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private _translate: TranslateService,
-    public store: Store<{ appState: AppState }>
+    public store: Store<{ appState: AppState }>,
+    private alertController: AlertController
   ) {
     this.initializeApp();
+  }
+
+  ngOnInit(): void {
+     this.store.select(getNotificationsData).subscribe(
+      value => {
+        if (value != null) {
+          this.presentToast(value);
+        }
+      }
+    );
   }
 
   initializeApp() {
@@ -33,21 +38,12 @@ export class AppComponent implements OnInit{
       this.splashScreen.hide();
     });
   }
-
-  confirmLanguage(value: string) : string {
-    value = value.toLowerCase();
-
-    if(value.includes('en')) {
-      return 'en';
-    }
-    if(value.includes('it')){
-      return 'it';
-    }
-    if(value.includes('fr')) {
-      return 'fr';
-    }
-    if(value.includes('esp')) {
-      return 'esp';
-    }
+  async presentToast(message: string) {
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
+
 }

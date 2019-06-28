@@ -13,7 +13,6 @@ import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
 })
 export class CollectionsPage implements OnInit {
 
-  params: string = '';
   filterVal: FormControl = new FormControl();
   selected: string = 'bluray';
   data: StorageItem[] = [];

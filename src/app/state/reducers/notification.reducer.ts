@@ -1,18 +1,13 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { Notifications } from '../interfaces/notification.interface';
 import * as NotificationsActions from '../actions/notification.actions';
 
-export const initialState: Notifications = {
-    loading: null,
-    message: null
-};
+export const initialState: string = null;
 
 const reducer = createReducer(
     initialState,
-    on(NotificationsActions.LoadingAction, (state, action) => ({...state, loading: action.payload})),
-    on(NotificationsActions.MessageAction, (state, action) => ({...state, message: action.payload}))
+    on(NotificationsActions.MessageAction, (state, action) => (action.payload))
 );
 
-export function NotificationsReducer(state: Notifications, action: Action) {
+export function NotificationsReducer(state: string, action: Action) {
     return reducer(state, action);
 }

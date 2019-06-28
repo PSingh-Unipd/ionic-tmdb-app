@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ExploreService } from './providers/explore.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
-import { LocalStorageService } from 'src/app/common/providers/storage.service';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import * as LocalStorageActions from 'src/app/state/actions/local-storage.actions';
-import { StorageItem, StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
 import { BaseComponent } from 'src/app/common/components/base/base.component';
 import { AppState } from 'src/app/state/interfaces/app-state.interface';
+import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
+import { ElementType } from 'src/app/state/interfaces/element-type.interface';
 
 @Component({
   selector: 'app-explore',
@@ -17,7 +17,7 @@ import { AppState } from 'src/app/state/interfaces/app-state.interface';
   styleUrls: ['./explore.page.scss'],
 })
 export class ExplorePage extends BaseComponent implements OnInit {
-  params: string = '';
+
   selected: string = 'movie';
   data: any[] = [];
   shallowData: any[] = [];
@@ -29,7 +29,6 @@ export class ExplorePage extends BaseComponent implements OnInit {
     private router: Router,
     private actionSheetController: ActionSheetController,
     public alertController: AlertController,
-    public _storage: LocalStorageService,
     public _alertController: AlertController,
     public store: Store<{ appState: AppState }>) {
     super(store);
@@ -72,13 +71,12 @@ export class ExplorePage extends BaseComponent implements OnInit {
   }
 
   getDetails(item) {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        id: item.id,
-        type: this.selected == 'movie' ? 'movie' : 'show'
-      }
+    const temp: ElementType = {
+      id: item.id,
+      type: this.selected == 'movie' ? 'movie' : 'tv'
     };
-    this.router.navigate(['/details'], navigationExtras);
+    this.store.dispatch(LoadDetailsAction(temp));
+    this.router.navigate(['/details']);
   }
 
   async presentToast(message: string) {
