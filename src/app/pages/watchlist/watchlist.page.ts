@@ -17,7 +17,7 @@ import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
   styleUrls: ['./watchlist.page.scss'],
 })
 export class WatchListPage implements OnInit {
-
+ 
   filterVal: FormControl = new FormControl();
   selected: string = 'movie';
   watchlistData: any;
@@ -25,6 +25,7 @@ export class WatchListPage implements OnInit {
   filteredItems: StorageItem[] = [];
   searchResults: any[];
   reorder: boolean = true;
+  listChanging: boolean = false;
 
   constructor(
     private router: Router,
@@ -48,8 +49,12 @@ export class WatchListPage implements OnInit {
   }
 
   updateSelected(): void {
+    this.listChanging = true;
     this.selected == 'movie' ? this.data = this.watchlistData.movies : this.data = this.watchlistData.shows;
     this.assignCopy();
+    setTimeout( // Wait 200 ms to avoid white flash screen while list is changing
+      ()=> this.listChanging = false, 200
+    );
   }
 
   reorderList(): void {

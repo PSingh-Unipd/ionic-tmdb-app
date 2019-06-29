@@ -5,11 +5,13 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ActionSheetController, AlertController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import * as LocalStorageActions from 'src/app/state/actions/local-storage.actions';
 import { BaseComponent } from 'src/app/common/components/base/base.component';
 import { AppState } from 'src/app/state/interfaces/app-state.interface';
 import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
 import { ElementType } from 'src/app/state/interfaces/element-type.interface';
+import { getExploreData, getExploreLoading } from 'src/app/state/selectors/app.selector';
+import { ExplorePageState } from 'src/app/state/interfaces/explore-page.interface';
+import { LoadDefaultListAction, LoadCustomListAction } from 'src/app/state/actions/explore-page.actions';
 
 @Component({
   selector: 'app-explore',
@@ -19,9 +21,10 @@ import { ElementType } from 'src/app/state/interfaces/element-type.interface';
 export class ExplorePage extends BaseComponent implements OnInit {
 
   selected: string = 'movie';
+  exploreData: ExplorePageState = null;
   data: any[] = [];
   shallowData: any[] = [];
-  loading: boolean = true;
+  loading: boolean = false;
   searchResults: any[];
   queryField: FormControl = new FormControl();
 
@@ -29,26 +32,23 @@ export class ExplorePage extends BaseComponent implements OnInit {
     private router: Router,
     private actionSheetController: ActionSheetController,
     public alertController: AlertController,
-    public _alertController: AlertController,
     public store: Store<{ appState: AppState }>) {
     super(store);
   }
 
-
   ngOnInit(): void {
-    this.store.dispatch(LocalStorageActions.LoadStorageAction());
-    this.store.select('StorageData').subscribe(
-      data => this.storageData
-    );
-    this._service.data.subscribe(
-      res => {
-        this.data = res;
+    this.store.select(getExploreData).subscribe(
+      value => {
+        this.exploreData = value;
+        this.selected == 'movie' ?
+          this.data = JSON.parse(JSON.stringify(value.movieList)) :
+          this.data = JSON.parse(JSON.stringify(value.showList));
         this.shallowData = [];
         this.shallowCopy();
       }
     );
 
-    this._service.loading.subscribe(
+    this.store.select(getExploreLoading).subscribe(
       value => this.loading = value
     );
 
@@ -63,7 +63,15 @@ export class ExplorePage extends BaseComponent implements OnInit {
   }
 
   updateSelected() {
-    this._service.getDefaultList(this.selected == 'movie' ? 'now_playing' : 'on_the_air', this.selected);
+    this.loading = true;
+    this.selected == 'movie' ?
+      this.data = JSON.parse(JSON.stringify(this.exploreData.movieList)) :
+      this.data = JSON.parse(JSON.stringify(this.exploreData.showList));
+    this.shallowData = [];
+    this.shallowCopy();
+    setTimeout(
+      () => this.loading = false, 200
+    );
   }
 
   onClickedOutside(event) {
@@ -79,12 +87,174 @@ export class ExplorePage extends BaseComponent implements OnInit {
     this.router.navigate(['/details']);
   }
 
-  async presentToast(message: string) {
-    const alert = await this._alertController.create({
-      message: message,
-      buttons: ['OK']
+  listFilter() {
+    this.selected == 'tv' ? this.loadTvList() : this.loadMovieList();
+  }
+
+  shallowCopy() {
+    if (this.data.length > this.shallowData.length && this.data.length > 10) {
+      const temp = this.data.slice(0, 10);
+      temp.filter(el => this.shallowData.push(el));
+      this.data.splice(0, 10);
+    }
+    else {
+      this.data.filter(el => this.shallowData.push(el));
+      this.data = [];
+    }
+  }
+
+  loadData(event) {
+    setTimeout(() => {
+      event.target.complete();
+      if (this.data.length == 0) {
+        event.target.disabled = true;
+      } else {
+        event.target.disabled = false;
+        this.shallowCopy();
+      }
+    }, 300);
+  }
+
+  async loadTvList() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Some top lists:',
+      buttons: [
+        {
+          text: 'On Tv Now',
+          icon: 'tv',
+          handler: () => {
+            this.store.dispatch(LoadDefaultListAction({
+              listId: 'on_the_air',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Popular',
+          icon: 'tv',
+          handler: () => {
+            this.store.dispatch(LoadDefaultListAction({
+              listId: 'popular',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Top Rated',
+          icon: 'tv',
+          handler: () => {
+            this.store.dispatch(LoadDefaultListAction({
+              listId: 'top_rated',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'IMDB Top 100 shows',
+          icon: 'tv',
+          handler: () => {
+            this.store.dispatch(LoadCustomListAction({
+              listId: '113136',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
     });
-    await alert.present();
+    await actionSheet.present();
+  }
+
+  async loadMovieList() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Some top lists:',
+      buttons: [
+        {
+          text: 'Now Showing',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadDefaultListAction({
+              listId: 'now_playing',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Top Rated',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadDefaultListAction({
+              listId: 'top_rated',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'IMDB Top 250',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadCustomListAction({
+              listId: '1309',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Oscar Winner',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadCustomListAction({
+              listId: '28',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Marvel Universe',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadCustomListAction({
+              listId: '1',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'DC Universe',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadCustomListAction({
+              listId: '3',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Disney Classics',
+          icon: 'film',
+          handler: () => {
+            this.store.dispatch(LoadCustomListAction({
+              listId: '338',
+              listCatagory: this.selected
+            }));
+          }
+        },
+        {
+          text: 'Cancel',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }]
+    });
+    await actionSheet.present();
   }
 
   async itemActions(item) {
@@ -127,142 +297,5 @@ export class ExplorePage extends BaseComponent implements OnInit {
         }]
     });
     await actionSheet.present();
-  }
-
-  listFilter() {
-    this.selected == 'tv' ? this.loadTvList() : this.loadMovieList();
-  }
-
-  async loadTvList() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Some top lists:',
-      buttons: [
-        {
-          text: 'On Tv Now',
-          icon: 'tv',
-          handler: () => {
-            this._service.getDefaultList('on_the_air', this.selected);
-          }
-        },
-        {
-          text: 'Popular',
-          icon: 'tv',
-          handler: () => {
-            this._service.getDefaultList('popular', this.selected);
-          }
-        },
-        {
-          text: 'Top Rated',
-          icon: 'tv',
-          handler: () => {
-            this._service.getDefaultList('top_rated', this.selected);
-          }
-        },
-        {
-          text: 'IMDB Top 100 shows',
-          icon: 'tv',
-          handler: () => {
-            this._service.getCustomList('113136', true);
-          }
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }]
-    });
-    await actionSheet.present();
-  }
-
-  async loadMovieList() {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Some top lists:',
-      buttons: [
-        {
-          text: 'Now Showing',
-          icon: 'film',
-          handler: () => {
-            this._service.getDefaultList('now_playing', this.selected);
-          }
-        },
-        {
-          text: 'Top Rated',
-          icon: 'film',
-          handler: () => {
-            this._service.getDefaultList('top_rated', this.selected);
-          }
-        },
-        {
-          text: 'IMDB Top 250',
-          icon: 'film',
-          handler: () => {
-            this._service.getCustomList('1309');
-          }
-        },
-        {
-          text: 'Oscar Winner',
-          icon: 'film',
-          handler: () => {
-            this._service.getCustomList('28');
-          }
-        },
-        {
-          text: 'Marvel Universe',
-          icon: 'film',
-          handler: () => {
-            this._service.getCustomList('1');
-          }
-        },
-        {
-          text: 'DC Universe',
-          icon: 'film',
-          handler: () => {
-            this._service.getCustomList('3');
-          }
-        },
-        {
-          text: 'Disney Classics',
-          icon: 'film',
-          handler: () => {
-            this._service.getCustomList('338');
-          }
-        },
-        {
-          text: 'Cancel',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            //console.log('Cancel clicked');
-          }
-        }]
-    });
-    await actionSheet.present();
-  }
-
-  shallowCopy() {
-    if (this.data.length > this.shallowData.length && this.data.length > 10) {
-      const temp = this.data.slice(0, 10);
-      temp.filter(el => this.shallowData.push(el));
-      this.data.splice(0, 10);
-    }
-    else {
-      this.data.filter(el => this.shallowData.push(el));
-      this.data = [];
-    }
-  }
-
-  loadData(event) {
-    setTimeout(() => {
-      console.log('Done');
-      event.target.complete();
-      if (this.data.length == 0) {
-        event.target.disabled = true;
-      } else {
-        this.shallowCopy();
-      }
-    }, 500);
   }
 }

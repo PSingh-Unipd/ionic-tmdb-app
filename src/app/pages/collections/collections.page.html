@@ -13,20 +13,18 @@
     </ion-segment>
   </ion-toolbar>
   <ion-toolbar color="secondary">
-    <ion-searchbar animated debounce="500" [formControl]="filterVal"
-      placeholder="Filter in list" color="light" (ionClear)="reset($event)">
+    <ion-searchbar animated debounce="500" [formControl]="filterVal" placeholder="Filter in list" color="light"
+      (ionClear)="reset($event)">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="bg">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
       refreshingText="updating...">
     </ion-refresher-content>
   </ion-refresher>
-
-  <ion-row *ngIf="loading == false">
+  <ion-row *ngIf="listChanging == false">
     <ion-col class="collection-list" size="6" *ngFor="let item of filteredItems" class="item">
       <ion-card class="card" (click)="manageItem(item)">
         <div>
@@ -45,13 +43,11 @@
       </ion-card>
     </ion-col>
   </ion-row>
-
-
-  <div class="no-movie" *ngIf="loadNoData == true">
+  <div class="no-movie" *ngIf="filteredItems.length == 0 && listChanging == false">
     <img src="assets/movie_img.svg">
     <h4>0 items added!</h4>
   </div>
-  <div class="spinner-container-bottom" *ngIf="loading == true">
+  <div class="spinner-container-bottom" *ngIf="listChanging == true">
     <div id="loader"></div>
   </div>
 </ion-content>

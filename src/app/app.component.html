@@ -1,4 +1,4 @@
-<ion-tabs color="primary">
+<ion-tabs color="primary" *ngIf="isLoading == false">
   <ion-tab-bar slot="explore" color="secondary">
     <ion-tab-button tab="explore">
       <ion-icon name="film"></ion-icon>
@@ -16,3 +16,9 @@
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
+
+<ion-content class="bg" *ngIf="isLoading == true">
+  <div class="spinner-container">
+    <div id="loader"></div>
+  </div>
+</ion-content>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { BaseService } from 'src/app/common/providers/base.service';
 import { HttpClient } from '@angular/common/http';
-import { DetailsElement } from 'src/app/state/interfaces/details.interfaces';
 import { DetailsPageData } from '../interfaces/details-page.interface';
 import { map } from 'rxjs/operators';
 
@@ -12,7 +11,6 @@ import { map } from 'rxjs/operators';
  */
 @Injectable()
 export class DetailsPageService extends BaseService {
-
     constructor(public http: HttpClient) {
         super(http);
     }

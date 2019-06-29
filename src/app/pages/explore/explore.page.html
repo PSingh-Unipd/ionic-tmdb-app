@@ -37,7 +37,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="loading == false" class="listContainer">
+  <div class="listContainer" *ngIf="loading == false">
     <ion-row>
       <ion-col size="6" *ngFor="let item of shallowData">
         <ion-card class="card" (click)="itemActions(item)">
@@ -69,7 +69,7 @@
   <div class="spinner-container" *ngIf="loading == true">
     <div id="loader"></div>
   </div>
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="loading == false">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="loading more data..."
       color="primary">
     </ion-infinite-scroll-content>

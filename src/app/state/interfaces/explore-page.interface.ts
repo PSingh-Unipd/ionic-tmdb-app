@@ -1,8 +1,9 @@
 /**
  * This interface describe all the data used in details page
  */
-export interface ExplorePageData {
+export interface ExplorePageState {
     showList: any[];
     movieList: any[]; 
-    searchRisults: any[];
+    isLoading?: boolean;
+    initialListLoading?: boolean;
 }

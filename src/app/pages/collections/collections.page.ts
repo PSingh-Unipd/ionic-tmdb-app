@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CollectionsService } from './providers/collections.service';
-import { Router, NavigationExtras } from '@angular/router';
-import { AlertController, ActionSheetController } from '@ionic/angular';
-import { debounceTime } from 'rxjs/operators';
+import { Router, } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular';
 import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/interfaces/app-state.interface';
+import { getCollectionData } from 'src/app/state/selectors/app.selector';
+import * as StorageActions from 'src/app/state/actions/local-storage.actions';
+import { ElementType } from 'src/app/state/interfaces/element-type.interface';
+import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
+
 
 @Component({
   selector: 'app-collections',
@@ -14,70 +19,49 @@ import { StorageItem } from 'src/app/state/interfaces/local-storage.interfaces';
 export class CollectionsPage implements OnInit {
 
   filterVal: FormControl = new FormControl();
-  selected: string = 'bluray';
+  selected: string = 'movie';
+  collectionData: any;
   data: StorageItem[] = [];
-  filteredItems: StorageItem[];
-  loading: boolean = true;
+  filteredItems: StorageItem[] = [];
   searchResults: any[];
   reorder: boolean = true;
-  loadNoData: boolean = false;
+  listChanging: boolean = false;
 
-  constructor(private _service: CollectionsService,
-    private router: Router,
-    private _alertController: AlertController,
-    private _actionSheetController: ActionSheetController) { 
-    }
+  constructor(private router: Router,
+    public store: Store<{ appState: AppState }>,
+    private _actionSheetController: ActionSheetController) {
+  }
 
   ngOnInit(): void {
-    this.filterVal.valueChanges.pipe(
-      debounceTime(300)
-    ).subscribe(val => {
-      this.filterItem(val);
-    });
-    this._service.loading.subscribe(
-      value => {
-        this.loading = value;
-      }
-    );
-    this._service.data.subscribe(
-      data => {
-        this.data = data;
-        if (this.data.length > 0) {
-          this.loadNoData = false;
-        } if (this.data.length == 0) {
-          this.loadNoData = true;
-        }
+    this.store.select(getCollectionData).subscribe(
+      results => {
+        this.collectionData = results;
+        this.selected == 'bluray' ? this.data = results.bluray : this.data = results.dvd;
         this.assignCopy();
       }
     );
   }
 
-  doRefresh(event) {
-    setTimeout(() => {
-      this._service.getListType(this.selected);
-      event.target.complete();
-    }, 400);
-  }
-
-  ngOnDestroy(): void {
-    this.selected = null;
-    this.data = null;
-    this.filteredItems = null;
-    this.loading = null;
-    this.searchResults = null;
-    this.reorder = null;
-    this.loadNoData = null;
-  }
-
   updateSelected(): void {
-    this._service.getListType(this.selected);
+    this.listChanging = true;
+    this.selected == 'bluray' ? 
+    this.data = this.collectionData.bluray : this.data = this.collectionData.dvd;
+    this.assignCopy();
+    setTimeout( // Wait 200 ms to avoid white flash screen while list is changing
+      () => this.listChanging = false, 200
+    );
   }
 
-  assignCopy() {
+  reorderList(): void {
+    this.assignCopy();
+    this.reorder = !this.reorder;
+  }
+
+  assignCopy(): void {
     this.filteredItems = Object.assign([], this.data);
   }
 
-  filterItem(value) {
+  filterItem(value): void {
     if (!value) {
       this.assignCopy();
     }
@@ -86,30 +70,25 @@ export class CollectionsPage implements OnInit {
     )
   }
 
-  reset(event) {
+  reset(event): void {
     this.assignCopy();
   }
 
-  removeFromList(index: number) {
-    this.presentToast(this._service.removeElement(index, this.selected));
+  removeFromList(index: number): void {
+    this.data.splice(index, 1);
+    this.selected == 'bluray' ?
+      this.store.dispatch(StorageActions.DeleteBlurayCollectionItemAction(this.data)) :
+      this.store.dispatch(StorageActions.DeleteDvdCollectionItemAction(this.data));
+    this.assignCopy();
   }
 
-  showDetails(item: StorageItem) {
-    const navigationExtras: NavigationExtras = {
-      state: {
-        id: item.id,
-        type: item.type
-      }
+  showDetails(item: StorageItem): void {
+    const temp: ElementType = {
+      id: item.id.toString(),
+      type: item.type == 'movie' ? 'movie' : 'tv'
     };
-    this.router.navigate(['/details'], navigationExtras);
-  }
-
-  async presentToast(message: string) {
-    const alert = await this._alertController.create({
-      message: message,
-      buttons: ['OK']
-    });
-    await alert.present();
+    this.store.dispatch(LoadDetailsAction(temp));
+    this.router.navigate(['/details']);
   }
 
   async manageItem(item) {
@@ -128,7 +107,7 @@ export class CollectionsPage implements OnInit {
           handler: () => {
             this.removeFromList(item);
           }
-        }, 
+        },
         {
           text: 'Cancel',
           icon: 'close',

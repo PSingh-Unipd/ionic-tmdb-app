@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { DetailsPageData, DetailsPageState } from '../interfaces/details-page.interface';
+import { DetailsPageState } from '../interfaces/details-page.interface';
 import * as DetailsActions from '../actions/details-page.action';
 
 export const initialState: DetailsPageState = {

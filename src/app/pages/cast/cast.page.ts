@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CastService } from './providers/cast.service';
 import { ModalController } from '@ionic/angular';
 import { forkJoin } from 'rxjs';
-import { DetailsElement } from 'src/app/state/interfaces/details.interfaces';
+import { ElementType } from 'src/app/state/interfaces/element-type.interface';
 
 @Component({
   selector: 'app-cast',
@@ -40,12 +40,12 @@ export class CastPage implements OnInit {
   }
 
   movieDetails(item) {
-    const temp: DetailsElement = {id: item.id, type: 'movie'};
+    const temp: ElementType = {id: item.id, type: 'movie'};
     this._controller.dismiss(temp);
   }
 
   showDetails(item) {
-    const temp: DetailsElement = {id: item.id, type: 'show'};
+    const temp: ElementType = {id: item.id, type: 'show'};
     this._controller.dismiss(temp);
   }
 }

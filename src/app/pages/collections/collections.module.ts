@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { CollectionsPage } from './collections.page';
-import { CollectionsService } from './providers/collections.service';
 
 const routes: Routes = [
   {
@@ -21,7 +20,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CollectionsPage],
-  providers: [CollectionsService]
+  declarations: [CollectionsPage]
 })
 export class CollectionsPageModule {}
