@@ -4,26 +4,25 @@
     <ion-icon slot="end" (click)="close()" name="arrow-round-back" class="back-button"></ion-icon>
   </ion-toolbar>
 </ion-header>
-
 <ion-content color="secondary">
-  <div class="spinner-container" *ngIf="loaded == false">
-    <ion-spinner name="crescent" color="primary" class="spinner"></ion-spinner>
-    <p>loading...</p>
+  <div class="spinner-container" *ngIf="loading == true">
+    <div id="loader"></div>
   </div>
-  <div *ngIf="loaded == true">
+  <div *ngIf="loading == false">
     <div class="title-container">
       <ion-row>
         <ion-col size="8">
           <h3>
-            {{detail.name}}
+            {{castData.detail.name}}
           </h3>
-          <p><span>{{detail.gender == 1 ? 'Female' : 'Male'}} </span> |
-            {{detail.birthday != nulls? detail.birthday.substring(0, 4): '----'}} - {{detail.place_of_birth}}</p>
+          <p><span>{{castData.detail.gender == 1 ? 'Female' : 'Male'}} </span> |
+            {{castData.detail.birthday != nulls? castData.detail.birthday.substring(0, 4): '----'}} -
+            {{castData.detail.place_of_birth}}</p>
         </ion-col>
         <ion-col size="4">
           <div class="rating">
             <circle-progress [showUnits]=false [innerStrokeWidth]="2" [outerStrokeWidth]="6"
-              [percent]="detail.popularity" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
+              [percent]="castData.detail.popularity" [titleColor]="'#fff'" [radius]="25" [showSubtitle]=false
               [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
               [animationDuration]="300">
             </circle-progress>
@@ -31,47 +30,48 @@
         </ion-col>
       </ion-row>
     </div>
-
     <div class="poster-section">
       <ion-row padding>
         <ion-col size="5">
           <img
-            src="{{detail.profile_path ? 'https://image.tmdb.org/t/p/w185'+detail.profile_path : 'assets/no-av-person.png'}}"
+            src="{{castData.detail.profile_path ? 'https://image.tmdb.org/t/p/w185'+castData.detail.profile_path : 'assets/no-av-person.png'}}"
             class="poster">
         </ion-col>
         <ion-col size="7">
-          <p>{{(detail.biography.length > 335)? (detail.biography | slice:0:335)+'...':(detail.biography)}}</p>
+          <p>
+            {{(castData.detail.biography.length > 335)? (castData.detail.biography | slice:0:335)+'...':(castData.detail.biography)}}
+          </p>
         </ion-col>
       </ion-row>
     </div>
-
-    <div class="list">
+    <div class="list" *ngIf="castData.movies.cast.length > 0">
       <h5>CAST IN MOVIES</h5>
       <div class="poster-container">
-        <ion-card *ngFor="let item of movies.cast" class="card" (click)="movieDetails(item)">
+        <ion-card *ngFor="let item of castData.movies.cast" class="card" (click)="getDetails(item, 'movie')">
           <div>
             <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}"
               class="poster2">
             <h6 *ngIf="item.title != undefined" class="movie-title">
               {{(item.title.length>16)? (item.title | slice:0:16)+'..':(item.title)}}
             </h6>
-            <p *ngIf="item.character != undefined">({{(item.character.length>16)? (item.character | slice:0:14)+'..':(item.character)}})</p>
+            <p *ngIf="item.character != undefined">
+              ({{(item.character.length>16)? (item.character | slice:0:14)+'..':(item.character)}})</p>
           </div>
         </ion-card>
       </div>
     </div>
-
-    <div class="list" *ngIf="shows.cast.length > 0">
+    <div class="list" *ngIf="castData.shows.cast.length > 0">
       <h5>CAST IN SHOWS</h5>
       <div class="poster-container">
-        <ion-card *ngFor="let item of shows.cast" class="card" (click)="showDetails(item)">
+        <ion-card *ngFor="let item of castData.shows.cast" class="card" (click)="getDetails(item, 'tv')">
           <div>
             <img src="{{item.poster_path? 'https://image.tmdb.org/t/p/w185'+item.poster_path: 'assets/no-av.png'}}"
               class="poster2">
             <h6 *ngIf="item.name != undefined" class="movie-title">
               {{(item.name.length>16)? (item.name | slice:0:16)+'..':(item.name)}}
             </h6>
-            <p *ngIf="item.character != undefined">({{(item.character.length>16)? (item.character | slice:0:14)+'..':(item.character)}})</p>
+            <p *ngIf="item.character != undefined">
+              ({{(item.character.length>16)? (item.character | slice:0:14)+'..':(item.character)}})</p>
           </div>
         </ion-card>
       </div>

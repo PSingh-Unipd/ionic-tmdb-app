@@ -1,8 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CastService } from './providers/cast.service';
-import { ModalController } from '@ionic/angular';
-import { forkJoin } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ElementType } from 'src/app/state/interfaces/element-type.interface';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/interfaces/app-state.interface';
+import { getCastPageData } from 'src/app/state/selectors/app.selector';
+import { CastPageData } from 'src/app/state/interfaces/cast-page.interface';
+import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cast',
@@ -10,42 +14,27 @@ import { ElementType } from 'src/app/state/interfaces/element-type.interface';
   styleUrls: ['./cast.page.scss'],
 })
 export class CastPage implements OnInit {
-
-  @Input() castID;
-  detail;
-  movies;
-  shows;
-  loaded: boolean = false;
+  loading: boolean = false;
+  castData: CastPageData;
   constructor(
-    private service: CastService,
-    private _controller: ModalController) { }
+    private router: Router,
+    public store: Store<{ appState: AppState }>,
+    private location: Location) { }
 
   ngOnInit() {
-    const cast = this.service.getDetails(this.castID);
-    const movies = this.service.getMovies(this.castID);
-    const shows = this.service.getShows(this.castID);
-
-    forkJoin([cast, movies, shows]).subscribe(results => {
-      this.detail = results[0];
-      this.movies = results[1];
-      this.shows = results[2];
-      if (this.detail.biography == '')
-        this.detail.biography = 'Biography not found for this person!';
-      this.loaded = true;
+    this.store.select(getCastPageData).subscribe(value => {
+      this.loading = value.isLoading;
+      this.castData = value.data;
     });
   }
 
   close() {
-    this._controller.dismiss();
+    this.location.back();
   }
 
-  movieDetails(item) {
-    const temp: ElementType = {id: item.id, type: 'movie'};
-    this._controller.dismiss(temp);
-  }
-
-  showDetails(item) {
-    const temp: ElementType = {id: item.id, type: 'show'};
-    this._controller.dismiss(temp);
+  getDetails(item, type) {
+    const temp: ElementType = { id: item.id, type: type };
+    this.store.dispatch(LoadDetailsAction(temp));
+    this.router.navigate(['/details']);
   }
 }

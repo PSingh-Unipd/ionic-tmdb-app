@@ -1,23 +1,21 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/common/providers/base.service';
-import { LocalStorageService } from 'src/app/common/providers/storage.service';
 import { map } from 'rxjs/operators';
-import { StorageItem, StorageData } from 'src/app/state/interfaces/local-storage.interfaces';
 
 /**
- * Serive to manage all data for explore page. 
- * This service rappresent "Model" in Model-View-Controller pattern!
+ * Serive used only for searchbar.
+ * All other data in this application is manage by ngrx. 
  */
 @Injectable()
 export class ExploreService extends BaseService {
-    constructor(private _http: HttpClient, private _storage: LocalStorageService) {
+    constructor(private _http: HttpClient) {
         super(_http);  
     }
 
     /**
-     * Search a movie or show by given string on TMDB
+     * Search a movie or show by given string on TMDB API
      * @param queryString - value to search
      * @param type - movie or tv 
      */

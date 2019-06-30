@@ -13,4 +13,5 @@ export interface DetailsPageData {
 export interface DetailsPageState {
     data: DetailsPageData;
     isLoading: boolean;
+    tpye: string | null;
 }

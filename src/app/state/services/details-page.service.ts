@@ -26,7 +26,7 @@ export class DetailsPageService extends BaseService {
                 let temp: DetailsPageData = {
                     detail: details,
                     credits: credits,
-                    videos: videos,
+                    videos: videos.results,
                     recommendations: recommendations.results
                 };
                 if (type == 'tv') {

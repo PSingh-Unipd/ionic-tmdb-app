@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction } from '@ngrx/store';
 import { DetailsPageData } from '../interfaces/details-page.interface';
 import { ElementType } from '../interfaces/element-type.interface';
 

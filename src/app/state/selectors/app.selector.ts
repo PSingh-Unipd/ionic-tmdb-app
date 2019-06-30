@@ -14,6 +14,16 @@ export const getDatilsPageData = createSelector(
     state => state.Details
 );
 
+export const getInfoPageData = createSelector(
+    appStateData, 
+    state => state.Info
+);
+
+export const getCastPageData = createSelector(
+    appStateData, 
+    state => state.Cast
+);
+
 export const getStorageData = createSelector(
     appStateData, 
     state => state.LocalStorage

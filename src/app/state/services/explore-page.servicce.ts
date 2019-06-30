@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
 import { BaseService } from 'src/app/common/providers/base.service';
-import { LocalStorageService } from 'src/app/common/providers/storage.service';
 import { map } from 'rxjs/operators';
 import { ListType } from '../interfaces/list-type.interface';
 import { ExplorePageState } from '../interfaces/explore-page.interface';
@@ -12,7 +11,7 @@ import { ExplorePageState } from '../interfaces/explore-page.interface';
  */
 @Injectable()
 export class ExplorePageService extends BaseService {
-    constructor(private _http: HttpClient, private _storage: LocalStorageService) {
+    constructor(private _http: HttpClient) {
         super(_http);
     }
 

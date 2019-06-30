@@ -9,6 +9,7 @@ import { getCollectionData } from 'src/app/state/selectors/app.selector';
 import * as StorageActions from 'src/app/state/actions/local-storage.actions';
 import { ElementType } from 'src/app/state/interfaces/element-type.interface';
 import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
+import { debounceTime } from 'rxjs/operators';
 
 
 @Component({
@@ -17,9 +18,8 @@ import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
   styleUrls: ['./collections.page.scss'],
 })
 export class CollectionsPage implements OnInit {
-
   filterVal: FormControl = new FormControl();
-  selected: string = 'movie';
+  selected: string = 'bluray';
   collectionData: any;
   data: StorageItem[] = [];
   filteredItems: StorageItem[] = [];
@@ -30,6 +30,11 @@ export class CollectionsPage implements OnInit {
   constructor(private router: Router,
     public store: Store<{ appState: AppState }>,
     private _actionSheetController: ActionSheetController) {
+    this.filterVal.valueChanges.pipe(
+      debounceTime(300)
+    ).subscribe(val => {
+      this.filterItem(val);
+    });
   }
 
   ngOnInit(): void {
@@ -44,8 +49,8 @@ export class CollectionsPage implements OnInit {
 
   updateSelected(): void {
     this.listChanging = true;
-    this.selected == 'bluray' ? 
-    this.data = this.collectionData.bluray : this.data = this.collectionData.dvd;
+    this.selected == 'bluray' ?
+      this.data = this.collectionData.bluray : this.data = this.collectionData.dvd;
     this.assignCopy();
     setTimeout( // Wait 200 ms to avoid white flash screen while list is changing
       () => this.listChanging = false, 200
@@ -105,7 +110,7 @@ export class CollectionsPage implements OnInit {
           text: 'Remove item from list',
           icon: 'trash',
           handler: () => {
-            this.removeFromList(item);
+            this.removeFromList(this.data.indexOf(item));
           }
         },
         {

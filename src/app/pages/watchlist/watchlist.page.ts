@@ -17,7 +17,6 @@ import { LoadDetailsAction } from 'src/app/state/actions/details-page.action';
   styleUrls: ['./watchlist.page.scss'],
 })
 export class WatchListPage implements OnInit {
- 
   filterVal: FormControl = new FormControl();
   selected: string = 'movie';
   watchlistData: any;

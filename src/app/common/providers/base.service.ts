@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
  * Base class, used by every provider service in this application.
  */
 export class BaseService {
-
+    
     /**
      * This is a public-api key(open for everyone), 
      * you can get your key for free from https://www.themoviedb.org/
@@ -61,5 +61,4 @@ export class BaseService {
     public seasonREST(seasonNumber, showId): Observable<any> {
         return this.http.get<any>('https://api.themoviedb.org/3/tv/'+ showId +'/season/'+ seasonNumber +'?api_key='+this.ApiKey+this.languege);
     }
-
 }

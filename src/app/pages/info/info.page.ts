@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { InfoService } from './providers/info.service';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/interfaces/app-state.interface';
+import { getInfoPageData } from 'src/app/state/selectors/app.selector';
 
 @Component({
   selector: 'app-info',
@@ -8,32 +10,23 @@ import { InfoService } from './providers/info.service';
   styleUrls: ['./info.page.scss'],
 })
 export class InfoPage implements OnInit {
-
-  @Input() seasonInfo;
-  params = '';
-  season;
-  loaded: boolean = false;
+  season: any;
+  loading: boolean = true;
   constructor(
-    private _service: InfoService,
-    private _controller: ModalController
+    private location: Location,
+    public store: Store<{ appState: AppState }>
   ) { }
 
   ngOnInit() {
-    this._service.getSeasonDetails(this.seasonInfo.seasonNumber, this.seasonInfo.showId).subscribe(
-      response => {
-        this.season = response;
-        if(this.season.overview == '' || this.season.overview == undefined) {
-          this.season.overview = 'Sorry we don\'t have any overview for this season, yet.';
-        }
-        this.loaded = true;
-        console.log('Stampa response', response);
+    this.store.select(getInfoPageData).subscribe(
+      value => {
+        this.season = value.data;
+        this.loading = value.isLoading;
       }
     );
-    console.log('stampa season', this.seasonInfo);
   }
 
   close() {
-    this._controller.dismiss();
+    this.location.back();
   }
-
 }

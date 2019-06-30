@@ -15,7 +15,6 @@ import { MessageAction } from '../actions/notification.actions';
  */
 @Injectable()
 export class LocalStorageEffect {
-
   constructor(
     private actions$: Actions,
     private _service: LocalStorageProvaService
@@ -37,7 +36,7 @@ export class LocalStorageEffect {
       this._service.updateMoviesWL(action.payload).pipe(
         mergeMap((condition: Boolean) => [
           StorageActions.WatchlistMoviesAction(action.payload),
-          MessageAction(action.payload[0].title+' added to your watchlist')
+          MessageAction(action.payload[0].title + ' added to your watchlist')
         ]),
         catchError(error => of(MessageAction('Something went wrong!')))
       )
@@ -50,7 +49,7 @@ export class LocalStorageEffect {
       this._service.updateTvSeriesWL(action.payload).pipe(
         mergeMap((condition: Boolean) => [
           StorageActions.WatchlistShowsAction(action.payload),
-          MessageAction(action.payload[0].title+' added to your watchlist')
+          MessageAction(action.payload[0].title + ' added to your watchlist')
         ]),
         catchError(error => of(MessageAction('Something went wrong!')))
       )
@@ -63,9 +62,9 @@ export class LocalStorageEffect {
       this._service.updateCbluray(action.payload).pipe(
         mergeMap((condition: Boolean) => [
           StorageActions.CollectionBlurayAction(action.payload),
-          MessageAction(action.payload[0].title+' added to your Bluray collection!')
-         ]),
-         catchError(error => of(MessageAction('Something went wrong!')))
+          MessageAction(action.payload[0].title + ' added to your Bluray collection!')
+        ]),
+        catchError(error => of(MessageAction('Something went wrong!')))
       )
     )
   ));
@@ -76,14 +75,14 @@ export class LocalStorageEffect {
       this._service.updateCdvd(action.payload).pipe(
         mergeMap((condition: Boolean) => [
           StorageActions.CollectionDvdAction(action.payload),
-          MessageAction(action.payload[0].title+' added to your DVD collection!')
-         ]),
-         catchError(error => of(MessageAction('Something went wrong!')))
+          MessageAction(action.payload[0].title + ' added to your DVD collection!')
+        ]),
+        catchError(error => of(MessageAction('Something went wrong!')))
       )
     )
   ));
-  
- ReorderMoviesWatchlist$: Observable<Action> = createEffect(() => this.actions$.pipe(
+
+  ReorderMoviesWatchlist$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(StorageActions.ReorderWatchlistMoviesAction),
     exhaustMap((action) =>
       this._service.updateMoviesWL(action.payload).pipe(
@@ -138,8 +137,8 @@ export class LocalStorageEffect {
         mergeMap((condition: Boolean) => [
           StorageActions.CollectionBlurayAction(action.payload),
           MessageAction('Item removed from your Bluray collection!')
-         ]),
-         catchError(error => of(MessageAction('Something went wrong!')))
+        ]),
+        catchError(error => of(MessageAction('Something went wrong!')))
       )
     )
   ));
@@ -151,8 +150,8 @@ export class LocalStorageEffect {
         mergeMap((condition: Boolean) => [
           StorageActions.CollectionDvdAction(action.payload),
           MessageAction('Item removed from your DVD collection!')
-         ]),
-         catchError(error => of(MessageAction('Something went wrong!')))
+        ]),
+        catchError(error => of(MessageAction('Something went wrong!')))
       )
     )
   ));
