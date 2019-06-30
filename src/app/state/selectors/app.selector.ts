@@ -1,5 +1,9 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AppState } from '../interfaces/app-state.interface';
+import { InfoPageState } from '../interfaces/info-page.inteface';
+import { CastPageState } from '../interfaces/cast-page.interface';
+import { StorageData } from '../interfaces/local-storage.interfaces';
+import { ExplorePageState } from '../interfaces/explore-page.interface';
+import { DetailsPageState } from '../interfaces/details-page.interface';
 
 /**
  * This file contains all selectors.
@@ -7,56 +11,31 @@ import { AppState } from '../interfaces/app-state.interface';
  * All components/pages in this application use selectors under this file to read states from store.
  */
 
-export const appStateData = createFeatureSelector<AppState>('appState');
-
-export const getDatilsPageData = createSelector(
-    appStateData, 
-    state => state.Details
-);
-
-export const getInfoPageData = createSelector(
-    appStateData, 
-    state => state.Info
-);
-
-export const getCastPageData = createSelector(
-    appStateData, 
-    state => state.Cast
-);
-
-export const getStorageData = createSelector(
-    appStateData, 
-    state => state.LocalStorage
-);
-
-export const getNotificationsData = createSelector(
-    appStateData, 
-    state => state.Notifications
-);
-
-export const getExploreData = createSelector(
-    appStateData, 
-    state => state.Explore
-);
+export const getDatilsPageData = createFeatureSelector<DetailsPageState>('Details');
+export const getInfoPageData = createFeatureSelector<InfoPageState>('Info');
+export const getCastPageData = createFeatureSelector<CastPageState>('Cast');
+export const getStorageData = createFeatureSelector<StorageData>('LocalStorage');
+export const getNotificationsData = createFeatureSelector<string>('Notifications');
+export const getExploreData = createFeatureSelector<ExplorePageState>('Explore');
 
 export const getExploreInitialLoading = createSelector(
-    appStateData, 
-    state => state.Explore.initialListLoading
+    getExploreData, 
+    state => state.initialListLoading
 );
 
 export const getExploreLoading = createSelector(
-    appStateData, 
-    state => state.Explore.isLoading
+    getExploreData, 
+    state => state.isLoading
 );
 
 export const getCollectionData = createSelector(
-    appStateData, 
-    state => {return {dvd: state.LocalStorage.cdvd, bluray: state.LocalStorage.cbluray};}
+    getStorageData, 
+    state => {return {dvd: state.cdvd, bluray: state.cbluray};}
 );
 
 export const getWatchlistShows = createSelector(
-    appStateData, 
-    state => {return {movies: state.LocalStorage.mwl, shows: state.LocalStorage.tvwl};}
+    getStorageData, 
+    state => {return {movies: state.mwl, shows: state.tvwl};}
 );
 
 export const getDvdCollection = createSelector(

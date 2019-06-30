@@ -19,11 +19,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="bg">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
-      refreshingText="updating...">
-    </ion-refresher-content>
-  </ion-refresher>
   <ion-row *ngIf="listChanging == false">
     <ion-col class="collection-list" size="6" *ngFor="let item of filteredItems" class="item">
       <ion-card class="card" (click)="manageItem(item)">

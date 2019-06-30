@@ -33,7 +33,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
     CastPageModule,
     InfoPageModule,
-    StoreModule.forRoot({ 'appState': appReducer }),
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
