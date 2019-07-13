@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SinghParwinder/ionic-tmdb-app.svg?branch=master)](https://travis-ci.org/SinghParwinder/ionic-tmdb-app)
+
 ##  Ionic TMDB app
 
 <p float="left">
@@ -26,6 +28,8 @@ Note: this application is optimized for mobile devices only, so use developer to
 ### Build 
 ```
 ionic cordova build android --prod --release
+```
+```
 ionic cordova ios android --prod --release
 ```
 ### Demo
