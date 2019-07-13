@@ -15,7 +15,7 @@ import { MessageAction } from './state/actions/notification.actions';
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-  isLoading: boolean = true;
+  isLoading = true;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 
   async presentToast(message: string) {
     const alert = await this.alertController.create({
-      message: message,
+      message,
       buttons: ['OK']
     });
     await alert.present();

@@ -6,18 +6,18 @@ import { map } from 'rxjs/operators';
 
 /**
  * Serive used only for searchbar.
- * All other data in this application is manage by ngrx. 
+ * All other data in this application is manage by ngrx.
  */
 @Injectable()
 export class ExploreService extends BaseService {
     constructor(private _http: HttpClient) {
-        super(_http);  
+        super(_http);
     }
 
     /**
      * Search a movie or show by given string on TMDB API
      * @param queryString - value to search
-     * @param type - movie or tv 
+     * @param type - movie or tv
      */
     search(queryString: string, type: string): Observable<any> {
         return this.searchREST(queryString, '&page=1&include_adult=false', type).pipe(

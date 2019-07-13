@@ -20,19 +20,19 @@ import { LoadDefaultListAction, LoadCustomListAction } from 'src/app/state/actio
 })
 export class ExplorePage extends BaseComponent implements OnInit {
 
-  selected: string = 'movie';
+  selected = 'movie';
   exploreData: ExplorePageState = null;
   data: any[] = [];
   shallowData: any[] = [];
-  loading: boolean = false;
+  loading = false;
   searchResults: any[];
   queryField: FormControl = new FormControl();
 
   constructor(private _service: ExploreService,
-    private router: Router,
-    private actionSheetController: ActionSheetController,
-    public alertController: AlertController,
-    public store: Store<{ appState: AppState }>) {
+              private router: Router,
+              private actionSheetController: ActionSheetController,
+              public alertController: AlertController,
+              public store: Store<{ appState: AppState }>) {
     super(store);
   }
 
@@ -96,8 +96,7 @@ export class ExplorePage extends BaseComponent implements OnInit {
       const temp = this.data.slice(0, 10);
       temp.filter(el => this.shallowData.push(el));
       this.data.splice(0, 10);
-    }
-    else {
+    } else {
       this.data.filter(el => this.shallowData.push(el));
       this.data = [];
     }

@@ -22,12 +22,13 @@ export class CastPageService extends BaseService {
             this.personREST(id, '/tv_credits')
         ).pipe(
             map(([details, movies, shows]) => {
-                if (details.biography == '')
+                if (details.biography == '') {
                     details.biography = 'No biography available for this person in our database!';
-                let temp: CastPageData = {
+                }
+                const temp: CastPageData = {
                     detail: details,
-                    movies: movies,
-                    shows: shows,
+                    movies,
+                    shows,
                 };
                 return temp;
             })

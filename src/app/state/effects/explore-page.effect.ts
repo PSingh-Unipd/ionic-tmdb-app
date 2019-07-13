@@ -10,8 +10,8 @@ import { ExplorePageState } from '../interfaces/explore-page.interface';
 
 /**
  * This file contains all effects used to manage local(native) storage state.
- * There are these many effects, cause all the operitions on local storage 
- * are asynchronous. 
+ * There are these many effects, cause all the operitions on local storage
+ * are asynchronous.
  */
 @Injectable()
 export class ExplorePageEffect {

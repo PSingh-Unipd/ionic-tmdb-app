@@ -7,7 +7,7 @@ import { ListType } from '../interfaces/list-type.interface';
 import { ExplorePageState } from '../interfaces/explore-page.interface';
 
 /**
- * Serive to manage all data for explore page. 
+ * Serive to manage all data for explore page.
  */
 @Injectable()
 export class ExplorePageService extends BaseService {
@@ -25,13 +25,13 @@ export class ExplorePageService extends BaseService {
             this.detailsREST('', data[1].listId, data[1].listCatagory),
         ).pipe(
             map((results) => {
-                let temp: ExplorePageState = {
+                const temp: ExplorePageState = {
                     movieList: results[0].results,
                     showList: results[1].results
                 };
                 temp.showList.map(el => {
                     el.title = el.name;
-                    el.release_date = el.first_air_date
+                    el.release_date = el.first_air_date;
                 });
                 return temp;
             })

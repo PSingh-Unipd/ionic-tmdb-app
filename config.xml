@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="tv.film.shows.manager.CoveredEe" version="3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="tv.film.shows.manager.CoveredEe" version="3.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>My TV</name>
     <description>App to manage my movies, tv shosw, collections and watchlists.</description>
     <author email="coveredee.app@gmail.com" href="https://github.com/SinghParwinder">CoveredEe</author>

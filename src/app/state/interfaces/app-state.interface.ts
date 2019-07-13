@@ -9,6 +9,6 @@ export interface AppState {
     Details: DetailsPageState;
     Notifications: string;
     Explore: ExplorePageState;
-    Cast: CastPageState,
-    Info: InfoPageState
+    Cast: CastPageState;
+    Info: InfoPageState;
 }

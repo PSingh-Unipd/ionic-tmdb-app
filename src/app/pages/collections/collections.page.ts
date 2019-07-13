@@ -19,17 +19,17 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class CollectionsPage implements OnInit {
   filterVal: FormControl = new FormControl();
-  selected: string = 'bluray';
+  selected = 'bluray';
   collectionData: any;
   data: StorageItem[] = [];
   filteredItems: StorageItem[] = [];
   searchResults: any[];
-  reorder: boolean = true;
-  listChanging: boolean = false;
+  reorder = true;
+  listChanging = false;
 
   constructor(private router: Router,
-    public store: Store<{ appState: AppState }>,
-    private _actionSheetController: ActionSheetController) {
+              public store: Store<{ appState: AppState }>,
+              private _actionSheetController: ActionSheetController) {
     this.filterVal.valueChanges.pipe(
       debounceTime(300)
     ).subscribe(val => {
@@ -72,7 +72,7 @@ export class CollectionsPage implements OnInit {
     }
     this.filteredItems = Object.assign([], this.data).filter(
       item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
-    )
+    );
   }
 
   reset(event): void {

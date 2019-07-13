@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./cast.page.scss'],
 })
 export class CastPage implements OnInit {
-  loading: boolean = false;
+  loading = false;
   castData: CastPageData;
   constructor(
     private router: Router,
@@ -33,7 +33,7 @@ export class CastPage implements OnInit {
   }
 
   getDetails(item, type) {
-    const temp: ElementType = { id: item.id, type: type };
+    const temp: ElementType = { id: item.id, type };
     this.store.dispatch(LoadDetailsAction(temp));
     this.router.navigate(['/details']);
   }

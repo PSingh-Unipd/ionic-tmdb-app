@@ -5,14 +5,14 @@ import { Observable } from 'rxjs';
  * Base class, used by every provider service in this application.
  */
 export class BaseService {
-    
+
     /**
-     * This is a public-api key(open for everyone), 
+     * This is a public-api key(open for everyone),
      * you can get your key for free from https://www.themoviedb.org/
      * -> just register with a valid email and vualá
      */
-    ApiKey: string = '29371e05e1dfa0327af74c0805fef777';
-    languege: string = '&language=en-US';
+    ApiKey = '29371e05e1dfa0327af74c0805fef777';
+    languege = '&language=en-US';
 
     constructor(public http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class BaseService {
      * @param type - (/videos, /credits, etc)
      */
     public detailsREST(id, path, type): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/'+type+'/'+id+path+'?api_key='+this.ApiKey+this.languege);
+        return this.http.get<any>('https://api.themoviedb.org/3/' + type + '/' + id + path + '?api_key=' + this.ApiKey + this.languege);
     }
 
     /**
@@ -32,17 +32,17 @@ export class BaseService {
      * @param path - path of the information to read(changes, credits, images, etc)
      */
     public personREST(id, path): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/person/'+id+path+'?api_key='+this.ApiKey+this.languege);
+        return this.http.get<any>('https://api.themoviedb.org/3/person/' + id + path + '?api_key=' + this.ApiKey + this.languege);
     }
 
     /**
      * Generic search method, to serach movies or shows on TMDB database
-     * @param str - value to search 
-     * @param params - extra params (number of pages, etc) 
+     * @param str - value to search
+     * @param params - extra params (number of pages, etc)
      * @param type - type of element to search(movie, show, person, all)
      */
     public searchREST(str, params, type): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/search/'+type +'?api_key='+this.ApiKey+this.languege+'&query='+str+params);
+        return this.http.get<any>('https://api.themoviedb.org/3/search/' + type + '?api_key=' + this.ApiKey + this.languege + '&query=' + str + params);
     }
 
     /**
@@ -50,7 +50,7 @@ export class BaseService {
      * @param listID - list id
      */
     public listREST(listID): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/list/'+listID+'?api_key='+this.ApiKey+this.languege);
+        return this.http.get<any>('https://api.themoviedb.org/3/list/' + listID + '?api_key=' + this.ApiKey + this.languege);
     }
 
     /**
@@ -59,6 +59,6 @@ export class BaseService {
      * @param showId - show id
      */
     public seasonREST(seasonNumber, showId): Observable<any> {
-        return this.http.get<any>('https://api.themoviedb.org/3/tv/'+ showId +'/season/'+ seasonNumber +'?api_key='+this.ApiKey+this.languege);
+        return this.http.get<any>('https://api.themoviedb.org/3/tv/' + showId + '/season/' + seasonNumber + '?api_key=' + this.ApiKey + this.languege);
     }
 }

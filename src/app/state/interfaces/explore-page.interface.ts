@@ -3,7 +3,7 @@
  */
 export interface ExplorePageState {
     showList: any[];
-    movieList: any[]; 
+    movieList: any[];
     isLoading?: boolean;
     initialListLoading?: boolean;
 }

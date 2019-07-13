@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "10.15.0"
+dist: trusty
+sudo: required
+branches:
+  only:
+  - master
+before_script:
+  - npm install -g @angular/cli@7.2.2
+  - npm install -g ionic
+script:
+- ng lint
+- ionic build browser --verbose

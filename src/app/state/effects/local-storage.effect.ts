@@ -10,8 +10,8 @@ import { MessageAction } from '../actions/notification.actions';
 
 /**
  * This file contains all effects used to manage local(native) storage state.
- * There are these many effects, cause all the operitions on local storage 
- * are asynchronous. 
+ * There are these many effects, cause all the operitions on local storage
+ * are asynchronous.
  */
 @Injectable()
 export class LocalStorageEffect {
@@ -34,7 +34,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.UpdateWatchlistMoviesAction),
     exhaustMap((action) =>
       this._service.updateMoviesWL(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.WatchlistMoviesAction(action.payload),
           MessageAction(action.payload[0].title + ' added to your watchlist')
         ]),
@@ -47,7 +47,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.UpdateWatchlistShowAction),
     exhaustMap((action) =>
       this._service.updateTvSeriesWL(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.WatchlistShowsAction(action.payload),
           MessageAction(action.payload[0].title + ' added to your watchlist')
         ]),
@@ -60,7 +60,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.UpdateCollectionBlurayAction),
     exhaustMap((action) =>
       this._service.updateCbluray(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.CollectionBlurayAction(action.payload),
           MessageAction(action.payload[0].title + ' added to your Bluray collection!')
         ]),
@@ -73,7 +73,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.UpdateCollectionDvdAction),
     exhaustMap((action) =>
       this._service.updateCdvd(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.CollectionDvdAction(action.payload),
           MessageAction(action.payload[0].title + ' added to your DVD collection!')
         ]),
@@ -86,7 +86,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.ReorderWatchlistMoviesAction),
     exhaustMap((action) =>
       this._service.updateMoviesWL(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.WatchlistMoviesAction(action.payload)
         ]),
       )
@@ -97,7 +97,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.ReorderWatchlistShowsAction),
     exhaustMap((action) =>
       this._service.updateTvSeriesWL(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.WatchlistShowsAction(action.payload)
         ]),
       )
@@ -108,7 +108,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.DeleteWatchlistMovieAction),
     exhaustMap((action) =>
       this._service.updateMoviesWL(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.WatchlistMoviesAction(action.payload),
           MessageAction('Movie removed from your watchlist!')
         ]),
@@ -121,7 +121,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.DeleteWatchlistShowAction),
     exhaustMap((action) =>
       this._service.updateTvSeriesWL(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.WatchlistShowsAction(action.payload),
           MessageAction('Show removed from your watchlist!')
         ]),
@@ -134,7 +134,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.DeleteBlurayCollectionItemAction),
     exhaustMap((action) =>
       this._service.updateCbluray(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.CollectionBlurayAction(action.payload),
           MessageAction('Item removed from your Bluray collection!')
         ]),
@@ -147,7 +147,7 @@ export class LocalStorageEffect {
     ofType(StorageActions.DeleteDvdCollectionItemAction),
     exhaustMap((action) =>
       this._service.updateCdvd(action.payload).pipe(
-        mergeMap((condition: Boolean) => [
+        mergeMap((condition: boolean) => [
           StorageActions.CollectionDvdAction(action.payload),
           MessageAction('Item removed from your DVD collection!')
         ]),

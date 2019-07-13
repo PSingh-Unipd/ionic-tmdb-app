@@ -1,4 +1,4 @@
-import { ActionReducerMap } from "@ngrx/store";
+import { ActionReducerMap } from '@ngrx/store';
 import { AppState } from '../interfaces/app-state.interface';
 import { DetailsPageReducer } from './details-page.reducer';
 import { LocalStorageReducer } from './local-storage.reducer';

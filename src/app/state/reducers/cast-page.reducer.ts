@@ -9,8 +9,8 @@ export const initialState: CastPageState = {
 
 const reducer = createReducer(
     initialState,
-    on(CastActions.SaveDetailsDataAction, (state, action) => ({...state, data:action.payload, isLoading:false})),
-    on(CastActions.LoadCastDetailsAction, (state, action) => ({...state, isLoading:true}))
+    on(CastActions.SaveDetailsDataAction, (state, action) => ({...state, data: action.payload, isLoading: false})),
+    on(CastActions.LoadCastDetailsAction, (state, action) => ({...state, isLoading: true}))
 );
 
 export function CastPageReducer(state: CastPageState = initialState, action: Action) {

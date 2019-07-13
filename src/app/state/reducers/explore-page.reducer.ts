@@ -6,8 +6,8 @@ const initialState: ExplorePageState = {
     showList: null,
     movieList: null,
     isLoading: false,
-    initialListLoading: true // When the application start this value is true 
-}
+    initialListLoading: true // When the application start this value is true
+};
 
 const reducer = createReducer(
     initialState,

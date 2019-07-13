@@ -1,5 +1,5 @@
 {
-  "name": "MovieDB",
+  "name": "my-tv",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -34,6 +34,7 @@
     "@ngrx/store-devtools": "^8.0.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "aos": "^3.0.0-beta.6",
     "cordova-android": "8.0.0",
     "cordova-browser": "6.0.0",
     "cordova-plugin-advanced-http": "2.0.9",

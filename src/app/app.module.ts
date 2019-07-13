@@ -13,7 +13,7 @@ import { BaseComponent } from './common/components/base/base.component';
 @NgModule({
   declarations: [AppComponent, BaseComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(),TranslateModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), TranslateModule],
   providers: [
     StatusBar,
     SplashScreen,

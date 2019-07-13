@@ -11,7 +11,7 @@ import { getInfoPageData } from 'src/app/state/selectors/app.selector';
 })
 export class InfoPage implements OnInit {
   season: any;
-  loading: boolean = true;
+  loading = true;
   constructor(
     private location: Location,
     public store: Store<{ appState: AppState }>

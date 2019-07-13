@@ -10,8 +10,8 @@ export const initialState: DetailsPageState = {
 
 const reducer = createReducer(
     initialState,
-    on(DetailsActions.SaveDetailsDataAction, (state, action) => ({...state, data:action.payload, isLoading:false})),
-    on(DetailsActions.LoadDetailsAction, (state, action) => ({...state, isLoading:true, tpye: action.payload.type}))
+    on(DetailsActions.SaveDetailsDataAction, (state, action) => ({...state, data: action.payload, isLoading: false})),
+    on(DetailsActions.LoadDetailsAction, (state, action) => ({...state, isLoading: true, tpye: action.payload.type}))
 );
 
 export function DetailsPageReducer(state: DetailsPageState, action: Action) {

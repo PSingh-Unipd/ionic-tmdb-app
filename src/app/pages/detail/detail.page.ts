@@ -21,7 +21,7 @@ import { LoadSeasonInfoAction } from 'src/app/state/actions/info-page.actions';
 })
 export class DetailPage extends BaseComponent {
   detailsData: DetailsPageData;
-  loading: boolean = false;
+  loading = false;
   type: string;
   constructor(
     private location: Location,

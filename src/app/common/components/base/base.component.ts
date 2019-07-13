@@ -12,15 +12,15 @@ import { MessageAction } from 'src/app/state/actions/notification.actions';
   template: '',
 })
 export class BaseComponent implements OnDestroy {
-  ngOnDestroy(): void {
-    this.componentIsActive = false;
-  }
-  componentIsActive: boolean = true;
-  public storageData: StorageData = { mwl: [], tvwl: [], cbluray: [], cdvd: [] };
   constructor(public store: Store<{ appState: AppState }>) {
     this.store.pipe(select(getStorageData),
       takeWhile(() => this.componentIsActive))
       .subscribe(data => this.storageData = data);
+  }
+  componentIsActive = true;
+  public storageData: StorageData = { mwl: [], tvwl: [], cbluray: [], cdvd: [] };
+  ngOnDestroy(): void {
+    this.componentIsActive = false;
   }
 
   /**
@@ -38,13 +38,13 @@ export class BaseComponent implements OnDestroy {
     };
 
     if (type == 'movie' && this.storageData.mwl.find(el => el.id == item.id) == null) {
-      this.storageData.mwl.unshift(tempItem)
-      this.store.dispatch(LocalStorageActions.UpdateWatchlistMoviesAction(this.storageData.mwl))
+      this.storageData.mwl.unshift(tempItem);
+      this.store.dispatch(LocalStorageActions.UpdateWatchlistMoviesAction(this.storageData.mwl));
     } else if (type != 'movie' && this.storageData.tvwl.find(el => el.id == item.id) == null) {
       this.storageData.tvwl.unshift(tempItem);
       this.store.dispatch(LocalStorageActions.UpdateWatchlistShowAction(this.storageData.tvwl));
     } else {
-      this.store.dispatch(MessageAction("Item already exists in your Watchlist!"));
+      this.store.dispatch(MessageAction('Item already exists in your Watchlist!'));
     }
   }
 
@@ -65,7 +65,7 @@ export class BaseComponent implements OnDestroy {
       this.storageData.cdvd.unshift(tempItem);
       this.store.dispatch(LocalStorageActions.UpdateCollectionDvdAction(this.storageData.cdvd));
     } else {
-      this.store.dispatch(MessageAction("Item already exists in your DVD Collection!"));
+      this.store.dispatch(MessageAction('Item already exists in your DVD Collection!'));
     }
 
   }
@@ -87,7 +87,7 @@ export class BaseComponent implements OnDestroy {
       this.storageData.cbluray.unshift(tempItem);
       this.store.dispatch(LocalStorageActions.UpdateCollectionBlurayAction(this.storageData.cbluray));
     } else {
-      this.store.dispatch(MessageAction("Item already exists in your Bluray collection!"));
+      this.store.dispatch(MessageAction('Item already exists in your Bluray collection!'));
     }
   }
 }

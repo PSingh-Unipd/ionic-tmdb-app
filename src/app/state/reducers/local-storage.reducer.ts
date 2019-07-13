@@ -16,7 +16,7 @@ const reducer = createReducer(
     on(LocalStorageActions.WatchlistShowsAction, (state, action) => ({ ...state, tvwl: action.payload })),
     on(LocalStorageActions.CollectionBlurayAction, (state, action) => ({ ...state, cbluray: action.payload })),
     on(LocalStorageActions.CollectionDvdAction, (state, action) => ({ ...state, cdvd: action.payload })),
-    on(LocalStorageActions.StorageDataAction, (state, action) => ({ ...state, mwl: action.payload.mwl, 
+    on(LocalStorageActions.StorageDataAction, (state, action) => ({ ...state, mwl: action.payload.mwl,
         cbluray: action.payload.cbluray, cdvd: action.payload.cdvd, tvwl: action.payload.tvwl }))
 );
 

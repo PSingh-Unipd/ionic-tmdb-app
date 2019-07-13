@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { InfoPageState } from '../interfaces/info-page.inteface';
 import { CastPageState } from '../interfaces/cast-page.interface';
 import { StorageData } from '../interfaces/local-storage.interfaces';
@@ -19,31 +19,31 @@ export const getNotificationsData = createFeatureSelector<string>('Notifications
 export const getExploreData = createFeatureSelector<ExplorePageState>('Explore');
 
 export const getExploreInitialLoading = createSelector(
-    getExploreData, 
+    getExploreData,
     state => state.initialListLoading
 );
 
 export const getExploreLoading = createSelector(
-    getExploreData, 
+    getExploreData,
     state => state.isLoading
 );
 
 export const getCollectionData = createSelector(
-    getStorageData, 
-    state => {return {dvd: state.cdvd, bluray: state.cbluray};}
+    getStorageData,
+    state => ({dvd: state.cdvd, bluray: state.cbluray})
 );
 
 export const getWatchlistShows = createSelector(
-    getStorageData, 
-    state => {return {movies: state.mwl, shows: state.tvwl};}
+    getStorageData,
+    state => ({movies: state.mwl, shows: state.tvwl})
 );
 
 export const getDvdCollection = createSelector(
-    getStorageData, 
+    getStorageData,
     state => state.cdvd
 );
 
 export const getBlurayCollection = createSelector(
-    getStorageData, 
+    getStorageData,
     state => state.cbluray
 );
