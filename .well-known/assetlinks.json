@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "tv.film.shows.manager.CoveredEe",
+               "sha256_cert_fingerprints": ["CB:28:AD:08:61:39:8E:4C:78:29:3A:52:18:86:09:43:5D:45:62:4F:2F:48:38:1B:02:B1:7D:05:8A:AF:04:C0"] }
+}]
